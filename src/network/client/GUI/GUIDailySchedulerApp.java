@@ -10,6 +10,7 @@ public class GUIDailySchedulerApp {
 	public void start(){
 		/*
 		 * Body
+		 * är dett verkligen tillräckligt med kommentarer?
 		 */
 		JFrame frame = new JFrame("Server GUI");
 		
