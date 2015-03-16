@@ -7,81 +7,70 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+public class GUIDailySchedulerPanel extends JPanel {
 
+	public JPanel form = new JPanel(new GridBagLayout());
 
-public class GUIDailySchedulerPanel extends JPanel{
-//	private JPanel test = new JPanel(new BorderLayout());
-//
-//
-//	private JPanel pnlInloggning = new JPanel (new GridLayout (2,2));
-//
-//
-//	private JLabel lblName = new JLabel ("Användaramn: ");
-//	private JTextField tfName = new JTextField(10);
-//
-//	private JLabel lblPass = new JLabel ("Lösenord: ");
-//	private JTextField tfPass = new JTextField(10);
-//
-//	private JButton btnSummary = new JButton("Logga in");
+	public JLabel name = new JLabel("Användarnamn: ");
 
+	public JTextField field1 = new JTextField(10);
 
-public static void main(String[] args){
-	new GUIDailySchedulerPanel();
-}
+	public JButton logIn = new JButton("Logga in");
+
+	public GridBagConstraints gbc = new GridBagConstraints();
+
+	public static void main(String[] args) {
+		new GUIDailySchedulerPanel();
+	}
 
 	public GUIDailySchedulerPanel() {
-		   EventQueue.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                try {
-	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-	                    ex.printStackTrace();
-	                }
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager
+							.getSystemLookAndFeelClassName());
+				} catch (ClassNotFoundException | InstantiationException
+						| IllegalAccessException
+						| UnsupportedLookAndFeelException ex) {
+					ex.printStackTrace();
+				}
 
-	                JPanel form = new JPanel(new GridBagLayout());
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.anchor = GridBagConstraints.WEST;
 
-	                JLabel name = new JLabel("Användarnamn: ");
-//	        JLabel age = new JLabel("Age: ");
+				form.add(name, gbc);
+				gbc.gridy++;
+				form.add(logIn, gbc);
 
-	                JTextField field1 = new JTextField(10);
-//	        JTextField field2 = new JTextField(3);
-	            	JButton logIn = new JButton("Logga in");
+				gbc.gridx++;
+				gbc.gridy = 0;
+				form.add(field1, gbc);
+				gbc.gridy++;
+				form.add(logIn, gbc);
 
-	                GridBagConstraints gbc = new GridBagConstraints();
-	                gbc.gridx = 0;
-	                gbc.gridy = 0;
-	                gbc.anchor = GridBagConstraints.WEST;
+				JFrame frame = new JFrame("Testing");
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.add(form);
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 
-	                form.add(name, gbc);
-	                gbc.gridy++;
-	                form.add(logIn, gbc);
+				logIn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						String res = field1.getText() + "\n";
+						System.out.println(res);
+					}
+					
+				});
+			}
 
-	                gbc.gridx++;
-	                gbc.gridy = 0;
-	                form.add(field1, gbc);
-	                gbc.gridy++;
-	                form.add(logIn, gbc);
+		});
+	
 
-	                JFrame frame = new JFrame("Testing");
-	                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	                frame.add(form);
-	                frame.pack();
-	                frame.setLocationRelativeTo(null);
-	                frame.setVisible(true);
-	                
-	                logIn.addActionListener( new LogInListener() );
-	        	}
-	        class LogInListener implements ActionListener {
-	        		public void actionPerformed(ActionEvent e) {
-	        			summary();
-	        		}
-	        	}
-	        	public void summary() {
-	        		
-	            }
-	        });
-	    }
+
+	}
 
 }
