@@ -1,9 +1,13 @@
 package network.client.GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+
 
 public class GUIDailySchedulerPanel extends JPanel{
 //	private JPanel test = new JPanel(new BorderLayout());
@@ -66,6 +70,16 @@ public static void main(String[] args){
 	                frame.pack();
 	                frame.setLocationRelativeTo(null);
 	                frame.setVisible(true);
+	                
+	                logIn.addActionListener( new LogInListener() );
+	        	}
+	        class LogInListener implements ActionListener {
+	        		public void actionPerformed(ActionEvent e) {
+	        			summary();
+	        		}
+	        	}
+	        	public void summary() {
+	        		
 	            }
 	        });
 	    }
