@@ -52,7 +52,7 @@ public class GUIDailySchedulerPanel extends JPanel {
 
 				JFrame frame = new JFrame("Testing");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.add(form);
 				frame.pack();
 				frame.setLocationRelativeTo(null);
