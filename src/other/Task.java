@@ -4,20 +4,20 @@ import user.User;
 
 public class Task {
 
-	private User [] assignees;
+	private SubTask [] subTasks;
 	private String description;
 	private User author;
 	private Meeting date;
 	
-	public Task (User [] assignes, User author, Meeting date, String description) {
-		this.assignees = assignes;
+	public Task (SubTask [] assignes, User author, Meeting date, String description) {
+		this.subTasks = assignes;
 		this.author = author;
 		this.date = date;
 		this.description = description;
 	}
 	
-	public User [] getAssignes() {
-		return assignees;
+	public SubTask [] getAssignes() {
+		return subTasks;
 	}
 	
 	public String getDescription() {
