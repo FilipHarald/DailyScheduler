@@ -11,7 +11,6 @@ public class Meeting{
 	public Meeting (String description, Date date) {
 		this.description = description;
 		this.date = date;
-		long time = date.getTime();
 		
 	}
 	
@@ -24,6 +23,7 @@ public class Meeting{
 	}
 	
 	public long getTime (){
+		time = date.getTime();
 		return time;
 	}
 	
