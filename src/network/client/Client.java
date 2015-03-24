@@ -1,5 +1,5 @@
 package network.client;
 
-public class client {
+public class Client {
 
 }
