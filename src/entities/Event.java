@@ -2,30 +2,30 @@ package entities;
 
 import java.util.Date;
 
-public class Meeting{
+public class Event{
 	
 	private String description;
 	private Date date;
-	private long time;
 	
-	public Meeting (String description, Date date) {
+	public Event (String description, Date date) {
 		this.description = description;
 		this.date = date;
-		
 	}
 	
 	public String getDescription () {
 		return description;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public Date getDate() {
 		return date;
 	}
-	
-	public long getTime (){
-		time = date.getTime();
-		return time;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
-	
 
 }

@@ -20,16 +20,30 @@ public class ClientController {
     
     
     //constructor sets ip and port
-    public ClientController(String serverIp, int port){
-        ip = serverIp;
-        this.port = port;
+    public ClientController(){
+    	//1. HÄR SKA LOGIN FÖNSTRET STARTAS
     }
     
-    //start application 
-    private void startApplication(GUIDailySchedulerPanel GUI, String username){
-        this.GUI = GUI;
-        startClient(username);
+    //2. DENNA METOD SKA ANROPAS AV LOGINFÖNSTRET
+    public void logIn(String userName, String password){
+    	if(userName.equals("test") && password.equals("12345")){
+    		//3. HÄR SKA MAINFÖNSTRETSKAPAS
+    	}
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //start client for the given username
     private void startClient(String username){
