@@ -13,7 +13,7 @@ import com.mysql.jdbc.Statement;
 
 import entities.Team;
 import entities.User;
-import entities.task.Task;
+import entities.Task;
 
 public class Database {
 
