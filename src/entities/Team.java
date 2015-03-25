@@ -1,9 +1,7 @@
-package team;
+package entities;
 
 import java.util.Collections;
 import java.util.LinkedList;
-
-import user.User;
 
 /**
  * Representation of a team. The team can have more than one manager. Managers and members are separate lists.

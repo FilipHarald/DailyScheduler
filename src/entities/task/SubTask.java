@@ -1,6 +1,7 @@
-package other;
+package entities.task;
 
-import user.User;
+import entities.User;
+
 
 public class SubTask {
 	private User completedBy;

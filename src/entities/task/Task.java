@@ -1,6 +1,8 @@
-package other;
+package entities.task;
 
-import user.User;
+import entities.Meeting;
+import entities.User;
+
 
 public class Task {
 

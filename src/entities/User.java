@@ -1,4 +1,4 @@
-package user;
+package entities;
 
 public class User {
 	private boolean isAdmin;
