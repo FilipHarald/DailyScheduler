@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.Statement;
 
-import user.User;
+import entities.User;
 
 
 public class Database {
