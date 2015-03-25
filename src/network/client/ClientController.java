@@ -9,7 +9,7 @@ import java.io.IOException;
 import network.client.GUI.GUIDailySchedulerPanel;
 
 /**
- *jdkkd
+ *
  * @author Aya
  */
 public class ClientController {
