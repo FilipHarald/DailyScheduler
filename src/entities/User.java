@@ -1,11 +1,13 @@
 package entities;
 
 public class User {
-	private boolean isAdmin;
 	private String name;
+        private String ID;
+        private boolean isAdmin;
 
-	public User(String name, boolean isAdmin) {
+	public User(String name, String ID, boolean isAdmin) {
 		this.name = name;
+                this.ID = ID;
 		this.isAdmin = isAdmin;
 	}
 
@@ -20,5 +22,9 @@ public class User {
 	public String getName() {
 		return name;
 	}
+        
+        public String getID(){
+            return ID;
+        }
 
 }
