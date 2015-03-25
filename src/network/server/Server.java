@@ -12,13 +12,15 @@ import java.util.Observer;
 public class Server implements Runnable, Observer {
 	
 	private ServerSocket sSocket;
+	private ServerController sCont;
 	/**
 	 * Starts the server socket. Will connect to controller.
 	 * @param port The port.
 	 */
 	
-	public Server(int port) {
+	public Server(int port, ServerController sCont) { 
 		try {
+			this.sCont = sCont;
 			sSocket = new ServerSocket(port);
 			new Thread(this).start();
 		} catch (IOException e) {
