@@ -5,32 +5,31 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class GUIDailySchedulerApp {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
+public class GUIDailySchedulerApp extends JFrame {
 
-	public void start(){
-		/*
-		 * Body
-		 * är dett verkligen tillräckligt med kommentarer?
-		 */
-		JFrame frame = new JFrame("Server GUI");
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-//		GUIDailySchedulerPanel.setPreferredSize(new Dimension(10,10));
-//		frame.add(new GUIDailySchedulerPanel());
-		frame.setSize(800, 600);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
-		
+	JLabel welcome = new JLabel("Welcome to a New Frame");
+	JPanel panel = new JPanel();
+
+	GUIDailySchedulerApp(){
+	super("Welcome");
+	setSize(300,200);
+	setLocation(500,280);
+	panel.setLayout (null);
+
+	welcome.setBounds(70,50,150,60);
+
+	panel.add(welcome);
+
+	getContentPane().add(panel);
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setVisible(true);
 	}
+	
 
-	public static void main (String[] args){
-		GUIDailySchedulerApp test = new GUIDailySchedulerApp();
-		test.start();
-	}
+	
 
 }
