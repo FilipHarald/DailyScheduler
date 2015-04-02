@@ -104,7 +104,12 @@ public class Database {
 		
 	}
 	
-
+	public static void ComboList (){
+		String [] list1 = {"User", "Team"};
+		JComboBox list = new JComboBox (list1);
+		list.setSelectedItem(2);
+		list.addActionListener(list);
+	}
 	public static void main (String [] args) throws Exception {
 		Database db = new Database();
 		try {
