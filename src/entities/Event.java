@@ -12,12 +12,20 @@ public class Event{
 	
 	private String description;
 	private Date date;
+	private int Id;
 	
-	public Event (String description, Date date) {
+	public Event (String description, Date date, int Id) {
 		this.description = description;
 		this.date = date;
+		this.Id = Id;
 	}
 
+	/**
+	 * @return the ID of the event
+	 */
+	public int getId () {
+		return Id;
+	}
 	
 	/**
 	 * @return the description of the event

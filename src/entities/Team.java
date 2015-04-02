@@ -16,12 +16,21 @@ public class Team {
 	private LinkedList<User> members;
 	private int teamSize;
 	private String name;
+	private int Id;
 
-	public Team(String name) {
+	public Team(String name, int Id) {
 		managers = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
 		members = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
 		this.name = name;
 		teamSize = 0;
+		this.Id = Id;
+	}
+	
+	/**
+	 * @return the Id of the team
+	 */
+	public int getId () {
+		return Id;
 	}
 	
 	public String getTeamName() {

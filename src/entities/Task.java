@@ -16,8 +16,9 @@ public class Task {
 	private String description;
 	private LinkedList<SubTask> subTasks;
 	private Date date;
+	private int Id;
 
-	public Task(User author, String description, String[] subTasks, Date date) {
+	public Task(User author, String description, String[] subTasks, Date date, int Id) {
 		this.author = author;
 		this.description = description;
 
@@ -27,6 +28,11 @@ public class Task {
 		}
 		this.subTasks = temp;
 		this.date = date;
+		this.Id = Id;
+	}
+	
+	public int getId() {
+		return Id;
 	}
 
 	/**
@@ -164,4 +170,5 @@ public class Task {
 			return description + ",|," + completedByUserId;
 		}
 	}
+
 }
