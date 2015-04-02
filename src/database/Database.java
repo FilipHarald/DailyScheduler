@@ -55,8 +55,8 @@ public class Database {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
 
-		state.setInt(1, task.getId());
-		state.setString(2, task.getAuthor());
+//		state.setInt(1, task.getId());
+//		state.setString(2, task.getAuthor());
 		state.setString(3, task.getDescription());
 	
 		state.executeUpdate();
@@ -67,7 +67,7 @@ public class Database {
 		
 	}
 	
-	
+	//Send data to table teams
 	public void sendToTableTeams (int idtable_teams, String name) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_teams (idtable_teams, name) values (?,?)");
 		
@@ -81,7 +81,7 @@ public class Database {
 		System.out.println ("Saved to table teams");
 		
 	}
-	
+	//Get users table
 	public static ResultSet getUsersResult (Connection connect1, String sql) throws Exception {
 		Statement state = (Statement) connect1.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		return state.executeQuery(sql);
@@ -93,38 +93,33 @@ public class Database {
 		
 	}
 	
-
+	//Get team table
 	public static ResultSet getTeamResult (Connection connection, String sql) throws SQLException{
 		Statement state = (Statement) connection.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		return state.executeQuery(sql);
 	}
 	
 	public static ResultSet getTeams (Connection connection) throws SQLException {
-		
 		return getTeamResult(connection, "select * from table_teams");
 		
 	}
 	
-
-	public static void main (String [] args) throws Exception {
-		
-		Database db = new Database();
-		try {
-			db.connectionToMysql();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-
+	//Get task table
+	public static ResultSet getTaskResult (Connection connection, String sql) throws SQLException {
+		Statement state = (Statement) connection.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
+		return state.executeQuery(sql);
+	}
 	
-//		try {
-//			db.sendToTableUser(0, "", "");
-//			db.sendToTableTask(0, "", "");
-//			db.sendToTableTeams(0, "");
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
+	public static ResultSet getTask (Connection connection) throws SQLException{
+		return getTeamResult(connection, "select * from table_task");
+	}
+	
+	//Shows the information stored in databases 
+	public void ShowResult () throws Exception{
 		
+		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
 		String pane = JOptionPane.showInputDialog("");
+		
 		if (pane.equals("User")){
 		ResultSet rs = getUsers(connect);
 		while (rs.next()){
@@ -137,7 +132,35 @@ public class Database {
 			System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
 		}
 
+		} else if (pane.equals("Task")){
+			ResultSet rs3 = getTask(connect);
+			while (rs3.next()){
+				System.out.println (rs3.getString(1)+ ", "+ rs3.getString(2)+ ", "+ rs3.getString(3));
+			}
+			
 		}
+	}
+
+	public static void main (String [] args) throws Exception {
+		
+		Database db = new Database();
+		try {
+			db.connectionToMysql();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		db.ShowResult();
+	
+//		try {
+//			db.sendToTableUser(0, "", "");
+//			db.sendToTableTask(0, "", "");
+//			db.sendToTableTeams(0, "");
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+		
+
 	}
 		
 }
