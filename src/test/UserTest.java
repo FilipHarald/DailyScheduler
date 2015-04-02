@@ -11,10 +11,13 @@ import org.junit.Test;
 import entities.User;
 
 public class UserTest {
-
+	
+	
+	private User user;
+	
 	@Before
 	public void setUp() throws Exception {
-		User user = new User("Filip Harald", 10, true);
+		user = new User("Filip Harald", true, 10);
 	}
 
 	@After
@@ -23,7 +26,11 @@ public class UserTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		assertEquals("ID", 10, user.getId());
+		assertEquals("name ", "Filip Harald", user.getName());
+		assertTrue(user.isAdmin());
+		user.setAdmin(false);
+		assertFalse(user.isAdmin());
 	}
 
 }

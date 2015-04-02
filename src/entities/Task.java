@@ -12,14 +12,14 @@ import java.util.LinkedList;
  */
 public class Task {
 
-	private User author;
+	private int authorId;
 	private String description;
 	private LinkedList<SubTask> subTasks;
 	private Date date;
 	private int Id;
 
-	public Task(User author, String description, String[] subTasks, Date date, int Id) {
-		this.author = author;
+	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
+		this.authorId = authorId;
 		this.description = description;
 
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
@@ -118,8 +118,8 @@ public class Task {
 	/**
 	 * @return the author of the task
 	 */
-	public User getAuthor() {
-		return author;
+	public int getAuthor() {
+		return authorId;
 	}
 
 	/**
