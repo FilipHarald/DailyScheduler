@@ -1,6 +1,5 @@
 package database;
 
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.Statement;
@@ -41,7 +39,7 @@ public class Database {
 	public void sendToTableUser (int idtable_user, String name, String title) throws SQLException {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_user (idtable_user, name, title) values (?,?,?)");
 		
-		state.setInt(1, user.getID());
+		state.setInt(1, idtable_user);
 		state.setString(2, user.getName());
 		state.setString(3, title);
 		
@@ -56,8 +54,8 @@ public class Database {
 	public void sendToTableTask (int idtable_task, String name, String text) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
-		state.setInt(1, task.getId());
-		state.setString(2, task.getAuthor());
+		state.setInt(1, idtable_task);
+		state.setString(2, name);
 		state.setString(3, task.getDescription());
 	
 		state.executeUpdate();
@@ -68,11 +66,11 @@ public class Database {
 		
 	}
 	
-	//Send to table teams
+	
 	public void sendToTableTeams (int idtable_teams, String name) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_teams (idtable_teams, name) values (?,?)");
 		
-		state.setInt(1, team.getID());
+		state.setInt(1, idtable_teams);
 		state.setString(2, team.getTeamName());
 		
 		state.executeUpdate();
@@ -94,55 +92,29 @@ public class Database {
 		
 	}
 	
-	public static ResultSet getTeamResult (Connection connection, String sql) throws SQLException{
-		Statement state = (Statement) connection.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
-		return state.executeQuery(sql);
-	}
-	
-	public static ResultSet getTeams (Connection connection) throws SQLException {
-		return getTeamResult(connection, "select * from table_teams");
-		
-	}
-	
-	public static void ComboList (){
-		String [] list1 = {"User", "Team"};
-		JComboBox list = new JComboBox (list1);
-		list.setSelectedItem(2);
-		list.addActionListener(list);
-	}
 	public static void main (String [] args) throws Exception {
+		
 		Database db = new Database();
 		try {
 			db.connectionToMysql();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-	
-		try {
-			db.sendToTableUser(0, "", "");
-			db.sendToTableTask(0, "", "");
-			db.sendToTableTeams(0, "");
+//		try {
+//			db.sendToTableUser(6,"Klein", "Admin");
+//			db.sendToTableTask(2, "Order 2", "Gör en pall med åsens lantmjölk");
+//			db.sendToTableTeams(1, "Lager");
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		
-		
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		ResultSet rs = getUsers(connect);
 		while (rs.next()){
-			JOptionPane.showMessageDialog(null, rs.getString(1)+ "\n"+ rs.getString(2)+ "\n"+ rs.getString(3));
-		
+			System.out.println(rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
 		}
-	
-		ResultSet rs2 = getTeams (connect);
-		while (rs2.next()){	
-			JOptionPane.showMessageDialog(null, rs2.getString(1)+ "\n"+ rs2.getString(2));
-		}
-		
 		
 		}
 
 	}
-}
-
 
 
