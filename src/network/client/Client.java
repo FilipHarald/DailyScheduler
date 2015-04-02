@@ -19,16 +19,26 @@ public class Client {
     private ObjectOutputStream oos;
     private Socket socket;
     
+    /*constructor: sets the ip, port and ID 
+    *Also starts a new thread that maintains the connection to the server
+    */
     public Client(String ip, int port, String ID) throws IOException{
         socket = new Socket(ip, port);
         ois = new ObjectInputStream(socket.getInputStream());
         oos = new ObjectOutputStream(socket.getOutputStream());
         this.ID = ID;
-        Listener().start();
+        new Listener().start();
     }
-    
+
+    //returns the user ID 
     public String getID(User user){
         return user.getID();
+    }
+
+    //close connection to server
+    public void disconnect() throws IOException {
+        socket.close();
+        
     }
     
     private class Listener extends Thread{
