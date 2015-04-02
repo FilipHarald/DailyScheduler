@@ -62,10 +62,12 @@ public class Team {
 	}
 	
 	public boolean addMember(User member){
+		teamSize++;
 		return members.add(member);
 	}
 	
 	public boolean addManager(User manager){
+		teamSize++;
 		return members.add(manager);
 	}
 	
@@ -78,10 +80,12 @@ public class Team {
 	}
 
 	public boolean removeManager(User manager) {
+		teamSize--;
 		return managers.remove(manager);
 	}
 
 	public boolean removeMember(User member) {
+		teamSize--;
 		return managers.remove(member);
 	}
 }
