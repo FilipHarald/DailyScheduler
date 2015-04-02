@@ -37,7 +37,7 @@ public class User {
 	 * @param admin says whether the user should be administrator
 	 */
 	public void setAdmin(boolean admin) {
-		this.isAdmin = isAdmin;
+		this.isAdmin = admin;
 	}
 
 	/**
