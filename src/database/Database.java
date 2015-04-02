@@ -57,7 +57,7 @@ public class Database {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
 		state.setInt(1, task.getId());
-		state.setString(2, task.getAuthor());
+//		state.setString(2, task.getAuthor());
 		state.setString(3, task.getDescription());
 	
 		state.executeUpdate();
@@ -100,6 +100,7 @@ public class Database {
 	}
 	
 	public static ResultSet getTeams (Connection connection) throws SQLException {
+		
 		return getTeamResult(connection, "select * from table_teams");
 		
 	}
@@ -113,31 +114,34 @@ public class Database {
 			e1.printStackTrace();
 		}
 	
-		try {
-			db.sendToTableUser(0, "", "");
-			db.sendToTableTask(0, "", "");
-			db.sendToTableTeams(0, "");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+//		try {
+//			db.sendToTableUser(0, "", "");
+//			db.sendToTableTask(0, "", "");
+//			db.sendToTableTeams(0, "");
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
 		
-		
+		String pane = JOptionPane.showInputDialog("");
+		if (pane.equals("User")){
 		ResultSet rs = getUsers(connect);
 		while (rs.next()){
-			JOptionPane.showMessageDialog(null, rs.getString(1)+ "\n"+ rs.getString(2)+ "\n"+ rs.getString(3));
+			System.out.println( rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
 		
 		}
-	
+		}else if (pane.equals("Team")){
 		ResultSet rs2 = getTeams (connect);
 		while (rs2.next()){	
-			JOptionPane.showMessageDialog(null, rs2.getString(1)+ "\n"+ rs2.getString(2));
+			System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
 		}
-		
-		
 		}
-
 	}
+	
+		
 }
+
+	
+
 
 
 
