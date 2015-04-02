@@ -6,7 +6,7 @@
 package network.client;
 
 import java.io.IOException;
-import network.client.GUI.GUIDailySchedulerApp;
+import network.client.GUI.GUIDailySchedulerPanel;
 
 /**
  *
@@ -14,7 +14,7 @@ import network.client.GUI.GUIDailySchedulerApp;
  */
 public class ClientController {
     private Client client;
-    private GUIDailySchedulerApp GUI;
+    private GUIDailySchedulerPanel GUI;
     private String ip;
     private int port;
     
@@ -27,7 +27,7 @@ public class ClientController {
     }
     
     //start application
-    public void startApplication(GUIDailySchedulerApp GUI, String ID){
+    public void startApplication(GUIDailySchedulerPanel GUI, String ID){
         this.GUI = GUI;
         startClient(ID);
         
