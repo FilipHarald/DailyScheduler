@@ -54,13 +54,9 @@ public class Database {
 	public void sendToTableTask (int idtable_task, String name, String text) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
-<<<<<<< HEAD
+
 		state.setInt(1, task.getId());
-//		state.setString(2, task.getAuthor());
-=======
-		state.setInt(1, idtable_task);
-		state.setString(2, name);
->>>>>>> 1c14ee27def112ca3f182d837500d90cc416016b
+		state.setString(2, task.getAuthor());
 		state.setString(3, task.getDescription());
 	
 		state.executeUpdate();
@@ -97,7 +93,7 @@ public class Database {
 		
 	}
 	
-<<<<<<< HEAD
+
 	public static ResultSet getTeamResult (Connection connection, String sql) throws SQLException{
 		Statement state = (Statement) connection.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		return state.executeQuery(sql);
@@ -110,8 +106,6 @@ public class Database {
 	}
 	
 
-=======
->>>>>>> 1c14ee27def112ca3f182d837500d90cc416016b
 	public static void main (String [] args) throws Exception {
 		
 		Database db = new Database();
@@ -120,7 +114,7 @@ public class Database {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-<<<<<<< HEAD
+
 	
 //		try {
 //			db.sendToTableUser(0, "", "");
@@ -142,32 +136,11 @@ public class Database {
 		while (rs2.next()){	
 			System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
 		}
-=======
-//		try {
-//			db.sendToTableUser(6,"Klein", "Admin");
-//			db.sendToTableTask(2, "Order 2", "Gör en pall med åsens lantmjölk");
-//			db.sendToTableTeams(1, "Lager");
-			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		ResultSet rs = getUsers(connect);
-		while (rs.next()){
-			System.out.println(rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
-		}
-		
->>>>>>> 1c14ee27def112ca3f182d837500d90cc416016b
+
 		}
 	}
-<<<<<<< HEAD
-	
 		
 }
 
-	
-
-
-=======
->>>>>>> 1c14ee27def112ca3f182d837500d90cc416016b
 
 
