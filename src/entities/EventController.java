@@ -30,13 +30,20 @@ public class EventController {
     
     //finds an existing event by its Id
     public Event findEvent(int eventId){
-        //TODO get id from table in database
+        //TODO find Id in table in database
         return event;
     }
     
     //edits an existing event
     public void editEvent(String description, Date date, int Id){
+        //TODO: save edited info in database
         editEvent(description, date, Id);
+        
+    }
+    
+    //delete an event by its Id
+    public void deleteEvent(int eventIdRemove){
+        //TODO: remove event from database 
         
     }
     
