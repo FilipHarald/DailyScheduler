@@ -1,5 +1,10 @@
 package database;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,7 +12,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 
 import com.mysql.jdbc.Statement;
 
@@ -15,12 +28,15 @@ import entities.Team;
 import entities.User;
 import entities.Task;
 
-public class Database {
+public class Database extends JPanel {
 
 	private static Connection connect;
 	private User user;
 	private Team team;
 	private Task task;
+	private static DatabasGUI gui = new DatabasGUI();
+	private JButton btnsave = new JButton ("Save");
+	private JTextArea area = new JTextArea ();
 	
 	//Start connection to localhost
 	public void connectionToMysql () throws ClassNotFoundException{
@@ -55,7 +71,7 @@ public class Database {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
 
-//		state.setInt(1, task.getId());
+		state.setInt(1, task.getId());
 //		state.setString(2, task.getAuthor());
 		state.setString(3, task.getDescription());
 	
@@ -67,12 +83,13 @@ public class Database {
 		
 	}
 	
+	
 	//Send data to table teams
-	public void sendToTableTeams (int idtable_teams, String name) throws SQLException{
+	public void sendToTableTeams (String idtable_teams, String name) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_teams (idtable_teams, name) values (?,?)");
 		
-		state.setInt(1, idtable_teams);
-		state.setString(2, team.getTeamName());
+		state.setString(1, gui.getid());
+		state.setString(2, gui.getName());
 		
 		state.executeUpdate();
 		state.close();
@@ -142,8 +159,18 @@ public class Database {
 	}
 
 	public static void main (String [] args) throws Exception {
-		
 		Database db = new Database();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				
+			JFrame frame = new JFrame();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.add(gui);
+			frame.pack();
+			frame.setVisible(true);
+			}
+			});
+		
 		try {
 			db.connectionToMysql();
 		} catch (ClassNotFoundException e1) {
