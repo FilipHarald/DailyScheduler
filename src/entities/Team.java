@@ -16,11 +16,13 @@ public class Team {
 	private LinkedList<User> members;
 	private int teamSize;
 	private String name;
+	private int id;
 
-	public Team(String name) {
+	public Team(String name, int id) {
 		managers = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
 		members = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
 		this.name = name;
+		this.id = id;
 		teamSize = 0;
 	}
 	
@@ -87,5 +89,9 @@ public class Team {
 	public boolean removeMember(User member) {
 		teamSize--;
 		return managers.remove(member);
+	}
+
+	public int getID() {
+		return id;
 	}
 }
