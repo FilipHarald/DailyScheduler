@@ -8,18 +8,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import entities.Task;
+
 public class TaskTest {
+	private Task task;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
+		task = new Task("2", "mini task", new String[]{"pall 1", "pall 2"}, null, "1");
 	}
 
 	@After
