@@ -6,16 +6,21 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import network.server.Server.ClientHandler;
 
 public class Server implements Runnable, Observer {
 	
 	private ServerSocket sSocket;
 	private ServerController sCont;
+	private ArrayList<ClientHandler> handlerList = new ArrayList<ClientHandler>();
 	/**
 	 * Starts the server socket. Will connect to controller.
 	 * @param port The port.
+	 * @param cont The Controller of this object.
 	 */
 	
 	public Server(int port, ServerController sCont) { 
@@ -46,6 +51,18 @@ public class Server implements Runnable, Observer {
 	public synchronized void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void userConnected(String userName){
+		
+	}
+	
+	public String[] connectedUsers(){
+		String[] temp = new String[handlerList.size()];
+		for (int i = 0; i < handlerList.size(); i++) {
+			temp[i] = handlerList.get(i).getName();
+		}
+		return temp;
 	}
 	
 	/**
