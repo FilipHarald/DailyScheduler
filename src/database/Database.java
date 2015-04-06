@@ -30,11 +30,12 @@ import entities.Task;
 
 public class Database {
 
+
 	private static Connection connect;
 	private User user;
 	private Team team;
 	private Task task;
-	private static DatabasGUI gui = new DatabasGUI();
+
 	
 	//Start connection to localhost
 	public void connectionToMysql () throws ClassNotFoundException{
@@ -81,18 +82,15 @@ public class Database {
 		
 	}
 	
-	
 	//Send data to table teams
-	public void sendToTableTeams (String idtable_teams, String name) throws SQLException{
-		PreparedStatement state = connect.prepareStatement("INSERT INTO table_teams (idtable_teams, name) values (?,?)");
-		state.setString(1, gui.getid());
-		state.setString(2, gui.getName());
+	public void sendToTableTeams (int idtable_teams, String name) throws SQLException{
+		PreparedStatement state = connect.prepareStatement("Insert into table_teams (idtable_teams, name) values (?,?)");
 		
+		state.setInt(1, idtable_teams);
+		state.setString(2, name);
 		state.executeUpdate();
 		state.close();
 		connect.close();
-		
-		System.out.println ("Saved to table teams");
 		
 	}
 	
@@ -155,42 +153,8 @@ public class Database {
 			
 		}
 	}
-
-	public static void main (String [] args) throws Exception {
-		Database db = new Database();
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				
-			JFrame frame = new JFrame();
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.add(gui);
-			frame.pack();
-			frame.setVisible(true);
-			}
-			});
-		
-		try {
-			db.connectionToMysql();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-
-//		try {
-//		db.sendToTableUser(0, "", "");
-//		db.sendToTableTask(0, "", "");
-//		db.sendToTableTeams("", "");
-//		
-//	} catch (SQLException e) {
-//		e.printStackTrace();
-		
-		db.ShowResult();
-		
-
-		
-
-	}
-		
+	
+	
 }
-
 
 
