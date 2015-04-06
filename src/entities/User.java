@@ -8,13 +8,11 @@ package entities;
  */
 public class User {
 	private String name;
-	private String ID;
 	private boolean isAdmin;
 	private int Id;
 
 	public User(String name, boolean isAdmin, int Id) {
 		this.name = name;
-		this.ID = ID;
 		this.isAdmin = isAdmin;
 		this.Id = Id;
 	}
