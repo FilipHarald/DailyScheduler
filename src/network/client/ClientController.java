@@ -6,7 +6,12 @@
 package network.client;
 
 import java.io.IOException;
+
+import javax.swing.JFrame;
+
+import network.client.GUI.ApplicationGUI;
 import network.client.GUI.GUIDailySchedulerPanel;
+import network.client.GUI.LoginGUI;
 
 /**
  *
@@ -14,9 +19,10 @@ import network.client.GUI.GUIDailySchedulerPanel;
  */
 public class ClientController {
     private Client client;
-    private GUIDailySchedulerPanel GUI;
     private String ip;
     private int port;
+    private LoginGUI loginWindow;
+    private ApplicationGUI gui;
     
     
     //constructor sets ip and port
@@ -27,10 +33,8 @@ public class ClientController {
     }
     
     //start application
-    public void startApplication(GUIDailySchedulerPanel GUI, String ID){
-        this.GUI = GUI;
-        startClient(ID);
-        
+    public void startApplication(){
+    	loginWindow = new LoginGUI(this);
     }
     
     //start client for the user
@@ -43,11 +47,11 @@ public class ClientController {
         
     }
    
-        
-    //2. DENNA METOD SKA ANROPAS AV LOGINFÖNSTRET
-    public void logIn(String userName, String password){
+    public void login(String userName, String password){
+    	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
     	if(userName.equals("test") && password.equals("12345")){
-    		//3. HÄR SKA MAINFÖNSTRETSKAPAS
+    		loginWindow.close();
+    		gui = new ApplicationGUI(userName);
     	}
     }
 
