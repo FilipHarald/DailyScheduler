@@ -28,15 +28,13 @@ import entities.Team;
 import entities.User;
 import entities.Task;
 
-public class Database extends JPanel {
+public class Database {
 
 	private static Connection connect;
 	private User user;
 	private Team team;
 	private Task task;
 	private static DatabasGUI gui = new DatabasGUI();
-	private JButton btnsave = new JButton ("Save");
-	private JTextArea area = new JTextArea ();
 	
 	//Start connection to localhost
 	public void connectionToMysql () throws ClassNotFoundException{
@@ -87,7 +85,6 @@ public class Database extends JPanel {
 	//Send data to table teams
 	public void sendToTableTeams (String idtable_teams, String name) throws SQLException{
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_teams (idtable_teams, name) values (?,?)");
-		
 		state.setString(1, gui.getid());
 		state.setString(2, gui.getName());
 		
@@ -98,6 +95,7 @@ public class Database extends JPanel {
 		System.out.println ("Saved to table teams");
 		
 	}
+	
 	//Get users table
 	public static ResultSet getUsersResult (Connection connect1, String sql) throws Exception {
 		Statement state = (Statement) connect1.createStatement(java.sql.ResultSet.CONCUR_READ_ONLY, java.sql.ResultSet.TYPE_FORWARD_ONLY);
@@ -176,16 +174,18 @@ public class Database extends JPanel {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
+
+//		try {
+//		db.sendToTableUser(0, "", "");
+//		db.sendToTableTask(0, "", "");
+//		db.sendToTableTeams("", "");
+//		
+//	} catch (SQLException e) {
+//		e.printStackTrace();
 		
 		db.ShowResult();
-	
-//		try {
-//			db.sendToTableUser(0, "", "");
-//			db.sendToTableTask(0, "", "");
-//			db.sendToTableTeams(0, "");
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
+		
+
 		
 
 	}
