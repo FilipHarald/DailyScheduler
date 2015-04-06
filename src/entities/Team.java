@@ -19,44 +19,50 @@ public class Team {
 	private int Id;
 
 	public Team(String name, int Id) {
-		managers = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
-		members = (LinkedList<User>) Collections.synchronizedList(new LinkedList<User>());
+		managers = new LinkedList<User>();
+		members = new LinkedList<User>();
 		this.name = name;
 		teamSize = 0;
 		this.Id = Id;
 	}
 	
 	/**
-	 * @return the Id of the team
+	 * @return the ID of the team
 	 */
 	public int getId () {
 		return Id;
 	}
 	
-	public String getTeamName() {
+	/**
+	 * @return the name of the team
+	 */
+	public String getName() {
 		return name;
 	}
 	
-	public int getTeamSize(){
+	/**
+	 * @return the size of the team, including managers
+	 */
+	public int getSize(){
 		return teamSize;
 	}
 
 	/**
-	 * @return An array of the managers in the team.
+	 * @return an array of the managers in the team
 	 */
 	public User[] getManagers() {
-		return (User[]) managers.toArray();
+		return managers.toArray(new User[0]);
 	}
 
 	/**
-	 * @return An array of the members(not the managers) in the team.
+	 * @return an array of the members(not the managers) in the team
 	 */
 	public User[] getMembers() {
-		return (User[]) members.toArray();
+		return members.toArray(new User[0]);
 	}
 	
 	/**
-	 * @return An array of all the members in the team.
+	 * @return an array of all the members in the team
 	 */
 	public User[] getTeam(){
 		User[] temp = new User[teamSize];
@@ -77,7 +83,7 @@ public class Team {
 	
 	public boolean addManager(User manager){
 		teamSize++;
-		return members.add(manager);
+		return managers.add(manager);
 	}
 	
 	public boolean hasMember(User member){
@@ -85,7 +91,7 @@ public class Team {
 	}
 	
 	public boolean hasManager(User manager){
-		return members.contains(manager);
+		return managers.contains(manager);
 	}
 
 	public boolean removeManager(User manager) {
