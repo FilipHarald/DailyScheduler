@@ -37,7 +37,7 @@ public class Event{
 	/**
 	 * @param description the description that the event should change to
 	 */
-	public void setDescription(String description) {
+	public synchronized void setDescription(String description) {
 		this.description = description;
 	}
 	
@@ -51,7 +51,7 @@ public class Event{
 	/**
 	 * @param date the date that the event should change to
 	 */
-	public void setDate(Date date) {
+	public synchronized void setDate(Date date) {
 		this.date = date;
 	}
 

@@ -2,16 +2,24 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class EventTest {
+import entities.Event;
 
+public class EventTest {
+	private Event event;
+	private Date theDate;
+	
 	@Before
 	public void setUp() throws Exception {
+		theDate = new Date();
+		event = new Event("it is a dejt",theDate , 1);
 	}
 
 	@After
@@ -20,7 +28,8 @@ public class EventTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		assertEquals("Descritpion", "it is a dejt", event.getDescription());
+		assertEquals("Date", theDate, event.getDate());
 	}
 
 }
