@@ -50,21 +50,21 @@ public class Team {
 	/**
 	 * @return an array of the managers in the team
 	 */
-	public User[] getManagers() {
+	public synchronized User[] getManagers() {
 		return managers.toArray(new User[0]);
 	}
 
 	/**
 	 * @return an array of the members(not the managers) in the team
 	 */
-	public User[] getMembers() {
+	public synchronized User[] getMembers() {
 		return members.toArray(new User[0]);
 	}
 	
 	/**
 	 * @return an array of all the members in the team
 	 */
-	public User[] getTeam(){
+	public synchronized User[] getTeam(){
 		User[] temp = new User[teamSize];
 		int counter = 0;
 		for(User member : members){
@@ -76,12 +76,12 @@ public class Team {
 		return temp;
 	}
 	
-	public boolean addMember(User member){
+	public synchronized boolean addMember(User member){
 		teamSize++;
 		return members.add(member);
 	}
 	
-	public boolean addManager(User manager){
+	public synchronized boolean addManager(User manager){
 		teamSize++;
 		return managers.add(manager);
 	}
@@ -94,12 +94,12 @@ public class Team {
 		return managers.contains(manager);
 	}
 
-	public boolean removeManager(User manager) {
+	public synchronized boolean removeManager(User manager) {
 		teamSize--;
 		return managers.remove(manager);
 	}
 
-	public boolean removeMember(User member) {
+	public synchronized boolean removeMember(User member) {
 		teamSize--;
 		return managers.remove(member);
 	}

@@ -16,7 +16,7 @@ public class TaskTest {
 
 	@Before
 	public void setUp() throws Exception {
-		task = new Task("2", "mini task", new String[]{"pall 1", "pall 2"}, null, "1");
+		task = new Task(101, "En del text", new String[]{"hej", "lol"}, null, 1);
 	}
 
 	@After
@@ -25,7 +25,11 @@ public class TaskTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		assertEquals("author ID", 101, task.getAuthor());
+		assertEquals("ID", 1, task.getId());
+		assertEquals("Description", "En del text", task.getDescription());
+		task.setDescription("En del texter");
+		assertEquals("Description", "En del texter", task.getDescription());
 	}
 
 }
