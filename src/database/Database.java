@@ -164,7 +164,6 @@ public class Database {
 		if (pane.equals("User")){
 			try {
 				sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
-				
 				} catch (SQLException e) {
 				e.printStackTrace();
 				}

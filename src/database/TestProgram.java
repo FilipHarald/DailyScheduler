@@ -58,8 +58,8 @@ public class TestProgram extends JPanel implements ActionListener  {
 		}
 
 	}
-
-	public void actionPerformed(ActionEvent e1) {
+	
+	public void SaveResult () {
 		
 		JOptionPane.showMessageDialog(null, "Spara till databas");
 		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
@@ -86,7 +86,10 @@ public class TestProgram extends JPanel implements ActionListener  {
 				e.printStackTrace();
 			}
 		}
-	
+	}
+
+	public void actionPerformed(ActionEvent e1) {
+			SaveResult();
 		
 		}
 }
