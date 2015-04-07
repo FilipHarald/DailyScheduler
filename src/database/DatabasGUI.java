@@ -23,9 +23,15 @@ public class DatabasGUI extends JPanel{
 	
 	private JTextField tfid = new JTextField ();
 	private JTextField tfname = new JTextField ();
+	private JTextField tfTitle = new JTextField ();
+	
+	
 	
 	private JLabel lblid = new JLabel ("ID:");
 	private JLabel lblname = new JLabel ("Name:");
+	private JLabel lbltitle = new JLabel ("Title/Beskrivning");
+	
+	
 
 	
 	public DatabasGUI () {
@@ -40,12 +46,17 @@ public class DatabasGUI extends JPanel{
 
 		labelpanel.add(lblid);
 		labelpanel.add(lblname);
+		labelpanel.add(lbltitle);
+		
 		
 		inputpanel.add (tfid);
 		inputpanel.add (tfname);
+		inputpanel.add(tfTitle);
+		
 		
 		add (labelpanel, BorderLayout.CENTER);
 		add (inputpanel, BorderLayout.SOUTH);
+	
 		
 
 		
@@ -57,6 +68,10 @@ public class DatabasGUI extends JPanel{
 
 	public String getName () {
 		return tfname.getText();
+	}
+	
+	public String getTitle (){
+		return tfTitle.getText();
 	}
 }
 

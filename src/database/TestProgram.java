@@ -15,17 +15,21 @@ import javax.swing.SwingUtilities;
 
 public class TestProgram extends JPanel implements ActionListener  {
 	
-	private Database db  = new Database();
+	private Database db = new Database();
 	private DatabasGUI gui = new DatabasGUI();
 	private JButton btnsave = new JButton ("Save");
+	private JButton btnchoose = new JButton ("Choose");
 	
 	public TestProgram (){
 		setLayout (new BorderLayout());
 		setPreferredSize (new Dimension(600, 300));
+		
 		btnsave.addActionListener(this);
+		btnchoose.addActionListener(this);
 		
 		add (gui, BorderLayout.CENTER);
 		add (btnsave, BorderLayout.SOUTH);
+		add (btnchoose, BorderLayout.NORTH);
 	}
 	public static void main (String [] args) throws Exception {
 		Database db  = new Database();
@@ -48,30 +52,45 @@ public class TestProgram extends JPanel implements ActionListener  {
 		}
 		try {
 			db.ShowResult();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-//		try {
-//		db.sendToTableUser(0, "", "");
-//		db.sendToTableTask(0, "", "");
-		
-//		
-//		
-//		} catch (SQLException e1) {
-//		e1.printStackTrace();	
-//	}
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		try {
-			db.sendToTableTeams(gui.getid(), gui.getName());
-			JOptionPane.showMessageDialog(null, "Data stored");
-		} catch (Exception e1){
-			e1.printStackTrace();
-		}
+	public void actionPerformed(ActionEvent e1) {
 		
-	}
+		JOptionPane.showMessageDialog(null, "Spara till databas");
+		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
+		String pane = JOptionPane.showInputDialog("");
+		
+		if (pane.equals("User")){
+			try {
+				db.sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+				}
+		} else if (pane.equals("Team")){
+			try {
+				db.sendToTableTeams (gui.getid(), gui.getName());
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+			
+		}else if (pane.equals("Task")){
+			try {
+				db.sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+		}
+}
+	
 
 	
-}
+

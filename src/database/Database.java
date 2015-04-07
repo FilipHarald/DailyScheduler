@@ -35,7 +35,7 @@ public class Database {
 	private User user;
 	private Team team;
 	private Task task;
-
+	private DatabasGUI gui = new DatabasGUI();
 	
 	//Start connection to localhost
 	public void connectionToMysql () throws ClassNotFoundException{
@@ -55,7 +55,7 @@ public class Database {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_user (idtable_user, name, title) values (?,?,?)");
 		
 		state.setInt(1, idtable_user);
-		state.setString(2, user.getName());
+		state.setString(2, name);
 		state.setString(3, title);
 		
 		state.executeUpdate();
@@ -70,9 +70,9 @@ public class Database {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
 
-		state.setInt(1, task.getId());
-//		state.setString(2, task.getAuthor());
-		state.setString(3, task.getDescription());
+		state.setInt(1, idtable_task);
+		state.setString(2, name);
+		state.setString(3, text);
 	
 		state.executeUpdate();
 		state.close();
@@ -129,7 +129,7 @@ public class Database {
 	
 	//Shows the information stored in databases 
 	public void ShowResult () throws Exception{
-		
+		JOptionPane.showMessageDialog(null, "Visa information från databas");
 		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
 		String pane = JOptionPane.showInputDialog("");
 		
@@ -153,8 +153,42 @@ public class Database {
 			
 		}
 	}
+
+
+	public void SaveResult (){
+		
+		JOptionPane.showMessageDialog(null, "Spara till databas");
+		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
+		String pane = JOptionPane.showInputDialog("");
+		
+		if (pane.equals("User")){
+			try {
+				sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+				}
+		} else if (pane.equals("Team")){
+			try {
+				sendToTableTeams (gui.getid(), gui.getName());
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+			
+		}else if (pane.equals("Task")){
+			try {
+				sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	
-	
-}
+	}
+
+	}
+
+
+
 
 
