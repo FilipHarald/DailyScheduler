@@ -6,6 +6,7 @@
 package network.client;
 
 import entities.User;
+
 import java.io.*;
 import java.net.*;
 
@@ -22,12 +23,15 @@ public class Client {
     /*constructor: sets the ip, port and ID 
     *Also starts a new thread that maintains the connection to the server
     */
-    public Client(String ip, int port, String ID) throws IOException{
-        socket = new Socket(ip, port);
-        ois = new ObjectInputStream(socket.getInputStream());
-        oos = new ObjectOutputStream(socket.getOutputStream());
-        this.ID = ID;
-        new Listener().start();
+    public Client(String ip, int port) {
+    	try{
+    		socket = new Socket(ip, port);
+    		ois = new ObjectInputStream(socket.getInputStream());
+    		oos = new ObjectOutputStream(socket.getOutputStream());
+    	}catch(Exception e){
+    		
+    	}
+    	new Listener().start();
     }
 
     //returns the user ID 
@@ -41,6 +45,11 @@ public class Client {
         
     }
     
+    public boolean validate(String userName, String password) {
+    	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
+    	return (userName.equals("test") && password.equals("1234"));
+    }
+    
     private class Listener extends Thread{
         public void run(){
             try{
@@ -51,10 +60,6 @@ public class Client {
         }
         
     }
-  
-    
-        
-    
-    
+
     
 }

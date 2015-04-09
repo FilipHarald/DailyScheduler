@@ -29,6 +29,7 @@ public class ClientController {
     public ClientController(String serverIp, int port){
         ip = serverIp;
         this.port = port;
+        client = new Client(serverIp, port);
         
     }
     
@@ -36,20 +37,10 @@ public class ClientController {
     public void startApplication(){
     	loginWindow = new LoginGUI(this);
     }
-    
-    //start client for the user
-     private void startClient(String ID){
-        try{
-            client = new Client(ip, port, ID);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        
-    }
+ 
    
     public void login(String userName, String password){
-    	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
-    	if(userName.equals("test") && password.equals("12345")){
+    	if(client.validate(userName, password)){
     		loginWindow.close();
     		gui = new ApplicationGUI(userName, this);
     	}
