@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import network.client.GUI.ApplicationGUI;
-import network.client.GUI.GUIDailySchedulerPanel;
 import network.client.GUI.LoginGUI;
 
 /**
@@ -55,8 +54,5 @@ public class ClientController {
             e.printStackTrace();
         }
     }
-    
-    
-
     
 }

@@ -3,6 +3,7 @@ package network.client.GUI;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +25,7 @@ public class ApplicationGUI extends JFrame {
 		super("DailyScheduler - " + userName);
 		contentPane = getContentPane();
 		this.clientController = clientController;
-		
+
 		setComponents();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,15 +41,17 @@ public class ApplicationGUI extends JFrame {
 		tabbedPane.add("Messages", new MessagePanel());
 		tabbedPane.add("Tasks", new TaskPanel());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		
-		
+
 		JButton logOutButton = new JButton("Log out");
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logOut();
 			}
 		});
-		
+
+		add(logOutButton, BorderLayout.SOUTH);
+		logOutButton.setFont(logOutButton.getFont().deriveFont(
+				Font.BOLD | Font.ITALIC));
 	}
 
 	public void logOut() {
