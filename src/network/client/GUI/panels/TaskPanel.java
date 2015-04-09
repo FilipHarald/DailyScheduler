@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class TaskPanel extends JPanel {
 	
-	private JScrollPane listCompletedTask = new JScrollPane ();
-	private JScrollPane listIncompletedTask = new JScrollPane ();
+	private JList listCompletedTask = new JList ();
+	private JList listIncompletedTask = new JList();
 	private JTextArea textDescription = new JTextArea();
 	
 	
@@ -23,6 +23,8 @@ public class TaskPanel extends JPanel {
 	public void AddTasks() {
 		JPanel tasksPanel = new JPanel(new GridLayout(0, 2));
 		tasksPanel.setPreferredSize(new Dimension(300, 200));
+		JScrollPane scrollerCompletedTask = new JScrollPane (listCompletedTask);
+		JScrollPane scrollerIncompletedTask = new JScrollPane (listIncompletedTask);
 		tasksPanel.setBorder(BorderFactory.createTitledBorder(""));
 		
 		JPanel panelCompletedTask = new JPanel ();
@@ -31,23 +33,25 @@ public class TaskPanel extends JPanel {
 		JLabel lblCompletedTask = new JLabel ("Completed tasks");
 		
 		panelCompletedTask.setBorder(BorderFactory.createTitledBorder(""));
-		listCompletedTask.setPreferredSize(new Dimension(200,100));
-		
+		scrollerCompletedTask.setPreferredSize(new Dimension(200,100));
+
 		panelCompletedTask.add(lblCompletedTask);
 		panelCompletedTask.add(listCompletedTask);
+		panelCompletedTask.add(scrollerCompletedTask);
 		
 		
 		
 		JPanel panelIncompletedTask = new JPanel ();
-		panelIncompletedTask.setPreferredSize(new Dimension(200, 100));
+		scrollerIncompletedTask.setPreferredSize(new Dimension(200, 100));
 
 		JLabel lblIncompleted = new JLabel ("Incompleted tasks");
 		
 		panelIncompletedTask.setBorder(BorderFactory.createTitledBorder(""));
-		listIncompletedTask.setPreferredSize(new Dimension(200,100));
+		scrollerIncompletedTask.setPreferredSize(new Dimension(200,100));
 	
 		panelIncompletedTask.add(lblIncompleted);
 		panelIncompletedTask.add(listIncompletedTask);
+		panelIncompletedTask.add(scrollerIncompletedTask);
 		
 		tasksPanel.add (panelIncompletedTask);
 		tasksPanel.add(panelCompletedTask);
