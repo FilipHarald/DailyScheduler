@@ -31,8 +31,8 @@ public class Client {
     }
 
     //returns the user ID 
-    public String getID(User user){
-        return user.getID();
+    public int getID(User user){
+        return user.getId();
     }
 
     //close connection to server
