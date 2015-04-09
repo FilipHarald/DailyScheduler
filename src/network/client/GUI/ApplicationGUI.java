@@ -6,8 +6,7 @@ import javax.swing.*;
 
 import network.client.GUI.panels.*;
 
-public class ApplicationGUI {
-	private JFrame frame;
+public class ApplicationGUI extends JFrame{
 	
 	private JPanel currentPanel;
 	private MainButtonsPanel mainButtonsPanel;
@@ -17,19 +16,23 @@ public class ApplicationGUI {
 	private TaskPanel taskPanel;
 	
 	public ApplicationGUI(String userName) {
-		JFrame frame = new JFrame("DailyScheduler - " + userName);
-		frame.setLayout(new BorderLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super("DailyScheduler - " + userName);
+		setLayout(new BorderLayout());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		mainButtonsPanel = new MainButtonsPanel();
-		frame.add(mainButtonsPanel, BorderLayout.WEST);
+		mainButtonsPanel = new MainButtonsPanel(this);
+		add(mainButtonsPanel, BorderLayout.WEST);
 		
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setVisible(true);
+		calendarPanel = new CalendarPanel();
+		messagePanel = new MessagePanel();
+		taskPanel = new TaskPanel();
+		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setVisible(true);
 	}
 
 	public void changePanel(JPanel panel) {
 		currentPanel = panel;
-		frame.repaint();
+		repaint();
 	}
 }
