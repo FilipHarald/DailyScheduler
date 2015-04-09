@@ -14,7 +14,6 @@ public class TaskPanel extends JPanel {
 		super();
 		setLayout (new BorderLayout());
 		setBorder(BorderFactory.createTitledBorder("Task view"));
-		setPreferredSize (new Dimension (200, 10));
 
 		AddLabels();
 		AddButtons();
@@ -23,8 +22,9 @@ public class TaskPanel extends JPanel {
 	}
 	
 	public void AddButtons() {
-		labelcombobtnpanel.setSize(1, 5);
-		labelcombobtnpanel.setPreferredSize(new Dimension(1, 5));
+		labelcombobtnpanel.setSize(5, 5);
+		labelcombobtnpanel.setPreferredSize(new Dimension(5,5));
+	
 		
 		JButton btncreatenewtask = new JButton ("New Task");
 		JButton btnedittask = new JButton("Edit Task");
@@ -42,8 +42,8 @@ public class TaskPanel extends JPanel {
 	}
 	
 	public void AddLabels (){
-		labelpanel.setSize(10, 100);
-		labelpanel.setPreferredSize(new Dimension(10, 100));
+		labelpanel.setSize(20, 200);
+		labelpanel.setPreferredSize(new Dimension(20, 200));
 		
 		JLabel lblincomplete = new JLabel ("Incompleted task");
 		JLabel lblcompletedtask = new JLabel ("Completed task");
@@ -58,8 +58,8 @@ public class TaskPanel extends JPanel {
 	}
 	
 	public void AddTextArea (){
-		labelinputpanel.setSize(50, 250);
-		labelinputpanel.setPreferredSize(new Dimension(50, 250));
+		labelinputpanel.setSize(700, 300);
+		labelinputpanel.setPreferredSize(new Dimension(700, 300));
 		
 		JTextArea textdescription = new JTextArea();
 		labelinputpanel.add(textdescription);
