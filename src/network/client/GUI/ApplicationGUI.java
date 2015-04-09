@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 
 import javax.swing.*;
 
+import network.client.ClientController;
 import network.client.GUI.panels.*;
 
 public class ApplicationGUI extends JFrame{
+	private ClientController clientController;
 	
 	private JPanel currentPanel;
 	private MainButtonsPanel mainButtonsPanel;
@@ -15,8 +17,9 @@ public class ApplicationGUI extends JFrame{
 	private MessagePanel messagePanel;
 	private TaskPanel taskPanel;
 	
-	public ApplicationGUI(String userName) {
+	public ApplicationGUI(String userName, ClientController clientController) {
 		super("DailyScheduler - " + userName);
+		this.clientController = clientController;
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -34,5 +37,9 @@ public class ApplicationGUI extends JFrame{
 	public void changePanel(JPanel panel) {
 		currentPanel = panel;
 		repaint();
+	}
+
+	public void logOut() {
+		clientController.logout();
 	}
 }

@@ -51,7 +51,7 @@ public class ClientController {
     	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
     	if(userName.equals("test") && password.equals("12345")){
     		loginWindow.close();
-    		gui = new ApplicationGUI(userName);
+    		gui = new ApplicationGUI(userName, this);
     	}
     }
 
