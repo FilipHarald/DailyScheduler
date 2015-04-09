@@ -1,6 +1,10 @@
 package network.client.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -10,8 +14,7 @@ import network.client.GUI.panels.*;
 public class ApplicationGUI extends JFrame {
 	private ClientController clientController;
 
-	private JPanel currentPanel;
-	private MainButtonsPanel mainButtonsPanel;
+	private Container contentPane;
 
 	private CalendarPanel calendarPanel;
 	private MessagePanel messagePanel;
@@ -19,40 +22,33 @@ public class ApplicationGUI extends JFrame {
 
 	public ApplicationGUI(String userName, ClientController clientController) {
 		super("DailyScheduler - " + userName);
+		contentPane = getContentPane();
 		this.clientController = clientController;
-		setLayout(new BorderLayout());
+		
+		setComponents();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		mainButtonsPanel = new MainButtonsPanel(this);
-		add(mainButtonsPanel, BorderLayout.WEST);
-
-		calendarPanel = new CalendarPanel();
-		messagePanel = new MessagePanel();
-		taskPanel = new TaskPanel();
-
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+
 	}
 
-	public void changePanel(String command) {
-		switch (command) {
-		case "main":
-			break;
-		case "task":
-			currentPanel = taskPanel;
-			break;
-		case "message":
-			currentPanel = messagePanel;
-			break;
-		case "calendar":
-			currentPanel = calendarPanel;
-			break;
-		case "salaries":
-			break;
-		default:
-			break;
-		}
-		repaint();
+	public void setComponents() {
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.add("Welcome", new WelcomePanel());
+		tabbedPane.add("Messages", new MessagePanel());
+		tabbedPane.add("Tasks", new TaskPanel());
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		
+		
+		JButton logOutButton = new JButton("Log out");
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logOut();
+			}
+		});
+		
 	}
 
 	public void logOut() {
