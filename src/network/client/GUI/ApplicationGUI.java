@@ -26,7 +26,6 @@ public class ApplicationGUI {
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
-		
 	}
 
 	public void changePanel(JPanel panel) {
