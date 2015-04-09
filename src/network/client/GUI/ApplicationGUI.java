@@ -40,6 +40,7 @@ public class ApplicationGUI extends JFrame {
 		tabbedPane.add("Welcome", new WelcomePanel());
 		tabbedPane.add("Messages", new MessagePanel());
 		tabbedPane.add("Tasks", new TaskPanel());
+		
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		JButton logOutButton = new JButton("Log out");
