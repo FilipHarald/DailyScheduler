@@ -9,6 +9,7 @@ import entities.User;
 
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
 
 /**
  *
@@ -45,10 +46,24 @@ public class Client {
         
     }
     
-    public boolean validate(String userName, String password) {
+    public boolean validate(char[] password) {
     	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
-    	return (userName.equals("test") && password.equals("1234"));
+//    	return (userName.equals("test") && password.equals("1234"));
+    	boolean isCorrect = true;
+        char[] correctPassword = {'1', '2','3','4'};
+        
+        if (password.length != correctPassword.length){
+            isCorrect = false;
+        }else{
+            isCorrect = Arrays.equals (password, correctPassword);
+        }
+        
+        Arrays.fill(correctPassword, '0');
+        
+        return isCorrect;
+        
     }
+    
     
     private class Listener extends Thread{
         public void run(){

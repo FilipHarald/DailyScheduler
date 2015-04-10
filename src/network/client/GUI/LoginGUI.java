@@ -4,14 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import java.util.Arrays;
+
 
 import network.client.ClientController;
 
 public class LoginGUI {
 	private JTextField userText;
-	private JTextField passwordText;
+	private JPasswordField passwordText;
 	private ClientController cc;
 	private JFrame frame;
+	
+	private static String OK = "ok";
+    private static String HELP = "help";
 	
 	public LoginGUI(ClientController cc){
 		this.cc = cc;
@@ -54,9 +59,21 @@ public class LoginGUI {
 		
 		loginButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				cc.login(userText.getText(), passwordText.getText());
-			}	
-		});
+                    //String cmd = e.getActionCommand();
+                    
+                    //if(OK.equals(cmd) ){
+                       char[] password = passwordText.getPassword();
+                       cc.login(password);
+                   
+                       //}
+                       
+                       Arrays.fill(password, '0');
+                       
+                       passwordText.selectAll();
+                       
+                   
+                
+		}});
 	}
 
 	public void close() {

@@ -38,10 +38,10 @@ public class ClientController {
     }
  
    
-    public void login(String userName, String password){
-    	if(client.validate(userName, password)){
+    public void login(char[] password){
+    	if(client.validate(password)){
     		loginWindow.close();
-    		gui = new ApplicationGUI(userName, this);
+    		gui = new ApplicationGUI(null, this);
     	}
     }
 
