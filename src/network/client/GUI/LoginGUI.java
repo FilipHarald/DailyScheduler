@@ -15,9 +15,6 @@ public class LoginGUI {
 	private ClientController cc;
 	private JFrame frame;
 	
-	private static String OK = "ok";
-    private static String HELP = "help";
-	
 	public LoginGUI(ClientController cc){
 		this.cc = cc;
 		
@@ -63,7 +60,8 @@ public class LoginGUI {
                     
                     //if(OK.equals(cmd) ){
                        char[] password = passwordText.getPassword();
-                       cc.login(password);
+                       String userName = userText.getText();
+                       cc.login(userName, password);
                    
                        //}
                        

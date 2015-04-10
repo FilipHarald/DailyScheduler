@@ -38,8 +38,8 @@ public class ClientController {
     }
  
    
-    public void login(char[] password){
-    	if(client.validate(password)){
+    public void login(String userName, char[] password){
+    	if(client.validateUserName(userName) && client.validatePassword(password)){
     		loginWindow.close();
     		gui = new ApplicationGUI(null, this);
     	}

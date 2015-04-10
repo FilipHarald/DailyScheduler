@@ -45,8 +45,11 @@ public class Client {
         socket.close();
         
     }
+    public boolean validateUserName(String userName){
+    	return (userName.equals("test"));
+    }
     
-    public boolean validate(char[] password) {
+    public boolean validatePassword(char[] password) {
     	//Credentials need to be verfied on the server this is a TEMPORARY SOLUTION
 //    	return (userName.equals("test") && password.equals("1234"));
     	boolean isCorrect = true;
