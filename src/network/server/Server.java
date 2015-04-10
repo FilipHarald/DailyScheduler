@@ -46,15 +46,31 @@ public class Server implements Runnable, Observer {
 			}
 		}
 	}
+	
+	/**
+	 * Sends an object to every connected client.
+	 * @param obj
+	 * @throws IOException
+	 */
+	public synchronized void broadcast(Object obj) throws IOException{
+		for(ClientHandler ch : handlerList){
+			ch.send(obj);
+		}
+	}
 
 	@Override
 	public synchronized void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
 	}
+	public void checkID(){
+		
+	}
 	
 	public void userConnected(String userName){
-		
+		if (ID==true){
+			System.out.println("Test123 connected");
+		}
 	}
 	
 	public String[] connectedUsers(){
