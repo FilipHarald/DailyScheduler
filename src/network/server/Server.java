@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -63,16 +64,45 @@ public class Server implements Runnable, Observer {
 		// TODO Auto-generated method stub
 		
 	}
-	public void checkID(){
-		
-	}
 	
-	public void userConnected(String userName){
-		if (ID==true){
-			System.out.println("Test123 connected");
-		}
-	}
+	/**
+	 * Validates the username
+	 * @param userName the username is "test" for now
+	 * @return userName
+	 */
+	public boolean validateUserName(String userName){
+		//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
+    	return (userName.equals("test"));
+    }
+    
+	/**
+	 * validates the password
+	 * @param password the correct password is "1234" for now
+	 * @return isCorrect
+	 */
+	public boolean validatePassword(char[] password) {
+    	//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
+    	boolean isCorrect = true;
+        char[] correctPassword = {'1', '2','3','4'};
+        
+        if (password.length != correctPassword.length){
+            isCorrect = false;
+        }else{
+            isCorrect = Arrays.equals (password, correctPassword);
+        }
+        
+        Arrays.fill(correctPassword, '0');
+        
+        return isCorrect;
+        
+    }
 	
+//	public void userConnected(String userName){
+//		if (ID==true){
+//			System.out.println("Test123 connected");
+//		}
+//	}
+//	
 	public String[] connectedUsers(){
 		String[] temp = new String[handlerList.size()];
 		for (int i = 0; i < handlerList.size(); i++) {

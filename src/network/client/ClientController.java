@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import network.client.GUI.ApplicationGUI;
 import network.client.GUI.LoginGUI;
+import network.server.Server;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ClientController {
     private int port;
     private LoginGUI loginWindow;
     private ApplicationGUI gui;
+	private Server server;
     
     
     //constructor sets ip and port
@@ -29,6 +31,7 @@ public class ClientController {
         ip = serverIp;
         this.port = port;
         client = new Client(serverIp, port);
+        server = new Server(port, null);
         
     }
     
@@ -38,8 +41,13 @@ public class ClientController {
     }
  
    
+    /**
+     * logs the user in if the username and password is valid
+     * @param userName the username of the user ("test")
+     * @param password the password for the username ("1234")
+     */
     public void login(String userName, char[] password){
-    	if(client.validateUserName(userName) && client.validatePassword(password)){
+    	if(server.validateUserName(userName) && server.validatePassword(password)){
     		loginWindow.close();
     		gui = new ApplicationGUI(null, this);
     	}
