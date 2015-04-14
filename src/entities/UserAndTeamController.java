@@ -37,6 +37,12 @@ public class UserAndTeamController {
         database.addUser(tmpUser);
         //TODO: add to database
     }
+    //forward incoming User from client to GUI
+    public void displayTask(Task task){
+		//TODO: call method from GUI that displays the task in the GUI
+    	
+    }
+    
     
     /**
      * find a user in the database by its userId and return user
@@ -45,6 +51,11 @@ public class UserAndTeamController {
      */
     public User findUser(int Id){
         //TODO: find user in database by userID
+    	try {
+			database.ShowResult(Id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return user;  
     }
     
@@ -57,14 +68,16 @@ public class UserAndTeamController {
     public void editUser(String name, boolean isAdmin, int Id){
         //TODO: save updated info to database
         editUser(name, isAdmin, Id);
+        
+        database.SaveResult();
     }
 
     /**
      * removes a user from the database
      * @param removeUserId
      */
-    public void deleteUser(int Id){
-        database.deleteUser(Id);
+    public void deleteUser(int userId){
+        database.deleteUser(userId);
         //TODO: delete User from database
         
     }
@@ -75,13 +88,14 @@ public class UserAndTeamController {
      * @param teamId the id of the team that the user should be added to
      */
     public void addUserToTeam(int userId, int teamId ){
-        database.addUserToTeam(userId, teamId);
+        database.SaveResult(userId, teamId);
         //TODO add user to team
         
     }
-    public void createTeam(String name, int Id){
-        Team tmpTeam = new Team(name, Id);
+    public void createTeam(String name, int teamId){
+        Team tmpTeam = new Team(name, teamId);
         //TODO: add to database
+        database.SaveResult(tmpTeam);
     }    
 
     /**
@@ -89,7 +103,13 @@ public class UserAndTeamController {
      * @param Id teamId
      * @return the team belonging to the Id
      */
-    public Team findTeam(int Id) {
+    public Team findTeam(int teamId) {
+    	try {
+			database.ShowResult(teamId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return team;
     }
 
@@ -98,9 +118,11 @@ public class UserAndTeamController {
      * @param name
      * @param Id
      */
-    public void editTeam(String name, int Id){
+    public void editTeam(String name, int teamId){
         //TODO: add edited info to database/update database
-        editTeam(name, Id);
+        editTeam(name, teamId);
+        
+        database.SaveResult(teamId);
         
     }
 

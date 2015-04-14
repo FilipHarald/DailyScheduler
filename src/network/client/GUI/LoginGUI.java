@@ -74,6 +74,10 @@ public class LoginGUI {
 		}});
 	}
 
+	public String getUserName(String userName){
+		return userText.getText();
+	}
+	
 	public void close() {
 		frame.dispose();
 	}

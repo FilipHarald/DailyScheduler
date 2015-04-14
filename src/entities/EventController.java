@@ -6,7 +6,10 @@
 package entities;
 
 import database.Database;
+
 import java.util.*;
+
+import network.client.GUI.panels.CalendarPanel;
 
 /**
  *
@@ -16,7 +19,7 @@ public class EventController {
 
     private Event event;
     private Database database;
-    //TODO: add frame
+   	private CalendarPanel calendarPanel;
 
     public EventController(Event event) {
         this.event = event;
@@ -29,12 +32,18 @@ public class EventController {
      * @param date the date of 
      * @param Id the id for the event
      */
-    public void createEvent(String description, Date date, int Id) {
-        Event tmpEvent = new Event(description, date, Id);
-        database.addEvent(tmpEvent);
+    public void createEvent(String description, Date date, int eventId) {
+        Event tmpEvent = new Event(description, date, eventId);
+        database.SaveResult(tmpEvent);
         
         //TODO: add to database
-
+      
+    }
+    //forward incoming event from client to GUI
+    public void displayEvent(Event event){
+		//TODO: call method from GUI that displays the event in the GUI
+    	calendarPanel.displayEvent();
+    	
     }
     
     /**
@@ -43,9 +52,14 @@ public class EventController {
      * @return returns the event for the given id
      */
     public Event findEvent(int eventId) {
-        
         //TODO find Id in table in database
+    	try{
+    		database.ShowResult(eventId);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
         return event;
+        displayEvent(event);
     }
     
     /**
@@ -54,12 +68,14 @@ public class EventController {
      * @param date the date for the event
      * @param Id the id for the given event
      */
-    public void editEvent(String description, Date date, int Id) {
-        Id = event.getId();
-        event.setDescription(description);
-        event.setDate(date);
+    public Event editEvent() {
+    	displayEvent(event);
+    	 //TODO: save updated info in database (create method in calendarPanel)
+    	Event event = new Event(null, null, 0);
+        event.setDescription(calendarPanel.getDescriptionText);
+        event.setDate(calendarPanel.getDate);
         
-        //TODO: save edited info in database
+        database.SaveResult();
     }
 
     /**
