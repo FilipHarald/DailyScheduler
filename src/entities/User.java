@@ -9,12 +9,14 @@ package entities;
 public class User {
 	private String name;
 	private boolean isAdmin;
+	private String password;
 	private int Id;
 
-	public User(String name, boolean isAdmin, int Id) {
+	public User(String name, boolean isAdmin, String password, int Id) {
 		this.name = name;
 		this.isAdmin = isAdmin;
-		this.Id = Id;
+		this.password = password;
+		this.Id = Id;			
 	}
 	
 	/**
@@ -43,6 +45,10 @@ public class User {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 	// @Override
