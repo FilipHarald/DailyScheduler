@@ -30,14 +30,19 @@ import entities.Task;
 
 public class Database {
 	
-	private static Connection connect;
+	private static Connection connection;
 	private User user;
 	private Team team;
 	private Task task;
 	private DatabasGUI gui = new DatabasGUI();
 	
 	public Database(){
-		connectToMySql();
+		try {
+			connectToMySql();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//Start connection to localhost
@@ -46,7 +51,7 @@ public class Database {
 		String username = "root", password = "";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(host, username, password);
+			connection = DriverManager.getConnection(host, username, password);
 			System.out.println ("Connected to database");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,11 +60,17 @@ public class Database {
 	
 	
 	public void saveEntity(Object obj) throws SQLException {
+		System.out.println("saveEntity");
+		
+		PreparedStatement prepStatement;
 		if(obj instanceof User){
 			User user = (User)obj;
 			
-			if(user.getId()==0){				
-				insertToTable(String.format("INSERT INTO User (Name, Password) values (%s,%d)", user.getName(), user.getPassword()));
+			if(user.getId()==0){
+				prepStatement = connection.prepareStatement("INSERT INTO User (Name, Password) values (?, ?)");
+				prepStatement.setString(1, user.getName());
+				prepStatement.setString(2, user.getPassword());
+				insertToTable(prepStatement);
 				if(user.isAdmin()){
 //					insertToTable(String.format("INSERT INTO Admin (UserId) values (%s)", user.getId()));
 				}
@@ -71,18 +82,22 @@ public class Database {
 		}
 	}
 	
-	private void insertToTable(String statement) {
+	private void insertToTable(PreparedStatement statement) {
 		
-		System.out.println("statement");
-		PreparedStatement state = connect.prepareStatement(statement);
-		state.executeUpdate();
-		state.close();
-		connect.close();
-	}
+		System.out.println();
+		try {
+			statement.executeUpdate();
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 
 	//Send data to table user
 	public void sendToTableUser (int idtable_user, String name, String title) throws SQLException {
-		PreparedStatement state = connect.prepareStatement("INSERT INTO table_user (idtable_user, name, title) values (?,?,?)");
+		PreparedStatement state = connection.prepareStatement("INSERT INTO table_user (idtable_user, name, title) values (?,?,?)");
 		
 		state.setInt(1, idtable_user);
 		state.setString(2, name);
@@ -90,14 +105,14 @@ public class Database {
 		
 		state.executeUpdate();
 		state.close();
-		connect.close();
+		connection.close();
 		System.out.println("Saved to table user");
 		
 	}
 	
 	//Send data to table task
 	public void sendToTableTask (int idtable_task, String name, String text) throws SQLException{
-		PreparedStatement state = connect.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
+		PreparedStatement state = connection.prepareStatement("INSERT INTO table_task (idtable_task, name, text) values (?,?,?)");
 		
 
 		state.setInt(1, idtable_task);
@@ -106,7 +121,7 @@ public class Database {
 	
 		state.executeUpdate();
 		state.close();
-		connect.close();
+		connection.close();
 		
 		System.out.println ("Saved to table task");
 		
@@ -114,13 +129,13 @@ public class Database {
 	
 	//Send data to table teams
 	public void sendToTableTeams (int idtable_teams, String name) throws SQLException{
-		PreparedStatement state = connect.prepareStatement("Insert into table_teams (idtable_teams, name) values (?,?)");
+		PreparedStatement state = connection.prepareStatement("Insert into table_teams (idtable_teams, name) values (?,?)");
 		
 		state.setInt(1, idtable_teams);
 		state.setString(2, name);
 		state.executeUpdate();
 		state.close();
-		connect.close();
+		connection.close();
 		
 	}
 	
@@ -165,7 +180,7 @@ public class Database {
 		String pane = JOptionPane.showInputDialog("");
 
 		
-		ResultSet rs = getUsers(connect, pane);
+		ResultSet rs = getUsers(connection, pane);
 		while (rs.next()){
 			
 			System.out.println( rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
@@ -193,37 +208,43 @@ public class Database {
 	}
 
 
-	public void SaveResult (){
-		
-		JOptionPane.showMessageDialog(null, "Spara till databas");
-		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
-		String pane = JOptionPane.showInputDialog("");
-		
-		if (pane.equals("User")){
-			try {
-				sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
-				} catch (SQLException e) {
-				e.printStackTrace();
-				}
-		} else if (pane.equals("Team")){
-			try {
-				sendToTableTeams (gui.getid(), gui.getName());
-			} catch (SQLException e){
-				e.printStackTrace();
-			}
-			
-		}else if (pane.equals("Task")){
-			try {
-				sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+//	public void SaveResult (){
+//		
+//		JOptionPane.showMessageDialog(null, "Spara till databas");
+//		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
+//		String pane = JOptionPane.showInputDialog("");
+//		try {
+//			saveEntity(new User ("Testa Karlsson", false, "1234", 0));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		if (pane.equals("User")){
+//			try {
+//				sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
+//				} catch (SQLException e) {
+//				e.printStackTrace();
+//				}
+//		} else if (pane.equals("Team")){
+//			try {
+//				sendToTableTeams (gui.getid(), gui.getName());
+//			} catch (SQLException e){
+//				e.printStackTrace();
+//			}
+//			
+//		}else if (pane.equals("Task")){
+//			try {
+//				sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 	
 	}
 
-	}
+	
 
 
 
