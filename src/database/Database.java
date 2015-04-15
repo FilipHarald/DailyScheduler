@@ -29,16 +29,19 @@ import entities.User;
 import entities.Task;
 
 public class Database {
-
-
+	
 	private static Connection connect;
 	private User user;
 	private Team team;
 	private Task task;
 	private DatabasGUI gui = new DatabasGUI();
 	
+	public Database(){
+		connectToMySql();
+	}
+	
 	//Start connection to localhost
-	public void connectionToMysql () throws ClassNotFoundException{
+	public void connectToMySql () throws ClassNotFoundException{
 		String host = "jdbc:mysql://localhost/test";
 		String username = "root", password = "";
 		try {
@@ -50,6 +53,33 @@ public class Database {
 		}
 	}
 	
+	
+	public void saveEntity(Object obj) throws SQLException {
+		if(obj instanceof User){
+			User user = (User)obj;
+			
+			if(user.getId()==0){				
+				insertToTable(String.format("INSERT INTO User (Name, Password) values (%s,%d)", user.getName(), user.getPassword()));
+				if(user.isAdmin()){
+//					insertToTable(String.format("INSERT INTO Admin (UserId) values (%s)", user.getId()));
+				}
+			}else{
+//				updateTable("User", user.getId(), user.getName(), user.getPassword());
+			}
+		}else if(obj instanceof Task){
+			
+		}
+	}
+	
+	private void insertToTable(String statement) {
+		
+		System.out.println("statement");
+		PreparedStatement state = connect.prepareStatement(statement);
+		state.executeUpdate();
+		state.close();
+		connect.close();
+	}
+
 	//Send data to table user
 	public void sendToTableUser (int idtable_user, String name, String title) throws SQLException {
 		PreparedStatement state = connect.prepareStatement("INSERT INTO table_user (idtable_user, name, title) values (?,?,?)");
