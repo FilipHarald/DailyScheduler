@@ -11,7 +11,7 @@ public class TestFrame {
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.add(new MessagePanel(), BorderLayout.CENTER);
+		frame.add(new TaskPanel(), BorderLayout.CENTER);
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);

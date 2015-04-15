@@ -40,6 +40,18 @@ public class ClientController {
     	loginWindow = new LoginGUI(this);
     }
  
+    private String getUserName(String userName){
+    	return loginWindow.getUserName(userName);
+    }
+    public String sendUserName(String userName){
+    	userName = getUserName(userName);
+    	
+		return userName;
+    	
+    }
+    
+    //TODO: send obj to server (T||E||U||Te)
+    
    
     /**
      * logs the user in if the username and password is valid
