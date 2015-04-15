@@ -15,6 +15,7 @@ public class TestFrame {
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
+		
 
 	}
 

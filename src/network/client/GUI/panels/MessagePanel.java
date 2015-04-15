@@ -1,4 +1,3 @@
-
 package network.client.GUI.panels;
 
 import java.awt.BorderLayout;
@@ -19,10 +18,10 @@ import javax.swing.JTextArea;
 
 /**
  * The class creates a panel with new messages for the programs user.
- * @author Fredrik Nörell
+ * @author Fredrik Nï¿½rell
  *
  */
-public class MessagePanel extends JPanel  {
+public class MessagePanel extends JPanel implements ActionListener  {
 	
 	/*
 	 * Class variables
@@ -51,50 +50,52 @@ public class MessagePanel extends JPanel  {
 		buttonsPanel.add(delete, BorderLayout.CENTER);
 		buttonsPanel.add(edit, BorderLayout.SOUTH);
 		
-		textPanel.add(txt,BorderLayout.CENTER);
-		
-		/*
-		 * Preferred size for the textarea where the selected message will be displayed.
-		 */
+		textPanel.add(txt,BorderLayout.CENTER);	
 		txt.setPreferredSize(new Dimension(300,300));
 		
-		
-		/*
-		 * Adding the panels to the MessagePanel created by ApplicationGUI
-		 */
-		listeners();
 		add(buttonsPanel, BorderLayout.WEST);
 		add(textPanel, BorderLayout.CENTER);
-		
-		
-		
-		
-		
-	}
+		listeners();
+		}
+	
+	
+	
 	
 	/**
 	 * Listener for the JButtons in the buttonsPanel.
 	 */
 	public void listeners(){
-		ButtonListener buttlist = new ButtonListener();
-		newMessage.addActionListener(buttlist);
+		
+		newMessage.addActionListener(this);
+		delete.addActionListener(this);
+		edit.addActionListener(this);
 		
 	}
-	/**
-	 * Private class containing the ActionListener for the method ButtonListener.
-	 * @author Fredrik Nörell
-	 *
-	 */
-	private class ButtonListener implements ActionListener{
-
-		/**
-		 * Method for the performed actions by the user.
-		 */
-		public void actionPerformed(ActionEvent e) {
-			if(newMessage.isSelected()){
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==newMessage){
 			JFrame newMessageFrame = new JFrame("New Message");
+			newMessageFrame.setSize(500, 500);
+			newMessageFrame.setLocationRelativeTo(null);
+			newMessageFrame.setVisible(true);
+//			newMessageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}else{
+			if(e.getSource()==edit){
+				JFrame editFrame = new JFrame("Edit Message");
+				editFrame.setSize(500, 500);
+				editFrame.setLocationRelativeTo(null);
+				editFrame.setVisible(true);
+//				editFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}else{
+				if(e.getSource()==delete){
+					JFrame deleteFrame = new JFrame("Delete Message");
+					deleteFrame.setSize(500, 500);
+					deleteFrame.setLocationRelativeTo(null);
+					deleteFrame.setVisible(true);
+//					deleteFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				}
 			}
 		}
-		
 	}
+	
 }
