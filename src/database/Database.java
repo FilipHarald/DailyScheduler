@@ -101,8 +101,9 @@ public class Database {
 		
 	}
 	
-	public static ResultSet getUsers (Connection connect2) throws Exception{
-		return getUsersResult (connect2, "select * from table_user");
+	public static ResultSet getUsers (Connection connect2, String tableName) throws Exception{
+		String sqlStatement = String.format("select * from %s", tableName);
+		return getUsersResult (connect2, sqlStatement );
 		
 	}
 	
@@ -113,7 +114,7 @@ public class Database {
 	}
 	
 	public static ResultSet getTeams (Connection connection) throws SQLException {
-		return getTeamResult(connection, "select * from table_teams");
+		return getTeamResult(connection, "select * from Teams");
 		
 	}
 	
@@ -124,7 +125,7 @@ public class Database {
 	}
 	
 	public static ResultSet getTask (Connection connection) throws SQLException{
-		return getTeamResult(connection, "select * from table_task");
+		return getTeamResult(connection, "select * from Task");
 	}
 	
 	//Shows the information stored in databases 
@@ -132,26 +133,33 @@ public class Database {
 		JOptionPane.showMessageDialog(null, "Visa information från databas");
 		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
 		String pane = JOptionPane.showInputDialog("");
+
 		
-		if (pane.equals("User")){
-		ResultSet rs = getUsers(connect);
+		ResultSet rs = getUsers(connect, pane);
 		while (rs.next()){
+			
 			System.out.println( rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
 		
 		}
-		}else if (pane.equals("Team")){
-		ResultSet rs2 = getTeams (connect);
-		while (rs2.next()){	
-			System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
-		}
-
-		} else if (pane.equals("Task")){
-			ResultSet rs3 = getTask(connect);
-			while (rs3.next()){
-				System.out.println (rs3.getString(1)+ ", "+ rs3.getString(2)+ ", "+ rs3.getString(3));
-			}
-			
-		}
+//		if (pane.equals("User")){
+//		ResultSet rs = getUsers(connect, "User");
+//		while (rs.next()){
+//			System.out.println( rs.getString(1)+ ", "+ rs.getString(2)+ ", "+ rs.getString(3));
+//		
+//		}
+//		}else if (pane.equals("Team")){
+//		ResultSet rs2 = getTeams (connect);
+//		while (rs2.next()){	
+//			System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
+//		}
+//
+//		} else if (pane.equals("Task")){
+//			ResultSet rs3 = getTask(connect);
+//			while (rs3.next()){
+//				System.out.println (rs3.getString(1)+ ", "+ rs3.getString(2)+ ", "+ rs3.getString(3));
+//			}
+//			
+//		}
 	}
 
 
