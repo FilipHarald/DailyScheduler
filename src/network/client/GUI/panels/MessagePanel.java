@@ -2,11 +2,14 @@ package network.client.GUI.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * The class creates a panel with new messages for the programs user.
@@ -26,13 +30,17 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	/*
 	 * Class variables
 	 */
-	private JButton newMessage = new JButton("New Message");
-	private JButton edit = new JButton ("Edit");
-	private JButton delete = new JButton ("Delete");
+	private JButton newMessageButton = new JButton("New Message");
+	private JButton editMessageButton = new JButton ("Edit");
+	private JButton deleteMessageButton = new JButton ("Delete");
 	private JPanel textPanel = new JPanel();
 	private JPanel buttonsPanel= new JPanel();
 	private JTextArea txt = new JTextArea();
 	
+	private JPanel newMessagePanel = new JPanel();
+	private JTextField titleField = new JTextField(15);
+	private JTextField recipientField = new JTextField(15);
+	private JTextArea messageArea = new JTextArea();
 
 	/**
 	 * Constructor
@@ -46,18 +54,18 @@ public class MessagePanel extends JPanel implements ActionListener  {
 		setBorder(BorderFactory.createTitledBorder("Message view"));
 		
 		buttonsPanel.setLayout(new BorderLayout());
-		buttonsPanel.add(newMessage, BorderLayout.NORTH);
-		buttonsPanel.add(delete, BorderLayout.CENTER);
-		buttonsPanel.add(edit, BorderLayout.SOUTH);
+		buttonsPanel.add(newMessageButton, BorderLayout.NORTH);
+		buttonsPanel.add(deleteMessageButton, BorderLayout.CENTER);
+		buttonsPanel.add(editMessageButton, BorderLayout.SOUTH);
 		
 		textPanel.add(txt,BorderLayout.CENTER);	
-		txt.setPreferredSize(new Dimension(300,300));
+		txt.setPreferredSize(new Dimension(200,200));
 		
 		add(buttonsPanel, BorderLayout.WEST);
 		add(textPanel, BorderLayout.CENTER);
+//		add(newMessagePanel);
 		listeners();
 		}
-	
 	
 	
 	
@@ -66,28 +74,44 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	 */
 	public void listeners(){
 		
-		newMessage.addActionListener(this);
-		delete.addActionListener(this);
-		edit.addActionListener(this);
+		newMessageButton.addActionListener(this);
+		deleteMessageButton.addActionListener(this);
+		editMessageButton.addActionListener(this);
 		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==newMessage){
+		if(e.getSource()==newMessageButton){
 			JFrame newMessageFrame = new JFrame("New Message");
-			newMessageFrame.setSize(500, 500);
+			newMessageFrame.setLayout(null);
+			newMessageFrame.setPreferredSize(new Dimension(500, 500));
+			newMessagePanel.setSize(500, 500);
+			newMessagePanel.setLayout(null);
+			
+			recipientField.setBounds(130,150,120,20);
+			titleField.setBounds(130,180,120,20);
+			
+			
+			
+			newMessagePanel.add(titleField);
+			newMessagePanel.add(recipientField);
+			
+			messageArea.setSize(100,100);
+			
+			newMessageFrame.add(newMessagePanel);
+			newMessageFrame.add(messageArea);
+			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
-//			newMessageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}else{
-			if(e.getSource()==edit){
+			if(e.getSource()==editMessageButton){
 				JFrame editFrame = new JFrame("Edit Message");
 				editFrame.setSize(500, 500);
 				editFrame.setLocationRelativeTo(null);
 				editFrame.setVisible(true);
 //				editFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}else{
-				if(e.getSource()==delete){
+				if(e.getSource()==deleteMessageButton){
 					JFrame deleteFrame = new JFrame("Delete Message");
 					deleteFrame.setSize(500, 500);
 					deleteFrame.setLocationRelativeTo(null);
