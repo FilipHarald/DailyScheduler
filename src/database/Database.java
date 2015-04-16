@@ -59,17 +59,19 @@ public class Database {
 		}
 	}
 
-	public boolean authenticateUser(UsernameAndPwdPair unP) {
+	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
+		
 		String query = String.format(
-				"SELECT * FROM User WHERE Name = %s and Password = %s",
-				UnP.getUserName(), UnP.getPassword());
-		Statement statement = connection.createStatement(
+				"SELECT * FROM User WHERE Name = " + '"' + "%s" + '"' + " and Password = " + '"' + "%s" + '"',
+				unP.getUserName(), unP.getPassword());
+		Statement statement = (Statement) connection.createStatement(
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
-		ResultSet resultSet = statement.executeQuery(sqlStatement);
-		if (statement != null) statement.close();
+		ResultSet resultSet = statement.executeQuery(query);
+//		if (statement != null) statement.close();
 		// if the returned resultSet has a next, the user exists in the username and password combination is correct.
-		return resultSet.next();
+		return resultSet.isBeforeFirst();
+		
 	}
 
 	/**
@@ -78,8 +80,9 @@ public class Database {
 	 * created. Otherwise the existing entities fields will be updated.
 	 * 
 	 * @param obj the desired object that's going to be saved
+	 * @throws SQLException 
 	 */
-	public void saveEntity(Object obj) {
+	public void saveEntity(Object obj) throws SQLException {
 		PreparedStatement prepStatement;
 
 		if (obj instanceof User) {
@@ -254,7 +257,7 @@ public class Database {
 		return getUsersResult(connect2, sqlStatement);
 
 	}
-	public User
+
 
 	// Get team table
 	public static ResultSet getTeamResult(Connection connection, String sql)
@@ -290,7 +293,7 @@ public class Database {
 				+ "Task");
 		String pane = JOptionPane.showInputDialog("");
 
-		ResultSet rs = getUsers(connection, pane);
+		ResultSet rs = getUser(connection, pane);
 		while (rs.next()) {
 
 			System.out.println(rs.getString(1) + ", " + rs.getString(2) + ", "
