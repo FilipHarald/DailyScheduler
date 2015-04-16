@@ -65,7 +65,6 @@ public class Database {
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		ResultSet resultSet = statement.executeQuery(query);
-		// if (statement != null) statement.close();
 		// if the returned resultSet has a next, the user exists in the username
 		// and password combination is correct.
 		return resultSet.isBeforeFirst();
@@ -168,7 +167,7 @@ public class Database {
 				prepStatement.setBoolean(1, true);
 				deleteFromTable(prepStatement);
 			}
-		// ------------TASK-----------
+			// ------------TASK-----------
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
 			prepStatement = connection.prepareStatement(String.format(
@@ -177,7 +176,7 @@ public class Database {
 			prepStatement.setInt(2, task.getAuthor());
 			prepStatement.setString(3, task.getDescription());
 			deleteFromTable(prepStatement);
-		// ------------TEAM-----------
+			// ------------TEAM-----------
 		} else if (obj instanceof Team) {
 			Team team = (Team) obj;
 			prepStatement = connection.prepareStatement(String.format(
@@ -219,18 +218,33 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	//Get information from tables
+
+	// Get information from tables
 	public Object getEntity(String entityType, int entityId) throws SQLException{
-		Statement statement;
-
-		statement = (Statement) connection.createStatement();
-		String sqlQuery = String.format("select * from %s");
-		statement.executeQuery(sqlQuery);
-		statement.getResultSet();
-
 		System.out.println(entityType + entityId);
 		
-		return sqlQuery;
+		Statement statement = (Statement) connection.createStatement();
+		String sqlQuery = String.format("SELECT * FROM %s WHERE " + entityType + "ID = " + '"' + "%s" + '"', entityType, entityId);
+		statement.executeQuery(sqlQuery);
+		ResultSet resultSet = statement.getResultSet();
+		Object obj;
+		
+		if(resultSet.isBeforeFirst()) obj = null;
+		
+		if(entityType.equals("User")){
+			//----------special case for user
+			Statement stmt = (Statement) connection.createStatement();
+			String adminQuery = "SELECT * FROM Admin WHERE UserID = " + entityId;
+			statement.executeQuery(adminQuery);
+			boolean isAdmin = statement.getResultSet().isBeforeFirst();
+			//----------special case for user
+			obj = new User(resultSet.getString(2), isAdmin, resultSet.getString(3), resultSet.getInt(1));
+		} else if(entityType.equals("Task")){
+			
+		} else if(entityType.equals("Team")){
+			
+		}
+		return obj;
 	}
 
 	// Get users table
