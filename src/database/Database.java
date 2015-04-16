@@ -227,20 +227,26 @@ public class Database {
 		String sqlQuery = String.format("SELECT * FROM %s WHERE " + entityType + "ID = " + '"' + "%s" + '"', entityType, entityId);
 		statement.executeQuery(sqlQuery);
 		ResultSet resultSet = statement.getResultSet();
-		Object obj;
+		Object obj = null;
 		
-		if(resultSet.isBeforeFirst()) obj = null;
+		if(!resultSet.next()) return obj;
 		
 		if(entityType.equals("User")){
 			//----------special case for user
 			Statement stmt = (Statement) connection.createStatement();
-			String adminQuery = "SELECT * FROM Admin WHERE UserID = " + entityId;
-			statement.executeQuery(adminQuery);
+			String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
+			stmt.executeQuery(adminQuery);
 			boolean isAdmin = statement.getResultSet().isBeforeFirst();
 			//----------special case for user
 			obj = new User(resultSet.getString(2), isAdmin, resultSet.getString(3), resultSet.getInt(1));
 		} else if(entityType.equals("Task")){
+			Statement stmtTask = (Statement) connection.createStatement();
+			String taskQuery = "SELECT * FROM Subtask WHERE SubtaskID = " + entityId;
+			stmtTask.executeQuery(taskQuery);
+			//-------------special case for task
+			String [] subtask;
 			
+			obj = new Task(resultSet.getInt(1), resultSet.getString(2), resultSet., resultSet.getDate(4), resultSet.getInt(5));
 		} else if(entityType.equals("Team")){
 			
 		}
