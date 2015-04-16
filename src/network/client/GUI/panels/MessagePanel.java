@@ -14,6 +14,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,7 +42,11 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JTextField titleField = new JTextField(15);
 	private JTextField recipientField = new JTextField(15);
 	private JTextArea messageArea = new JTextArea();
-
+	private JLabel titleLabel = new JLabel("Title");
+	private JLabel recipientLabel = new JLabel ("Recipient");
+	private JButton sendNewMessage = new JButton("Send");
+	
+	
 	/**
 	 * Constructor
 	 */
@@ -85,21 +90,34 @@ public class MessagePanel extends JPanel implements ActionListener  {
 			JFrame newMessageFrame = new JFrame("New Message");
 			newMessageFrame.setLayout(null);
 			newMessageFrame.setPreferredSize(new Dimension(500, 500));
+			
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
+//			
+//			recipientLabel.setPreferredSize(new Dimension(70, 20));
+//			titleLabel.setPreferredSize(new Dimension(70, 20));
 			
-			recipientField.setBounds(130,150,120,20);
-			titleField.setBounds(130,180,120,20);
+			recipientLabel.setBounds(100,50,120,20);
+			recipientField.setBounds(200,50,120,20);
 			
+			titleLabel.setBounds(100,70,120,20);
+			titleField.setBounds(200,70,120,20);
 			
+			messageArea.setBounds(100,100,280,300);
 			
+			sendNewMessage.setBounds(100,420,80,25);
+
+			newMessagePanel.add(titleLabel);
+			newMessagePanel.add(recipientLabel);
 			newMessagePanel.add(titleField);
 			newMessagePanel.add(recipientField);
+			newMessagePanel.add(messageArea);
+			newMessagePanel.add(sendNewMessage);
 			
-			messageArea.setSize(100,100);
+			
 			
 			newMessageFrame.add(newMessagePanel);
-			newMessageFrame.add(messageArea);
+//			newMessageFrame.add(messageArea);
 			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
