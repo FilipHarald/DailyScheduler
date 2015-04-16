@@ -223,8 +223,7 @@ public class Database {
 	public Object getEntity(String entityType, int entityId) throws SQLException{
 		Statement statement;
 
-		statement = (Statement) connection.createStatement(	java.sql.ResultSet.CONCUR_READ_ONLY,
-				java.sql.ResultSet.TYPE_FORWARD_ONLY);
+		statement = (Statement) connection.createStatement();
 		String sqlQuery = String.format("select * from %s", entityType);
 		statement.executeQuery(sqlQuery);
 		statement.getResultSet();
