@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import entities.User;
+
 public class TestProgram extends JPanel implements ActionListener  {
 	
-	private Database db = new Database();
+	private static Database db = new Database();
 	private DatabasGUI gui = new DatabasGUI();
 	private JButton btnsave = new JButton ("Save");
 	private JButton btnchoose = new JButton ("Choose");
@@ -32,7 +34,6 @@ public class TestProgram extends JPanel implements ActionListener  {
 		add (btnchoose, BorderLayout.NORTH);
 	}
 	public static void main (String [] args) throws Exception {
-		Database db  = new Database();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
@@ -45,12 +46,6 @@ public class TestProgram extends JPanel implements ActionListener  {
 			});
 		
 		try {
-			db.connectionToMysql();
-			
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		try {
 			db.ShowResult();
 			
 		} catch (Exception e) {
@@ -58,38 +53,14 @@ public class TestProgram extends JPanel implements ActionListener  {
 		}
 
 	}
-	
-	public void SaveResult () {
-		
-		JOptionPane.showMessageDialog(null, "Spara till databas");
-		JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
-		String pane = JOptionPane.showInputDialog("");
-		
-		if (pane.equals("User")){
+
+	public void actionPerformed(ActionEvent e1) {
+			e1.getSource();
 			try {
-				db.sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
-				
-				} catch (SQLException e) {
-				e.printStackTrace();
-				}
-		} else if (pane.equals("Team")){
-			try {
-				db.sendToTableTeams (gui.getid(), gui.getName());
-			} catch (SQLException e){
-				e.printStackTrace();
-			}
-			
-		}else if (pane.equals("Task")){
-			try {
-				db.sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
+				db.saveEntity(new User("TestaKarlsson", false, "1234", 0));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-
-	public void actionPerformed(ActionEvent e1) {
-			SaveResult();
 		
 		}
 }

@@ -1,4 +1,4 @@
-package test;
+package test.entities;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ public class UserTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		user = new User("Filip Harald", true, 10);
+		user = new User("Filip Harald", true, "1", 10);
 	}
 
 	@After
