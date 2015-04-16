@@ -23,8 +23,10 @@ public class Task {
 		this.description = description;
 
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
-		for (String str : subTasks) {
-			temp.add(new SubTask(str));
+		if(subTasks != null){
+			for (String str : subTasks) {
+				temp.add(new SubTask(str));
+			}			
 		}
 		this.subTasks = temp;
 		this.date = date;
@@ -69,7 +71,7 @@ public class Task {
 	 * @param index the index of the sub task
 	 * @param userId the user ID which has completed the sub task
 	 */
-	public void completeSubTask(int index, String userId){
+	public void completeSubTask(int index, int userId){
 		subTasks.get(index).setCompletedBy(userId);
 	}
 	
@@ -77,7 +79,7 @@ public class Task {
 	 * @param index the index of the subtask
 	 */
 	public void unCompleteSubTask(int index){
-		subTasks.get(index).setCompletedBy(null);
+		subTasks.get(index).setCompletedBy(0);
 	}
 	
 	/**
@@ -129,12 +131,12 @@ public class Task {
 	 */
 	private class SubTask {
 
-		private String completedByUserId;
+		private int completedByUserId;
 		private String description;
 
 		public SubTask(String description) {
 			this.description = description;
-			this.completedByUserId = null;
+			this.completedByUserId = 0;
 		}
 
 		/**
@@ -154,14 +156,14 @@ public class Task {
 		/**
 		 * @return the ID of the user which has completed the sub task
 		 */
-		public String getCompletedBy() {
+		public int getCompletedBy() {
 			return completedByUserId;
 		}
 
 		/**
 		 * @param completedByUserId the ID of the user which has completed the task
 		 */
-		public void setCompletedBy(String completedByUserId) {
+		public void setCompletedBy(int completedByUserId) {
 			this.completedByUserId = completedByUserId;
 		}
 
