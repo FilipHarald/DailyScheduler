@@ -32,9 +32,6 @@ import entities.*;
 public class Database {
 
 	private static Connection connection;
-	private User user;
-	private Team team;
-	private Task task;
 	private DatabasGUI gui = new DatabasGUI();
 
 	public Database() {
@@ -60,18 +57,19 @@ public class Database {
 	}
 
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		
-		String query = String.format(
-				"SELECT * FROM User WHERE Name = " + '"' + "%s" + '"' + " and Password = " + '"' + "%s" + '"',
+
+		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
+				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserName(), unP.getPassword());
 		Statement statement = (Statement) connection.createStatement(
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		ResultSet resultSet = statement.executeQuery(query);
-//		if (statement != null) statement.close();
-		// if the returned resultSet has a next, the user exists in the username and password combination is correct.
+		// if (statement != null) statement.close();
+		// if the returned resultSet has a next, the user exists in the username
+		// and password combination is correct.
 		return resultSet.isBeforeFirst();
-		
+
 	}
 
 	/**
@@ -79,12 +77,13 @@ public class Database {
 	 * class the object is. If the entity has ID==0 a new entity will be
 	 * created. Otherwise the existing entities fields will be updated.
 	 * 
-	 * @param obj the desired object that's going to be saved
-	 * @throws SQLException 
+	 * @param obj
+	 *            the desired object that's going to be saved
+	 * @throws SQLException
 	 */
 	public void saveEntity(Object obj) throws SQLException {
 		PreparedStatement prepStatement;
-
+		// ------------USER-----------
 		if (obj instanceof User) {
 			User user = (User) obj;
 			if (user.getId() == 0) {
@@ -100,9 +99,23 @@ public class Database {
 					insertToTable(prepStatement);
 				}
 			} else {
-				// updateTable("User", user.getId(), user.getName(),
-				// user.getPassword());
+				prepStatement = connection
+						.prepareStatement(String
+								.format("UPDATE User set(Name, Password) values (?, ?) WHERE UserID = %s",
+										user.getId()));
+				prepStatement.setString(1, user.getName());
+				prepStatement.setString(2, user.getPassword());
+				updateToTable(prepStatement);
+				if (user.isAdmin()) {
+					prepStatement = connection
+							.prepareStatement(String
+									.format("UPDATE Admin set(User) values (?) WHERE UserID = %s",
+											user.getId()));
+					prepStatement.setBoolean(1, true);
+					updateToTable(prepStatement);
+				}
 			}
+			// ------------TASK
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
 			if (task.getId() == 0) {
@@ -113,18 +126,66 @@ public class Database {
 				prepStatement.setString(3, task.getDescription());
 				insertToTable(prepStatement);
 			} else {
-				// updateTable
+				prepStatement = connection
+						.prepareStatement(String
+								.format("UPDTAE Task set(Description, Author, Date) values (?,?,?) WHERE TaskID = %s",
+										task.getId()));
+				prepStatement.setDate(1, (Date) task.getDate());
+				prepStatement.setInt(2, task.getAuthor());
+				prepStatement.setString(3, task.getDescription());
+				updateToTable(prepStatement);
 			}
+			// ------------TEAM
 		} else if (obj instanceof Team) {
-			if (task.getId() == 0) {
-				Team team = (Team) obj;
+			Team team = (Team) obj;
+			if (team.getId() == 0) {
 				prepStatement = connection
 						.prepareStatement("INSERT INTO Team (Name) values (?)");
 				prepStatement.setString(1, team.getName());
 			} else {
-				// updateTable
+				prepStatement = connection.prepareStatement(String.format(
+						"UPDATE Team set(Name) values (?) WHERE TeamID = %s",
+						team.getId()));
+				prepStatement.setString(1, team.getName());
+				updateToTable(prepStatement);
 			}
 		}
+	}
+
+	public void deleteEntity(Object obj) throws SQLException {
+		PreparedStatement prepStatement;
+		// ------------USER-----------
+		if (obj instanceof User) {
+			User user = (User) obj;
+			prepStatement = connection.prepareStatement(String.format(
+					"DELETE FROM User WHERE UserID = %s", user.getId()));
+			prepStatement.setString(1, user.getName());
+			prepStatement.setString(2, user.getPassword());
+			deleteFromTable(prepStatement);
+			if (user.isAdmin()) {
+				prepStatement = connection.prepareStatement(String.format(
+						"DELETE FROM Admin WHERE UserID = %s", user.getId()));
+				prepStatement.setBoolean(1, true);
+				deleteFromTable(prepStatement);
+			}
+		// ------------TASK-----------
+		} else if (obj instanceof Task) {
+			Task task = (Task) obj;
+			prepStatement = connection.prepareStatement(String.format(
+					"DELETE FROM Task WHERE TaskID = %s", task.getId()));
+			prepStatement.setDate(1, (Date) task.getDate());
+			prepStatement.setInt(2, task.getAuthor());
+			prepStatement.setString(3, task.getDescription());
+			deleteFromTable(prepStatement);
+		// ------------TEAM-----------
+		} else if (obj instanceof Team) {
+			Team team = (Team) obj;
+			prepStatement = connection.prepareStatement(String.format(
+					"DELETE FROM Team WHERE TeamID = %s", team.getId()));
+			prepStatement.setString(1, team.getName());
+			deleteFromTable(prepStatement);
+		}
+
 	}
 
 	private void insertToTable(PreparedStatement statement) {
@@ -138,105 +199,23 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
-	public void updateEntity (Object obj, int currentID) throws SQLException{
-		PreparedStatement prepStatement;
-		
-		if (obj instanceof User) {
-			User user = (User) obj;
-			if (user.getId() == currentID) {
-				prepStatement = connection
-						.prepareStatement("UPDATE User set(Name, Password) values (?, ?) WHERE UserID = currentID");
-				prepStatement.setString(1, user.getName());
-				prepStatement.setString(2, user.getPassword());
-				updateToTable(prepStatement);
-				if (user.isAdmin()) {
-					prepStatement = connection
-							.prepareStatement("UPDATE Admin set(User) values (?) WHERE UserID = curentID");
-					prepStatement.setBoolean(1, true);
-					updateToTable(prepStatement);
-				}
-			} 		
-		} else if (obj instanceof Task) {
-			Task task = (Task) obj;
-			if (task.getId() == currentID) {
-				prepStatement = connection
-						.prepareStatement("UPDTAE Task set(Description, Author, Date) values (?,?,?) WHERE TaskID = currentID");
-				prepStatement.setDate(1, (Date) task.getDate());
-				prepStatement.setInt(2, task.getAuthor());
-				prepStatement.setString(3, task.getDescription());
-				updateToTable(prepStatement);
-			}
-		} else if (obj instanceof Team) {
-			if (task.getId() == currentID) {
-				Team team = (Team) obj;
-				prepStatement = connection
-						.prepareStatement("UPDATE Team set(Name) values (?) WHERE TeamID = currentID");
-				prepStatement.setString(1, team.getName());
-				updateToTable(prepStatement);
-			}
-				
-		}
-	
-}
 
-	private void updateToTable (PreparedStatement statement){
+	private void updateToTable(PreparedStatement statement) {
 		try {
 			statement.executeUpdate();
 			statement.close();
 			connection.close();
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void deleteEntity (Object obj, int currentID) throws SQLException{
-		PreparedStatement prepStatement;
-		
-		if (obj instanceof User) {
-			User user = (User) obj;
-			if (user.getId() == currentID) {
-				prepStatement = connection
-						.prepareStatement("DELETE FROM User WHERE UserID = currentID");
-				prepStatement.setString(1, user.getName());
-				prepStatement.setString(2, user.getPassword());
-				deleteFromTable(prepStatement);
-				if (user.isAdmin()) {
-					prepStatement = connection
-							.prepareStatement("DELETE FROM Admin WHERE UserID = curentID");
-					prepStatement.setBoolean(1, true);
-					deleteFromTable(prepStatement);
-				}
-			} 		
-		} else if (obj instanceof Task) {
-			Task task = (Task) obj;
-			if (task.getId() == currentID) {
-				prepStatement = connection
-						.prepareStatement("DELETE FROM Task WHERE TaskID = currentID");
-				prepStatement.setDate(1, (Date) task.getDate());
-				prepStatement.setInt(2, task.getAuthor());
-				prepStatement.setString(3, task.getDescription());
-				deleteFromTable(prepStatement);
-			}
-		} else if (obj instanceof Team) {
-			if (task.getId() == currentID) {
-				Team team = (Team) obj;
-				prepStatement = connection
-						.prepareStatement("DELETE FROM Team WHERE TeamID = currentID");
-				prepStatement.setString(1, team.getName());
-				deleteFromTable(prepStatement);
-			}
-				
-		}
-	
-}
-	
-	private void deleteFromTable (PreparedStatement statement){
+
+	private void deleteFromTable(PreparedStatement statement) {
 		try {
 			statement.executeUpdate();
 			statement.close();
 			connection.close();
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -257,7 +236,6 @@ public class Database {
 		return getUsersResult(connect2, sqlStatement);
 
 	}
-
 
 	// Get team table
 	public static ResultSet getTeamResult(Connection connection, String sql)
