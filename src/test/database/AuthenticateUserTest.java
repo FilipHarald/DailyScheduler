@@ -1,6 +1,9 @@
 package test.database;
 
 import static org.junit.Assert.*;
+
+import java.sql.SQLException;
+
 import miscellaneous.UsernameAndPwdPair;
 
 import org.junit.Before;
@@ -22,7 +25,12 @@ public class AuthenticateUserTest {
 
 	@Test
 	public void test() {
-		assertTrue(db.authenticateUser(unP));
+		try {
+			assertTrue(db.authenticateUser(unP));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
