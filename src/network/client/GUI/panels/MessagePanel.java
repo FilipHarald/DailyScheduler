@@ -46,7 +46,8 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JLabel recipientLabel = new JLabel ("Recipient");
 	private JButton sendNewMessage = new JButton("Send");
 	
-	
+	private JPanel editMessagePanel = new JPanel();
+	private JButton editMessage = new JButton("Edit");
 	/**
 	 * Constructor
 	 */
@@ -93,9 +94,7 @@ public class MessagePanel extends JPanel implements ActionListener  {
 			
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
-//			
-//			recipientLabel.setPreferredSize(new Dimension(70, 20));
-//			titleLabel.setPreferredSize(new Dimension(70, 20));
+
 			
 			recipientLabel.setBounds(100,50,120,20);
 			recipientField.setBounds(200,50,120,20);
@@ -117,17 +116,41 @@ public class MessagePanel extends JPanel implements ActionListener  {
 			
 			
 			newMessageFrame.add(newMessagePanel);
-//			newMessageFrame.add(messageArea);
 			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
 		}else{
 			if(e.getSource()==editMessageButton){
-				JFrame editFrame = new JFrame("Edit Message");
-				editFrame.setSize(500, 500);
-				editFrame.setLocationRelativeTo(null);
-				editFrame.setVisible(true);
-//				editFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				JFrame editMessageFrame = new JFrame("Edit Message");
+				editMessageFrame.setLayout(null);
+				editMessageFrame.setPreferredSize(new Dimension(500, 500));
+				
+				newMessagePanel.setSize(500, 500);
+				newMessagePanel.setLayout(null);
+				
+				recipientLabel.setBounds(100,50,120,20);
+				recipientField.setBounds(200,50,120,20);
+				
+				titleLabel.setBounds(100,70,120,20);
+				titleField.setBounds(200,70,120,20);
+				
+				messageArea.setBounds(100,100,280,300);
+				
+				sendNewMessage.setBounds(100,420,80,25);
+
+				editMessagePanel.add(titleLabel);
+				editMessagePanel.add(recipientLabel);
+				editMessagePanel.add(titleField);
+				editMessagePanel.add(recipientField);
+				editMessagePanel.add(messageArea);
+				editMessagePanel.add(sendNewMessage);
+				
+				
+				
+				editMessageFrame.add(newMessagePanel);
+				editMessageFrame.pack();
+				editMessageFrame.setLocationRelativeTo(null);
+				editMessageFrame.setVisible(true);
 			}else{
 				if(e.getSource()==deleteMessageButton){
 					JFrame deleteFrame = new JFrame("Delete Message");
