@@ -9,4 +9,13 @@ public class CalendarPanel extends JPanel {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Calendar view"));
 	}
+
+    public void displayEvent() {
+        
+    }
+    
+    //get description from textarea
+    public String getDescription(){
+        return textDescription.getText();
+    }
 }
