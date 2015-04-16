@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -139,5 +140,20 @@ public class MessagePanel extends JPanel implements ActionListener  {
 			}
 		}
 	}
+    
+    //get title from textfield
+    public String getTitle() {
+        return titleField.getText();
+    }
+    
+    //get message from textarea
+    public String getMessage() {
+        return messageArea.getText();
+    }
+    
+    //get recipients from textfield
+    public String getRecipients() {
+        return recipientField.getText();
+    }
 	
 }
