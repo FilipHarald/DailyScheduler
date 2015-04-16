@@ -23,11 +23,11 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
+import miscellaneous.UsernameAndPwdPair;
+
 import com.mysql.jdbc.Statement;
 
-import entities.Team;
-import entities.User;
-import entities.Task;
+import entities.*;
 
 public class Database {
 
@@ -59,7 +59,25 @@ public class Database {
 		}
 	}
 
-	public void saveEntity(Object obj) throws SQLException {
+	public boolean authenticateUser(UsernameAndPwdPair UnP) {
+		String query = String.format(
+				"SELECT * FROM User WHERE Name = %s and Password = %s",
+				UnP.getUserName(), UnP.getPassword().toString());
+		Statement statement = connection.createStatement(
+				java.sql.ResultSet.CONCUR_READ_ONLY,
+				java.sql.ResultSet.TYPE_FORWARD_ONLY);
+		return statement.executeQuery(sqlStatement);
+	}
+
+	/**
+	 * This method saves an entity to the proper databasetable depending on what
+	 * class the object is. If the entity has ID==0 a new entity will be
+	 * created. Otherwise the existing entities fields will be updated.
+	 * 
+	 * @param obj
+	 *            the desired object that's going to be saved
+	 */
+	public void saveEntity(Object obj) {
 		PreparedStatement prepStatement;
 
 		if (obj instanceof User) {
@@ -110,6 +128,8 @@ public class Database {
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
+			System.out
+					.println("Something went wrong trying to insert the entity into the database");
 			e.printStackTrace();
 		}
 	}
@@ -217,7 +237,7 @@ public class Database {
 	}
 
 	// Get users table
-	public static ResultSet getUsersResult(Connection connect1, String sql)
+	public ResultSet getUsersResult(Connection connect1, String sql)
 			throws Exception {
 		Statement state = (Statement) connect1.createStatement(
 				java.sql.ResultSet.CONCUR_READ_ONLY,
@@ -226,7 +246,7 @@ public class Database {
 
 	}
 
-	public static ResultSet getUsers(Connection connect2, String tableName)
+	public ResultSet getUser(Connection connect2, String tableName)
 			throws Exception {
 		String sqlStatement = String.format("select * from %s", tableName);
 		return getUsersResult(connect2, sqlStatement);
