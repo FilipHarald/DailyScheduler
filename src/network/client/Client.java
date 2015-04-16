@@ -12,9 +12,12 @@ import entities.TaskController;
 import entities.Team;
 import entities.User;
 import entities.UserAndTeamController;
+import miscellaneous.Authentication;
 
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
+import network.server.Server;
 
 /**
  *
@@ -29,11 +32,15 @@ public class Client {
     private TaskController tc;
     private EventController ec;
     private UserAndTeamController utc;
+    private Server server;
+    private ClientController cc;
+    private Authentication auth;
     
     /*constructor: sets the ip, port and ID 
     *Also starts a new thread that maintains the connection to the server
     */
     public Client(String ip, int port) {
+        server = new Server(port, null);
     	try{
     		socket = new Socket(ip, port);
     		ois = new ObjectInputStream(socket.getInputStream());
@@ -45,47 +52,64 @@ public class Client {
     	new Listener().start();
     }
 
-
-    //close connection to server
-    public void disconnect() throws IOException {
-        socket.close();
+    // validates the users login with the server
+    public boolean validateUser(String userName, char[] password){
+        boolean isCorrect = false;
         
+        if((server.validateUserName(userName) == true) && (server.validatePassword(password) == true)){
+        //if(server.validateUserName(userName) && server.validatePassword(password)){
+            isCorrect = true;
+        }
+        return isCorrect;
     }
     
     
+    public void sendUserInfo(Authentication auth) {
+        try {
+            oos.writeObject(auth);
+            oos.flush();
+        } catch (IOException e) {
+        }
+
+    }
+
     //send task to server
-    public void sendTask(Task task){
-    	
-    	try{
-    		oos.writeObject(task);
-    		oos.flush();
-    	}catch(IOException e){}
+    public void sendTask(Task task) {
+
+        try {
+            oos.writeObject(task);
+            oos.flush();
+        } catch (IOException e) {
+        }
     }
-    
+
     //send event to server
-    public void sendEvent(Event event){
-    	try{
-    		oos.writeObject(event);
-    		oos.flush();
-    	}catch(IOException e){}
+    public void sendEvent(Event event) {
+        try {
+            oos.writeObject(event);
+            oos.flush();
+        } catch (IOException e) {
+        }
     }
-    
+
     //send created user to server
-    public void sendUser(User user){
-    	try{
-    		oos.writeObject(user);
-    		oos.flush();
-    	}catch(IOException e){}
+    public void sendUser(User user) {
+        try {
+            oos.writeObject(user);
+            oos.flush();
+        } catch (IOException e) {
+        }
     }
-    
+
     //send team to server
-    public void sendTeam(Team team){
-    	try{
-    		oos.writeObject(team);
-    		oos.flush();
-    	}catch(IOException e){}
+    public void sendTeam(Team team) {
+        try {
+            oos.writeObject(team);
+            oos.flush();
+        } catch (IOException e) {
+        }
     }
-              
+
     
     /**
      * send userName to server via oos
@@ -124,6 +148,12 @@ public class Client {
                 }
             }catch(Exception e){}
         }
+        
+    }
+    
+    //close connection to server
+    public void disconnect() throws IOException {
+        socket.close();
         
     }
 

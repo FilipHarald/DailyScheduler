@@ -31,7 +31,7 @@ public class MessageController {
     }
     
     public Message editMessage(){
-        displayMessage();
+        displayMessage(msg);
         
         Message msg = new Message(null, null, null, 0);
         msg.getAuthor();

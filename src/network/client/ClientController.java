@@ -59,11 +59,13 @@ public class ClientController {
      * @param password the password for the username ("1234")
      */
     public void login(String userName, char[] password){
-    	if(server.validateUserName(userName) && server.validatePassword(password)){
+    	if(client.validateUser(userName, password)== true){
     		loginWindow.close();
-    		gui = new ApplicationGUI(null, this);
-    	}
+        	gui = new ApplicationGUI(null, this);
+    	}else{ System.out.println("Fail!");}
+    	
     }
+    
 
     
     //disconnect client when user logs out
