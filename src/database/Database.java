@@ -219,6 +219,20 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	//Get information from tables
+	public Object getEntity(String entityType, int entityId) throws SQLException{
+		Statement statement;
+
+		statement = (Statement) connection.createStatement(	java.sql.ResultSet.CONCUR_READ_ONLY,
+				java.sql.ResultSet.TYPE_FORWARD_ONLY);
+		String sqlQuery = String.format("select * from %s", entityType);
+		statement.executeQuery(sqlQuery);
+		statement.getResultSet();
+
+		System.out.println(entityType + entityId);
+		
+		return sqlQuery;
+	}
 
 	// Get users table
 	public ResultSet getUsersResult(Connection connect1, String sql)
