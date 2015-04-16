@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -243,10 +244,17 @@ public class Database {
 			Statement stmtTask = (Statement) connection.createStatement();
 			String taskQuery = "SELECT * FROM Subtask WHERE SubtaskID = " + entityId;
 			stmtTask.executeQuery(taskQuery);
-			//-------------special case for task
-			String [] subtask;
+			ResultSet subTaskResults = stmtTask.getResultSet();
+			//-------------Task
 			
-			obj = new Task(resultSet.getInt(1), resultSet.getString(2), resultSet., resultSet.getDate(4), resultSet.getInt(5));
+			Task task = new Task(resultSet.getInt(1), resultSet.getString(2), null, resultSet.getDate(3), resultSet.getInt(4));
+			int counter = 0;
+			while (subTaskResults.next()){
+				task.addSubTask(subTaskResults.getString(2));
+				task.completeSubTask(counter, subTaskResults.getInt(3));
+			}
+			obj = task;
+		
 		} else if(entityType.equals("Team")){
 			
 		}
