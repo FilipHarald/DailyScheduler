@@ -59,14 +59,17 @@ public class Database {
 		}
 	}
 
-	public boolean authenticateUser(UsernameAndPwdPair UnP) {
+	public boolean authenticateUser(UsernameAndPwdPair unP) {
 		String query = String.format(
 				"SELECT * FROM User WHERE Name = %s and Password = %s",
-				UnP.getUserName(), UnP.getPassword().toString());
+				UnP.getUserName(), UnP.getPassword());
 		Statement statement = connection.createStatement(
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
-		return statement.executeQuery(sqlStatement);
+		ResultSet resultSet = statement.executeQuery(sqlStatement);
+		if (statement != null) statement.close();
+		// if the returned resultSet has a next, the user exists in the username and password combination is correct.
+		return resultSet.next();
 	}
 
 	/**
@@ -74,8 +77,7 @@ public class Database {
 	 * class the object is. If the entity has ID==0 a new entity will be
 	 * created. Otherwise the existing entities fields will be updated.
 	 * 
-	 * @param obj
-	 *            the desired object that's going to be saved
+	 * @param obj the desired object that's going to be saved
 	 */
 	public void saveEntity(Object obj) {
 		PreparedStatement prepStatement;
@@ -252,6 +254,7 @@ public class Database {
 		return getUsersResult(connect2, sqlStatement);
 
 	}
+	public User
 
 	// Get team table
 	public static ResultSet getTeamResult(Connection connection, String sql)
