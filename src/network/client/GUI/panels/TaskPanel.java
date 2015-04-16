@@ -84,6 +84,16 @@ public class TaskPanel extends JPanel {
 		
 		add (labelInputPanel, BorderLayout.SOUTH);
 	}
+
+    public void displayTask() {
+               
+        
+    }
+    
+    //get description from textarea
+    public String getDescription() {
+        return textDescription.getText();
+    }
 	
 
 	
