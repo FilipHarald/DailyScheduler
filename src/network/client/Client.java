@@ -12,7 +12,7 @@ import entities.TaskController;
 import entities.Team;
 import entities.User;
 import entities.UserAndTeamController;
-import miscellaneous.Authentication;
+import miscellaneous.UsernameAndPwdPair;
 
 import java.io.*;
 import java.net.*;
@@ -34,7 +34,7 @@ public class Client {
     private UserAndTeamController utc;
     private Server server;
     private ClientController cc;
-    private Authentication auth;
+    private UsernameAndPwdPair auth;
     
     /*constructor: sets the ip, port and ID 
     *Also starts a new thread that maintains the connection to the server
@@ -64,7 +64,7 @@ public class Client {
     }
     
     
-    public void sendUserInfo(Authentication auth) {
+    public void sendUserInfo(UsernameAndPwdPair auth) {
         try {
             oos.writeObject(auth);
             oos.flush();
