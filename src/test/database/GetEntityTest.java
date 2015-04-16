@@ -25,15 +25,21 @@ public class GetEntityTest {
 	@Test
 	public void test() {
 		try {
-			user = (User) db.getEntity("User", 4);
+			user = (User) db.getEntity("User", 5);
 			task = (Task) db.getEntity("Task", 1);
-			team = (Team) db.getEntity("Team", 1);
+//			team = (Team) db.getEntity("Team", 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		assertEquals("UserObj", "Testa Karlsson", user.getName());
-		assertEquals("TaskObj", "1", task.getAuthor());
-		assertEquals("TeamObj", "lagett", team.getName());
+		assertEquals("TaskObj", 1, task.getAuthor());
+		String [] str = task.getSubtasks();
+		for (String s : str){
+			System.out.println(s);
+		}
+//		assertEquals("TaskObj", 1, task.getSubtasks());
+		
+//		assertEquals("TeamObj", "lagett", team.getName());
 	}
 
 }
