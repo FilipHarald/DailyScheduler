@@ -224,7 +224,7 @@ public class Database {
 		Statement statement;
 
 		statement = (Statement) connection.createStatement();
-		String sqlQuery = String.format("select * from %s", entityType);
+		String sqlQuery = String.format("select * from %s");
 		statement.executeQuery(sqlQuery);
 		statement.getResultSet();
 
