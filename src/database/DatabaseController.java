@@ -267,7 +267,7 @@ public class DatabaseController {
 					resultSet.getString(3), resultSet.getInt(1));
 		} else if (entityType.equals("Task")) {
 			Statement stmtTask = (Statement) connection.createStatement();
-			String taskQuery = "SELECT * FROM Subtask WHERE SubtaskID = "
+			String taskQuery = "SELECT * FROM Subtask WHERE Task = "
 					+ entityId;
 			stmtTask.executeQuery(taskQuery);
 			ResultSet subTaskResults = stmtTask.getResultSet();
