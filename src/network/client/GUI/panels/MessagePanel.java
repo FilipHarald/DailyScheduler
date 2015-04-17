@@ -89,6 +89,7 @@ public class MessagePanel extends JPanel implements ActionListener  {
 		newMessageButton.addActionListener(this);
 		deleteMessageButton.addActionListener(this);
 		editMessageButton.addActionListener(this);
+		sendNewMessage.addActionListener(this);
 		
 	}
 	
@@ -185,6 +186,12 @@ public class MessagePanel extends JPanel implements ActionListener  {
 					deleteMessageFrame.setLocationRelativeTo(null);
 					deleteMessageFrame.setVisible(true);
 
+				}
+				
+				if (e.getSource()==sendNewMessage){
+					String titleText = titleField.getText();
+					String messageText = messageArea.getText();
+					String resipientText = recipientField.getText();
 				}
 			}
 		}
