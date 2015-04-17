@@ -18,10 +18,11 @@ public class Task {
 	private Date date;
 	private int Id;
 
+
 	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
 		this.authorId = authorId;
 		this.description = description;
-
+		
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
 		if(subTasks != null){
 			for (String str : subTasks) {
@@ -123,6 +124,7 @@ public class Task {
 	public int getAuthor() {
 		return authorId;
 	}
+	
 
 	/**
 	 * This class represents the sub tasks of a task.
