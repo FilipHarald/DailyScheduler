@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
+import miscellaneous.UsernameAndPwdPair;
 import network.server.Server.ClientHandler;
 
 public class Server implements Runnable, Observer {
@@ -64,38 +65,40 @@ public class Server implements Runnable, Observer {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	/**
-	 * Validates the username
-	 * @param userName the username is "test" for now
-	 * @return userName
-	 */
-	public boolean validateUserName(String userName){
-		//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
-    	return (userName.equals("test"));
-    }
-    
-	/**
-	 * validates the password
-	 * @param password the correct password is "1234" for now
-	 * @return isCorrect
-	 */
-	public boolean validatePassword(char[] password) {
-    	//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
-    	boolean isCorrect = true;
-        char[] correctPassword = {'1', '2','3','4'};
-        
-        if (password.length != correctPassword.length){
-            isCorrect = false;
-        }else{
-            isCorrect = Arrays.equals (password, correctPassword);
-        }
-        
-        Arrays.fill(correctPassword, '0');
-        
-        return isCorrect;
-        
-    }
+
+//	----------------Authentication should be called from ServerController, united the methods and moved them to ServerController
+//	----------------//Filip
+//	/**
+//	 * Validates the username
+//	 * @param userName the username is "test" for now
+//	 * @return userName
+//	 */
+//	public boolean validateUserName(String userName){
+//		//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
+//    	return (userName.equals("test"));
+//    }
+//    
+//	/**
+//	 * validates the password
+//	 * @param password the correct password is "1234" for now
+//	 * @return isCorrect
+//	 */
+//	public boolean validatePassword(char[] password) {
+//    	//TODO:Credentials need to be matched to the database, THIS IS A TEMPORARY SOLUTION
+//    	boolean isCorrect = true;
+//        char[] correctPassword = {'1', '2','3','4'};
+//        
+//        if (password.length != correctPassword.length){
+//            isCorrect = false;
+//        }else{
+//            isCorrect = Arrays.equals (password, correctPassword);
+//        }
+//        
+//        Arrays.fill(correctPassword, '0');
+//        
+//        return isCorrect;
+//        
+//    }
 	
 //	public void userConnected(String userName){
 //		if (ID==true){
@@ -187,6 +190,12 @@ public class Server implements Runnable, Observer {
 					Object obj = ois.readObject();
 					if(obj instanceof String)						
 						name = (String) obj;
+					
+					if(obj instanceof UsernameAndPwdPair){
+						boolean validUser = sCont.authenticateUser((UsernameAndPwdPair) obj);
+						//send handshake to client that authentication suceeded
+					}
+					
 					setChanged();
 					notifyObservers(obj);	
 				}

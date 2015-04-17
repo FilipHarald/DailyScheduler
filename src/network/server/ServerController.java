@@ -2,10 +2,14 @@ package network.server;
 
 import javax.swing.JFrame;
 
+import miscellaneous.UsernameAndPwdPair;
+import database.DatabaseController;
+
 public class ServerController {
 	
 	public final int port = 1234;
 	private Server server = new Server(port, this);
+	private DatabaseController dbc;
 	public ServerController(){
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -14,6 +18,10 @@ public class ServerController {
 		frame.setVisible(true);
 		
 		
+	}
+	
+	public boolean authenticateUser(UsernameAndPwdPair unP){
+		return dbc.authenticateUser(unP);
 	}
 	
 	

@@ -7,18 +7,18 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
-import database.Database;
+import database.DatabaseController;
 import entities.*;
 
 public class GetEntityTest {
 	private User user;
 	private Task task;
 	private Team team;
-	private Database db;
+	private DatabaseController db;
 	
 	@Before
 	public void setUp() throws Exception {
-		db = new Database();
+		db = new DatabaseController();
 //		user = new User("Testa Karlsson", false, "1234", 4);
 	}
 
