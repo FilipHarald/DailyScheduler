@@ -5,7 +5,7 @@
  */
 package entities;
 
-import database.Database;
+import database.DatabaseController;
 
 import java.util.*;
 
@@ -18,7 +18,7 @@ import network.client.GUI.panels.CalendarPanel;
 public class EventController {
 
     private Event event;
-    private Database database;
+    private DatabaseController database;
    	private CalendarPanel calendarPanel;
 
     public EventController(Event event) {

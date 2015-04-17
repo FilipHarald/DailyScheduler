@@ -5,7 +5,7 @@
  */
 package entities;
 
-import database.Database;
+import database.DatabaseController;
 import network.client.GUI.panels.MessagePanel;
 
 /**
@@ -14,7 +14,7 @@ import network.client.GUI.panels.MessagePanel;
  */
 public class MessageController {
     private Message msg;
-    private Database database;
+    private DatabaseController database;
     private MessagePanel msgPanel;
     
     public MessageController(Message msg){

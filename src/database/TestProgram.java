@@ -17,7 +17,7 @@ import entities.User;
 
 public class TestProgram extends JPanel implements ActionListener  {
 	
-	private static Database db = new Database();
+	private static DatabaseController db = new DatabaseController();
 	private DatabasGUI gui = new DatabasGUI();
 	private JButton btnsave = new JButton ("Save");
 	private JButton btnchoose = new JButton ("Choose");

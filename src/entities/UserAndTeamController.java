@@ -5,7 +5,7 @@
  */
 package entities;
 
-import database.Database;
+import database.DatabaseController;
 
 /**
  *
@@ -14,7 +14,7 @@ import database.Database;
 public class UserAndTeamController {
     private User user;
     private Team team;
-    private Database database;
+    private DatabaseController database;
     
     /**
      * constructor that sets the User and Team
