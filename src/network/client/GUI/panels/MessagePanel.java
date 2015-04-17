@@ -49,6 +49,11 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	
 	private JPanel editMessagePanel = new JPanel();
 	private JButton editMessage = new JButton("Edit");
+	
+	private JPanel deleteMessagePanel = new JPanel();
+	private JButton deleteMessageYes = new JButton ("Yes");
+	private JButton deleteMessageNo = new JButton("No");
+	private JLabel deleteMessageTitle = new JLabel("Do you wish to delete this message?");
 	/**
 	 * Constructor
 	 */
@@ -126,8 +131,8 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				editMessageFrame.setLayout(null);
 				editMessageFrame.setPreferredSize(new Dimension(500, 500));
 				
-				newMessagePanel.setSize(500, 500);
-				newMessagePanel.setLayout(null);
+				editMessagePanel.setSize(500, 500);
+				editMessagePanel.setLayout(null);
 				
 				recipientLabel.setBounds(100,50,120,20);
 				recipientField.setBounds(200,50,120,20);
@@ -137,28 +142,49 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				
 				messageArea.setBounds(100,100,280,300);
 				
-				sendNewMessage.setBounds(100,420,80,25);
+				editMessage.setBounds(100,420,80,25);
 
+				//Lägg till kod för att hämta information från gamla meddelanden, String -> getText osv
+				//för att editera dem.
+				
 				editMessagePanel.add(titleLabel);
 				editMessagePanel.add(recipientLabel);
 				editMessagePanel.add(titleField);
 				editMessagePanel.add(recipientField);
 				editMessagePanel.add(messageArea);
-				editMessagePanel.add(sendNewMessage);
+				editMessagePanel.add(editMessage);
 				
 				
 				
-				editMessageFrame.add(newMessagePanel);
+				editMessageFrame.add(editMessagePanel);
 				editMessageFrame.pack();
 				editMessageFrame.setLocationRelativeTo(null);
 				editMessageFrame.setVisible(true);
 			}else{
 				if(e.getSource()==deleteMessageButton){
-					JFrame deleteFrame = new JFrame("Delete Message");
-					deleteFrame.setSize(500, 500);
-					deleteFrame.setLocationRelativeTo(null);
-					deleteFrame.setVisible(true);
-//					deleteFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					JFrame deleteMessageFrame = new JFrame("Delete Message");
+					deleteMessageFrame.setLayout(null);
+					deleteMessageFrame.setPreferredSize(new Dimension(500,500));
+					
+					deleteMessagePanel.setSize(500,500);
+					deleteMessagePanel.setLayout(null);
+					
+					deleteMessageTitle.setBounds(140,80,250,20);
+					
+					deleteMessageYes.setBounds(100,420,80,25);
+					deleteMessageNo.setBounds(300,420,80,25);
+					
+					
+					deleteMessagePanel.add(deleteMessageTitle);
+					deleteMessagePanel.add(deleteMessageYes);
+					deleteMessagePanel.add(deleteMessageNo);
+					
+					
+					deleteMessageFrame.add(deleteMessagePanel);
+					deleteMessageFrame.pack();
+					deleteMessageFrame.setLocationRelativeTo(null);
+					deleteMessageFrame.setVisible(true);
+
 				}
 			}
 		}
