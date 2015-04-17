@@ -33,18 +33,20 @@ import entities.*;
 public class Database {
 
 	private static Connection connection;
-	private DatabasGUI gui = new DatabasGUI();
 
 	public Database() {
 		try {
 			connectToMySql();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	// Start connection to localhost
+	/**
+	 * Connects to the database.
+	 * 
+	 * @throws ClassNotFoundException
+	 */
 	public void connectToMySql() throws ClassNotFoundException {
 		String host = "jdbc:mysql://localhost/test";
 		String username = "root", password = "";
@@ -57,8 +59,14 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Checks if the username and password combination exists in the database.
+	 * 
+	 * @param unP
+	 * @return returns true if the combination exists.
+	 * @throws SQLException
+	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-
 		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserName(), unP.getPassword());
@@ -66,8 +74,6 @@ public class Database {
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		ResultSet resultSet = statement.executeQuery(query);
-		// if the returned resultSet has a next, the user exists in the username
-		// and password combination is correct.
 		return resultSet.isBeforeFirst();
 
 	}
@@ -115,7 +121,7 @@ public class Database {
 					updateToTable(prepStatement);
 				}
 			}
-			// ------------TASK
+			// ------------TASK------------
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
 			if (task.getId() == 0) {
@@ -135,7 +141,7 @@ public class Database {
 				prepStatement.setString(3, task.getDescription());
 				updateToTable(prepStatement);
 			}
-			// ------------TEAM
+			// ------------TEAM----------------
 		} else if (obj instanceof Team) {
 			Team team = (Team) obj;
 			if (team.getId() == 0) {
@@ -152,6 +158,14 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Deletes the entity with the same ID in the database.
+	 * 
+	 * @param obj
+	 *            an object which is the same class and has the same ID as the
+	 *            entity one wishes to delete
+	 * @throws SQLException
+	 */
 	public void deleteEntity(Object obj) throws SQLException {
 		PreparedStatement prepStatement;
 		// ------------USER-----------
@@ -220,43 +234,52 @@ public class Database {
 		}
 	}
 
-	// Get information from tables
-	public Object getEntity(String entityType, int entityId) throws SQLException{
+	/**
+	 * Returns an object from the database with the attributes of the the
+	 * specific entityId
+	 * 
+	 * @param entityType
+	 * @param entityId
+	 * @return an object of the class specified by "entityType" and with
+	 *         attributes specific for entityId
+	 * @throws SQLException
+	 */
+	public Object getEntity(String entityType, int entityId)
+			throws SQLException {
 		System.out.println(entityType + entityId);
-		
+
 		Statement statement = (Statement) connection.createStatement();
-		String sqlQuery = String.format("SELECT * FROM %s WHERE " + entityType + "ID = " + '"' + "%s" + '"', entityType, entityId);
+		String sqlQuery = String.format("SELECT * FROM %s WHERE " + entityType
+				+ "ID = " + '"' + "%s" + '"', entityType, entityId);
 		statement.executeQuery(sqlQuery);
 		ResultSet resultSet = statement.getResultSet();
 		Object obj = null;
-		
-		if(!resultSet.next()) return obj;
-		
-		if(entityType.equals("User")){
-			//----------special case for user
+
+		if (!resultSet.next())
+			return obj;
+
+		if (entityType.equals("User")) {
 			Statement stmt = (Statement) connection.createStatement();
 			String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
 			stmt.executeQuery(adminQuery);
 			boolean isAdmin = statement.getResultSet().isBeforeFirst();
-			//----------special case for user
-			obj = new User(resultSet.getString(2), isAdmin, resultSet.getString(3), resultSet.getInt(1));
-		} else if(entityType.equals("Task")){
+			obj = new User(resultSet.getString(2), isAdmin,
+					resultSet.getString(3), resultSet.getInt(1));
+		} else if (entityType.equals("Task")) {
 			Statement stmtTask = (Statement) connection.createStatement();
-			String taskQuery = "SELECT * FROM Subtask WHERE SubtaskID = " + entityId;
+			String taskQuery = "SELECT * FROM Subtask WHERE SubtaskID = "
+					+ entityId;
 			stmtTask.executeQuery(taskQuery);
 			ResultSet subTaskResults = stmtTask.getResultSet();
-			//-------------Task
-			
-			Task task = new Task(resultSet.getInt(1), resultSet.getString(2), null, resultSet.getDate(3), resultSet.getInt(4));
+			Task task = new Task(resultSet.getInt(1), resultSet.getString(2),
+					null, resultSet.getDate(3), resultSet.getInt(4));
 			int counter = 0;
-			while (subTaskResults.next()){
+			while (subTaskResults.next()) {
 				task.addSubTask(subTaskResults.getString(2));
 				task.completeSubTask(counter, subTaskResults.getInt(3));
 			}
 			obj = task;
-		
-		} else if(entityType.equals("Team")){
-			
+		} else if (entityType.equals("Team")) {
 		}
 		return obj;
 	}
@@ -319,60 +342,5 @@ public class Database {
 					+ rs.getString(3));
 
 		}
-		// if (pane.equals("User")){
-		// ResultSet rs = getUsers(connect, "User");
-		// while (rs.next()){
-		// System.out.println( rs.getString(1)+ ", "+ rs.getString(2)+ ", "+
-		// rs.getString(3));
-		//
-		// }
-		// }else if (pane.equals("Team")){
-		// ResultSet rs2 = getTeams (connect);
-		// while (rs2.next()){
-		// System.out.println(rs2.getString(1)+ ", "+ rs2.getString(2));
-		// }
-		//
-		// } else if (pane.equals("Task")){
-		// ResultSet rs3 = getTask(connect);
-		// while (rs3.next()){
-		// System.out.println (rs3.getString(1)+ ", "+ rs3.getString(2)+ ", "+
-		// rs3.getString(3));
-		// }
-		//
-		// }
 	}
-
-	// public void SaveResult (){
-	//
-	// JOptionPane.showMessageDialog(null, "Spara till databas");
-	// JOptionPane.showMessageDialog(null, "User"+ "\n"+ "Team"+ "\n"+ "Task");
-	// String pane = JOptionPane.showInputDialog("");
-	// try {
-	// saveEntity(new User ("Testa Karlsson", false, "1234", 0));
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// if (pane.equals("User")){
-	// try {
-	// sendToTableUser(gui.getid(), gui.getName(), gui.getTitle());
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// } else if (pane.equals("Team")){
-	// try {
-	// sendToTableTeams (gui.getid(), gui.getName());
-	// } catch (SQLException e){
-	// e.printStackTrace();
-	// }
-	//
-	// }else if (pane.equals("Task")){
-	// try {
-	// sendToTableTask (gui.getid(), gui.getName(), gui.getTitle());
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// }
-
 }
