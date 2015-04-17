@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class CalendarPanel extends JPanel implements ActionListener {
+    
+//    private DatePicker datePick;
 
     private JFrame newEventFrame = new JFrame("New event");
     private JFrame editEventFrame = new JFrame("Edit event");

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entities;
+package network.client.controllers;
 
 import database.DatabaseController;
+import entities.Message;
 import network.client.GUI.panels.MessagePanel;
 
 /**

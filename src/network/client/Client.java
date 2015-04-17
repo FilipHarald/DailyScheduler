@@ -5,13 +5,14 @@
  */
 package network.client;
 
+import network.client.controllers.ClientController;
 import entities.Event;
-import entities.EventController;
+import network.client.controllers.EventController;
 import entities.Task;
-import entities.TaskController;
+import network.client.controllers.TaskController;
 import entities.Team;
 import entities.User;
-import entities.UserAndTeamController;
+import network.client.controllers.UserAndTeamController;
 import miscellaneous.UsernameAndPwdPair;
 
 import java.io.*;

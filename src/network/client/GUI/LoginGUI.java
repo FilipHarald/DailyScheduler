@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.Arrays;
 
 
-import network.client.ClientController;
+import network.client.controllers.ClientController;
 
 public class LoginGUI {
 	private JTextField userText;

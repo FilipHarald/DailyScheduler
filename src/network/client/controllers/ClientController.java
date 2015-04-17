@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package network.client;
+package network.client.controllers;
 
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import network.client.Client;
 
 import network.client.GUI.ApplicationGUI;
 import network.client.GUI.LoginGUI;

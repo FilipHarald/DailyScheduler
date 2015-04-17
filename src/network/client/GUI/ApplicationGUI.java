@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import network.client.ClientController;
+import network.client.controllers.ClientController;
 import network.client.GUI.panels.*;
 
 public class ApplicationGUI extends JFrame {
