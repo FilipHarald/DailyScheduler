@@ -30,7 +30,9 @@ public class ClientController {
 	public ClientController(String serverIp, int port) {
 		ip = serverIp;
 		this.port = port;
+		System.out.println("1");
 		client = new Client(serverIp, port);
+		System.out.println("2");
 	}
 
 	// start application

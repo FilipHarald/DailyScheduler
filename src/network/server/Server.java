@@ -43,7 +43,9 @@ public class Server implements Runnable, Observer {
 	public void run() {
 		while (true) {
 			try {
+				System.out.println("listening for clients");
 				Socket socket = sSocket.accept();
+				System.out.println("client connected to serverSocket");
 				ClientHandler ch = new ClientHandler(socket);
 				ch.addObserver(this);
 				new Thread(ch).start();
@@ -155,15 +157,19 @@ public class Server implements Runnable, Observer {
 		@Override
 		public void run() {
 			try {
+				System.out.println("clientHandler thread started");
 				ois = new ObjectInputStream(socket.getInputStream());
+				System.out.println("cgadsgasd");
 				oos = new ObjectOutputStream(socket.getOutputStream());
 				UsernameAndPwdPair unP;
+				System.out.println("clientHandler streams created");
 
 				unP = (UsernameAndPwdPair) ois.readObject();
 				boolean validUser = sCont.authenticateUser(unP);
 				oos.writeBoolean(validUser);
 				oos.flush();
 				if (validUser) {
+					System.out.println("User is valid while-loop starting");
 					while (true) {
 						// listener while-loop
 						Object obj = ois.readObject();
@@ -174,26 +180,9 @@ public class Server implements Runnable, Observer {
 					}
 				}
 
-			} catch (ClassNotFoundException e) {
+			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
-			} catch (SocketException e) {
-				try {
-					socket.close();
-
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-
-			catch (IOException e) {
-				try {
-					ois.close();
-					oos.close();
-					socket.close();
-				} catch (IOException e1) {
-				}
-			}
 		}
 	}
-
+	}
 }

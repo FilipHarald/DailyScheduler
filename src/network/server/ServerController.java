@@ -9,18 +9,19 @@ import database.DatabaseController;
 
 public class ServerController {
 	
-	public final int port = 1234;
-	private Server server = new Server(port, this);
+	private Server server;
 	private DatabaseController dbc;
-	public ServerController(){
+	
+	public ServerController(int port){
+		server = new Server(port, this);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(new ServerUI());
 		frame.pack();
 		frame.setVisible(true);
 		
-		
 	}
+	
 	
 	public boolean authenticateUser(UsernameAndPwdPair unP){
 		try {
@@ -57,8 +58,6 @@ public class ServerController {
 		//server.broadcast(obj);
 	//}
 	
-	public static void main(String[] args){
-		ServerController controller = new ServerController();
-	}
+
 	
 }

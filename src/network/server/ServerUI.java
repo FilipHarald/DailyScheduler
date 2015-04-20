@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
-public class ServerUI extends JFrame implements ActionListener {
+public class ServerUI extends JPanel implements ActionListener {
 	private JButton btnExit = new JButton("Exit");
 	private JTextPane conList = new JTextPane();
 	private Date date;
@@ -41,13 +41,7 @@ public class ServerUI extends JFrame implements ActionListener {
 
 
 		btnExit.addActionListener(this);
-		
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setTitle("DailySchedServer");
-		setResizable(true);
-		pack();
+
 	}
 
 
@@ -55,7 +49,7 @@ public class ServerUI extends JFrame implements ActionListener {
 
 
 		if (e.getSource() == btnExit) {
-			dispose();
+			//dispose();
 		}
 	}
 
