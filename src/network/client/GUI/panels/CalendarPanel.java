@@ -1,5 +1,6 @@
 package network.client.GUI.panels;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -8,8 +9,8 @@ import javax.swing.*;
 
 public class CalendarPanel extends JPanel implements ActionListener {
     
-//    private DatePicker datePick;
-
+    private JDateChooser jdcDate = new JDateChooser();
+    
     private JFrame newEventFrame = new JFrame("New event");
     private JFrame editEventFrame = new JFrame("Edit event");
 
@@ -67,7 +68,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
         tfTitle.setBounds(170, 50, 180, 20);
 
         lblDate.setBounds(70, 80, 80, 20);
-        tfDate.setBounds(170, 80, 180, 20);
+        jdcDate.setBounds(170, 80, 180, 20);
 
         lblDescription.setBounds(70, 20, 80, 200);
         taDescription.setBounds(170, 110, 280, 200);
@@ -81,7 +82,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
         newEventPanel.add(lblTitle);
         newEventPanel.add(tfTitle);
         newEventPanel.add(lblDate);
-        newEventPanel.add(tfDate);
+        newEventPanel.add(jdcDate);
         newEventPanel.add(lblDescription);
         newEventPanel.add(taDescription);
         newEventPanel.add(lblParticipants);
@@ -107,7 +108,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
         tfTitle.setBounds(170, 50, 180, 20);
 
         lblDate.setBounds(70, 80, 80, 20);
-        tfDate.setBounds(170, 80, 180, 20);
+        jdcDate.setBounds(170, 80, 180, 20);
 
         lblDescription.setBounds(70, 20, 80, 200);
         taDescription.setBounds(170, 110, 280, 200);
@@ -116,25 +117,47 @@ public class CalendarPanel extends JPanel implements ActionListener {
         taParticipants.setBounds(170, 330, 280, 100);
 
         btnSaveEvent.setBounds(175, 480, 100, 25);
-        btnDeleteEvent.setBounds(340, 480, 100, 25);
-
+        
         editEventPanel.add(lblTitle);
         editEventPanel.add(tfTitle);
         editEventPanel.add(lblDate);
-        editEventPanel.add(tfDate);
+        editEventPanel.add(jdcDate);
         editEventPanel.add(lblDescription);
         editEventPanel.add(taDescription);
         editEventPanel.add(lblParticipants);
         editEventPanel.add(taParticipants);
         editEventPanel.add(btnSaveEvent);
-        editEventPanel.add(btnDeleteEvent);
-
+        
         editEventFrame.add(editEventPanel);
         editEventFrame.setLocationRelativeTo(null);
         editEventFrame.pack();
         editEventFrame.setVisible(true);
 
     }
+    
+    public boolean isEmpty(){
+        boolean isEmpty = false;
+        
+        if(tfTitle.getText().trim().isEmpty()){
+            lblTitle.setText("Title *");
+            isEmpty= true;
+            
+        }else if (jdcDate.getDate() == null){
+            lblDate.setText("Date *");
+            isEmpty= true;
+            
+        }else if(taDescription.getText().trim().isEmpty()){
+            lblDescription.setText("Description *");
+            isEmpty= true;
+            
+        }else if(taParticipants.getText().trim().isEmpty()){
+            lblParticipants.setText("Participants *");
+            isEmpty= true;
+        }
+        
+        return isEmpty;
+        
+    } 
 
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
@@ -160,7 +183,14 @@ public class CalendarPanel extends JPanel implements ActionListener {
             //TODO: delete event from database
 
         } else if ((button) == btnSaveEvent) {
+            if(isEmpty() == true){
+                JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
+            }
             //TODO: save event to database
+            
+            
+            
+            
             
 
         }
