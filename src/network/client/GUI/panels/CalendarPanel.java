@@ -77,7 +77,6 @@ public class CalendarPanel extends JPanel implements ActionListener {
         taParticipants.setBounds(170, 330, 280, 100);
 
         btnSaveEvent.setBounds(175, 480, 100, 25);
-        btnDeleteEvent.setBounds(340, 480, 100, 25);
 
         newEventPanel.add(lblTitle);
         newEventPanel.add(tfTitle);
@@ -88,7 +87,6 @@ public class CalendarPanel extends JPanel implements ActionListener {
         newEventPanel.add(lblParticipants);
         newEventPanel.add(taParticipants);
         newEventPanel.add(btnSaveEvent);
-        newEventPanel.add(btnDeleteEvent);
 
         newEventFrame.add(newEventPanel);
         newEventFrame.setLocationRelativeTo(null);
@@ -117,6 +115,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
         taParticipants.setBounds(170, 330, 280, 100);
 
         btnSaveEvent.setBounds(175, 480, 100, 25);
+        btnDeleteEvent.setBounds(340, 480, 100, 25);
         
         editEventPanel.add(lblTitle);
         editEventPanel.add(tfTitle);
@@ -127,12 +126,20 @@ public class CalendarPanel extends JPanel implements ActionListener {
         editEventPanel.add(lblParticipants);
         editEventPanel.add(taParticipants);
         editEventPanel.add(btnSaveEvent);
+        editEventPanel.add(btnDeleteEvent);
         
         editEventFrame.add(editEventPanel);
         editEventFrame.setLocationRelativeTo(null);
         editEventFrame.pack();
         editEventFrame.setVisible(true);
 
+    }
+    public void setLabels(){
+        lblTitle.setText("Title");
+        lblDate.setText("Date");
+        lblDescription.setText("Description");
+        lblParticipants.setText("Participants");
+                
     }
     
     public boolean isEmpty(){
@@ -142,15 +149,19 @@ public class CalendarPanel extends JPanel implements ActionListener {
             lblTitle.setText("Title *");
             isEmpty= true;
             
-        }else if (jdcDate.getDate() == null){
+        } 
+        if (jdcDate.getDate() == null){
             lblDate.setText("Date *");
             isEmpty= true;
             
-        }else if(taDescription.getText().trim().isEmpty()){
+        }
+        if(taDescription.getText().trim().isEmpty()){
             lblDescription.setText("Description *");
             isEmpty= true;
             
-        }else if(taParticipants.getText().trim().isEmpty()){
+        }
+        
+        if(taParticipants.getText().trim().isEmpty()){
             lblParticipants.setText("Participants *");
             isEmpty= true;
         }
@@ -183,14 +194,16 @@ public class CalendarPanel extends JPanel implements ActionListener {
             //TODO: delete event from database
 
         } else if ((button) == btnSaveEvent) {
+            setLabels();
             if(isEmpty() == true){
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
+            } else {
+                newEventFrame.dispose();
+                editEventFrame.dispose();
             }
             //TODO: save event to database
             
-            
-            
-            
+           
             
 
         }
