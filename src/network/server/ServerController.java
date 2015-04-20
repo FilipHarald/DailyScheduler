@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import miscellaneous.UsernameAndPwdPair;
+import miscellaneous.*;
 import database.DatabaseController;
 
 public class ServerController {
@@ -49,6 +49,14 @@ public class ServerController {
 		}
 		
 	}
+
+
+	public Updater getUpdater(int userId) {
+		Updater updater = new Updater();
+		//get useful information(for the user with userId) from database and store in updater here
+		return updater;
+	}
+
 	
 	/**
 	 * Sends objects to all connected clients.

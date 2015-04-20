@@ -14,7 +14,7 @@ import java.util.Observer;
 import miscellaneous.UsernameAndPwdPair;
 import network.server.Server.ClientHandler;
 
-public class Server implements Runnable, Observer {
+public class Server implements Runnable {
 
 	private ServerSocket sSocket;
 	private ServerController sCont;
@@ -67,12 +67,6 @@ public class Server implements Runnable, Observer {
 		}
 	}
 
-	@Override
-	public synchronized void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public String[] connectedUsers() {
 		String[] temp = new String[handlerList.size()];
 		for (int i = 0; i < handlerList.size(); i++) {
@@ -89,7 +83,7 @@ public class Server implements Runnable, Observer {
 	public class ClientHandler extends Observable implements Runnable {
 		private ObjectInputStream ois;
 		private ObjectOutputStream oos;
-		private String name;
+		private int userId;
 		private Socket socket;
 
 		/**
@@ -102,30 +96,12 @@ public class Server implements Runnable, Observer {
 		}
 
 		/**
-		 * Get the connected socket.
-		 * 
-		 * @return The connected socket.
-		 */
-		public Socket getSocket() {
-			return socket;
-		}
-
-		/**
 		 * Gets the user name of the user this handler is connected to.
 		 * 
 		 * @return The user name of the connected user.
 		 */
-		public String getName() {
-			return name;
-		}
-
-		/**
-		 * Gets the user name of the user this handler is connected to.
-		 * 
-		 * @return The user name of the connected user.
-		 */
-		public String toString() {
-			return name;
+		public int getUserId() {
+			return userId;
 		}
 
 		/**
@@ -161,26 +137,27 @@ public class Server implements Runnable, Observer {
 				oos = new ObjectOutputStream(socket.getOutputStream());
 				ois = new ObjectInputStream(socket.getInputStream());
 				UsernameAndPwdPair unP;
-
-				unP = (UsernameAndPwdPair) ois.readObject();
-				boolean validUser = sCont.authenticateUser(unP);
-				oos.writeBoolean(validUser);
-				oos.flush();
-				if (validUser) {
-					System.out.println("User is valid while-loop starting");
-					while (true) {
-						// listener while-loop
-						Object obj = ois.readObject();
-						if (obj instanceof String)
-							name = (String) obj;
-						setChanged();
-						notifyObservers(obj);
+				while (true) {
+					unP = (UsernameAndPwdPair) ois.readObject();
+					boolean validUser = sCont.authenticateUser(unP);
+					oos.writeBoolean(validUser);
+					oos.flush();
+					if (validUser) {
+						System.out.println("User is valid while-loop starting");
+						while (true) {
+							oos.writeObject(sCont.getUpdater(unP.getUserId()));
+							Object obj = ois.readObject();
+							if (obj.equals("update")){
+								//no code needed, this is just intended to re-do the loop and update the client
+							}
+						}
 					}
+
 				}
 
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
+			}
 		}
-	}
 	}
 }
