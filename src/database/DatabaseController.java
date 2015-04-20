@@ -67,7 +67,7 @@ public class DatabaseController {
 	 * @throws SQLException
 	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		return (unP.getUserName().equals("Test"));
+		return (unP.getUserName().equals("Test") && unP.getPassword().equals("1234"));
 //		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
 //				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 //				unP.getUserName(), unP.getPassword());
