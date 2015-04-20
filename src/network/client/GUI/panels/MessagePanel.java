@@ -28,7 +28,7 @@ import javax.swing.JTextField;
  *
  */
 public class MessagePanel extends JPanel implements ActionListener  {
-	
+
 	/*
 	 * Class variables
 	 */
@@ -38,7 +38,7 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JPanel textPanel = new JPanel();
 	private JPanel buttonsPanel= new JPanel();
 	private JTextArea txt = new JTextArea();
-	
+
 	private JPanel newMessagePanel = new JPanel();
 	private JTextField titleField = new JTextField(15);
 	private JTextField recipientField = new JTextField(15);
@@ -46,10 +46,15 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JLabel titleLabel = new JLabel("Title");
 	private JLabel recipientLabel = new JLabel ("Recipient");
 	private JButton sendNewMessage = new JButton("Send");
-	
+
+	private JPanel confirmNewMessagePanel = new JPanel();
+	private JLabel confirmSendLabel = new JLabel("Do you wish to send a message to recpient(s): " + getRecipients() + "?");
+	private JButton confirmSendButtonYes = new JButton("Yes");
+	private JButton confirmSendButtonNo = new JButton("No");
+
 	private JPanel editMessagePanel = new JPanel();
 	private JButton editMessage = new JButton("Edit");
-	
+
 	private JPanel deleteMessagePanel = new JPanel();
 	private JButton deleteMessageYes = new JButton ("Yes");
 	private JButton deleteMessageNo = new JButton("No");
@@ -59,60 +64,64 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	 */
 	public MessagePanel(){
 		super();
-		
+
 		/*
 		 * Borderlayout for the objects
 		 */
 		setBorder(BorderFactory.createTitledBorder("Message view"));
-		
+
 		buttonsPanel.setLayout(new BorderLayout());
 		buttonsPanel.add(newMessageButton, BorderLayout.NORTH);
 		buttonsPanel.add(deleteMessageButton, BorderLayout.CENTER);
 		buttonsPanel.add(editMessageButton, BorderLayout.SOUTH);
-		
+
 		textPanel.add(txt,BorderLayout.CENTER);	
 		txt.setPreferredSize(new Dimension(200,200));
-		
+
 		add(buttonsPanel, BorderLayout.WEST);
 		add(textPanel, BorderLayout.CENTER);
-//		add(newMessagePanel);
+		//		add(newMessagePanel);
 		listeners();
-		}
-	
-	
-	
+	}
+
+
+
 	/**
 	 * Listener for the JButtons in the buttonsPanel.
 	 */
 	public void listeners(){
-		
+
 		newMessageButton.addActionListener(this);
 		deleteMessageButton.addActionListener(this);
 		editMessageButton.addActionListener(this);
+
 		sendNewMessage.addActionListener(this);
 		editMessage.addActionListener(this);
 		deleteMessageYes.addActionListener(this);
+
 		deleteMessageNo.addActionListener(this);
+		confirmSendButtonYes.addActionListener(this);
+		confirmSendButtonNo.addActionListener(this);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==newMessageButton){
 			JFrame newMessageFrame = new JFrame("New Message");
 			newMessageFrame.setLayout(null);
 			newMessageFrame.setPreferredSize(new Dimension(500, 500));
-			
+
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
 
-			
+
 			recipientLabel.setBounds(100,50,120,20);
 			recipientField.setBounds(200,50,120,20);
-			
+
 			titleLabel.setBounds(100,70,120,20);
 			titleField.setBounds(200,70,120,20);
-			
+
 			messageArea.setBounds(100,100,280,300);
-			
+
 			sendNewMessage.setBounds(100,420,80,25);
 
 			newMessagePanel.add(titleLabel);
@@ -121,44 +130,47 @@ public class MessagePanel extends JPanel implements ActionListener  {
 			newMessagePanel.add(recipientField);
 			newMessagePanel.add(messageArea);
 			newMessagePanel.add(sendNewMessage);
-			
-			
-			
+
+
+
 			newMessageFrame.add(newMessagePanel);
 			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
-		}else{
+
+
+		}
+		else{
 			if(e.getSource()==editMessageButton){
 				JFrame editMessageFrame = new JFrame("Edit Message");
 				editMessageFrame.setLayout(null);
 				editMessageFrame.setPreferredSize(new Dimension(500, 500));
-				
+
 				editMessagePanel.setSize(500, 500);
 				editMessagePanel.setLayout(null);
-				
+
 				recipientLabel.setBounds(100,50,120,20);
 				recipientField.setBounds(200,50,120,20);
-				
+
 				titleLabel.setBounds(100,70,120,20);
 				titleField.setBounds(200,70,120,20);
-				
+
 				messageArea.setBounds(100,100,280,300);
-				
+
 				editMessage.setBounds(100,420,80,25);
 
 				//Lägg till kod för att hämta information från gamla meddelanden, String -> getText osv
 				//för att editera dem.
-				
+
 				editMessagePanel.add(titleLabel);
 				editMessagePanel.add(recipientLabel);
 				editMessagePanel.add(titleField);
 				editMessagePanel.add(recipientField);
 				editMessagePanel.add(messageArea);
 				editMessagePanel.add(editMessage);
-				
-				
-				
+
+
+
 				editMessageFrame.add(editMessagePanel);
 				editMessageFrame.pack();
 				editMessageFrame.setLocationRelativeTo(null);
@@ -168,57 +180,68 @@ public class MessagePanel extends JPanel implements ActionListener  {
 					JFrame deleteMessageFrame = new JFrame("Delete Message");
 					deleteMessageFrame.setLayout(null);
 					deleteMessageFrame.setPreferredSize(new Dimension(500,500));
-					
+
 					deleteMessagePanel.setSize(500,500);
 					deleteMessagePanel.setLayout(null);
-					
+
 					deleteMessageTitle.setBounds(140,80,250,20);
-					
+
 					deleteMessageYes.setBounds(100,420,80,25);
 					deleteMessageNo.setBounds(300,420,80,25);
-					
-					
+
 					deleteMessagePanel.add(deleteMessageTitle);
 					deleteMessagePanel.add(deleteMessageYes);
 					deleteMessagePanel.add(deleteMessageNo);
-					
-					
+
 					deleteMessageFrame.add(deleteMessagePanel);
 					deleteMessageFrame.pack();
 					deleteMessageFrame.setLocationRelativeTo(null);
 					deleteMessageFrame.setVisible(true);
-
 				}
-				
-				if (e.getSource()==sendNewMessage){
+			}
+			if (e.getSource()==sendNewMessage){
+				JFrame confirmMessageFrame = new JFrame("Confirm send Message");
+				confirmMessageFrame.setLayout(null);
+				confirmMessageFrame.setPreferredSize(new Dimension(300, 300));
+
+				confirmNewMessagePanel.setSize(300, 300);
+				confirmNewMessagePanel.setLayout(null);
+
+				confirmSendLabel.setBounds(100, 50, 150, 20);
+				confirmSendButtonYes.setBounds(200, 180, 80,25);
+				confirmSendButtonNo.setBounds(200, 250, 80,25);
+
+				confirmNewMessagePanel.add(confirmSendLabel);
+				confirmNewMessagePanel.add(confirmSendButtonYes);
+				confirmNewMessagePanel.add(confirmSendButtonNo);
+
+				confirmMessageFrame.add(confirmNewMessagePanel);
+				confirmMessageFrame.pack();
+				confirmMessageFrame.setLocationRelativeTo(null);
+				confirmMessageFrame.setVisible(true);
+
+				if(e.getSource()==confirmSendButtonYes){
 					String titleText = titleField.getText();
 					String messageText = messageArea.getText();
 					String resipientText = recipientField.getText();
-					
-
-//					else{
-//						if (e.getSource()==deleteMessageYes){
-//							titleField.eraseText();
-//						}
-//					}
 				}
 			}
 		}
 	}
-    
-    //get title from textfield
-    public String getTitle() {
-        return titleField.getText();
-    }
-    
-    //get message from textarea
-    public String getMessage() {
-        return messageArea.getText();
-    }
-    
-    //get recipients from textfield
-    public String getRecipients() {
-        return recipientField.getText();
-    }
-	
+
+	//get title from textfield
+	public String getTitle() {
+		return titleField.getText();
+	}
+
+	//get message from textarea
+	public String getMessage() {
+		return messageArea.getText();
+	}
+
+	//get recipients from textfield
+	public String getRecipients() {
+		return recipientField.getText();
+	}
+
 }
