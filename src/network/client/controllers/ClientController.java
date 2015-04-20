@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import entities.*;
+import miscellaneous.Updater;
 import network.client.Client;
 import network.client.GUI.ApplicationGUI;
 import network.client.GUI.LoginGUI;
@@ -60,6 +62,17 @@ public class ClientController {
 	// disconnect client when user logs out
 	public void logout() throws IOException {
 		client.disconnect();
+	}
+	
+	public Updater updateGui (Event event, Message message, Task task){
+		Updater updater = null;
+		
+		updater.addEvent(event);
+		updater.addMessage(message);
+		updater.addTask(task);
+		
+		return updater;
+		
 	}
 
 }
