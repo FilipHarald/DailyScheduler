@@ -28,6 +28,10 @@ public class Message {
     public String getAuthor(){
         return authorId;
     }
+    
+    public int getId (){
+    	return id;
+    }
                 
     public String getTitle(){
         return title;
