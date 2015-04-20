@@ -18,7 +18,7 @@ public class Team {
 	private String name;
 	private int Id;
 
-	public Team(String name, int Id) {
+	public Team(int Id, String name) {
 		managers = new LinkedList<User>();
 		members = new LinkedList<User>();
 		this.name = name;
