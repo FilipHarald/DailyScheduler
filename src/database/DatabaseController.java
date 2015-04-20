@@ -244,8 +244,51 @@ public class DatabaseController {
 	 *         attributes specific for entityId
 	 * @throws SQLException
 	 */
-	public Object getEntity(String entityType, int entityId)
-			throws SQLException {
+	
+	private void getUser (int entityId) throws SQLException{
+		
+		Object obj;
+		Statement stmtUser = (Statement) connection.createStatement();
+		String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
+		stmtUser.executeQuery(adminQuery);
+		ResultSet resultSet = stmtUser.getResultSet();
+		boolean isAdmin = stmtUser.getResultSet().isBeforeFirst();
+		obj = new User(resultSet.getString(2), isAdmin,
+				resultSet.getString(3), resultSet.getInt(1));
+	}
+	
+	private void getTask (int entityId) throws SQLException{
+		
+		Object obj = null;
+		Statement stmtTask = (Statement) connection.createStatement();
+		String taskQuery = "SELECT * FROM Subtask WHERE Task = "
+				+ entityId;
+		stmtTask.executeQuery(taskQuery);
+		ResultSet resultSet = stmtTask.getResultSet();
+		ResultSet subTaskResults = stmtTask.getResultSet();
+		Task task = new Task(resultSet.getInt(1), resultSet.getString(2),
+				null, resultSet.getDate(3), resultSet.getInt(4));
+		int counter = 0;
+		while (subTaskResults.next()) {
+			task.addSubTask(subTaskResults.getString(2));
+			task.completeSubTask(counter, subTaskResults.getInt(3));
+		}
+		obj = task;
+	}
+	
+	private void getTeam (int entityId) throws SQLException{
+		
+		Object obj = null;
+		Statement stmtTeam = (Statement) connection.createStatement();
+		String teamQuery = "SELECT * FROM Team WHERE TeamID = " 
+					+ entityId;
+		stmtTeam.executeQuery(teamQuery);
+		ResultSet resultSet = stmtTeam.getResultSet();
+		Team team = new Team (resultSet.getInt(1), resultSet.getString(2));
+		obj = team;
+	}
+	
+	public Object getEntity(String entityType, int entityId) throws SQLException {
 		System.out.println(entityType + entityId);
 
 		Statement statement = (Statement) connection.createStatement();
@@ -259,33 +302,13 @@ public class DatabaseController {
 			return obj;
 
 		if (entityType.equals("User")) {
-			Statement stmt = (Statement) connection.createStatement();
-			String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
-			stmt.executeQuery(adminQuery);
-			boolean isAdmin = statement.getResultSet().isBeforeFirst();
-			obj = new User(resultSet.getString(2), isAdmin,
-					resultSet.getString(3), resultSet.getInt(1));
+			getUser(entityId);
+			
 		} else if (entityType.equals("Task")) {
-			Statement stmtTask = (Statement) connection.createStatement();
-			String taskQuery = "SELECT * FROM Subtask WHERE Task = "
-					+ entityId;
-			stmtTask.executeQuery(taskQuery);
-			ResultSet subTaskResults = stmtTask.getResultSet();
-			Task task = new Task(resultSet.getInt(1), resultSet.getString(2),
-					null, resultSet.getDate(3), resultSet.getInt(4));
-			int counter = 0;
-			while (subTaskResults.next()) {
-				task.addSubTask(subTaskResults.getString(2));
-				task.completeSubTask(counter, subTaskResults.getInt(3));
-			}
-			obj = task;
+			getTask(entityId);
+			
 		} else if (entityType.equals("Team")) {
-			Statement stmtTeam = (Statement) connection.createStatement();
-			String teamQuery = "SELECT * FROM Team WHERE TeamID = " 
-						+ entityId;
-			stmtTeam.executeQuery(teamQuery);
-			Team team = new Team (resultSet.getInt(1), resultSet.getString(2));
-			obj = team;
+			getTeam(entityId);
 			
 		}
 		return obj;
