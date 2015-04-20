@@ -67,15 +67,14 @@ public class DatabaseController {
 	 * @throws SQLException
 	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		return (unP.getUserName().equals("Test") && unP.getPassword().equals("1234"));
-//		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
-//				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
-//				unP.getUserName(), unP.getPassword());
-//		Statement statement = (Statement) connection.createStatement(
-//				java.sql.ResultSet.CONCUR_READ_ONLY,
-//				java.sql.ResultSet.TYPE_FORWARD_ONLY);
-//		ResultSet resultSet = statement.executeQuery(query);
-//		return resultSet.isBeforeFirst();
+		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
+				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
+				unP.getUserName(), unP.getPassword());
+		Statement statement = (Statement) connection.createStatement(
+				java.sql.ResultSet.CONCUR_READ_ONLY,
+				java.sql.ResultSet.TYPE_FORWARD_ONLY);
+		ResultSet resultSet = statement.executeQuery(query);
+		return resultSet.isBeforeFirst();
 
 	}
 
