@@ -278,6 +278,14 @@ public class DatabaseController {
 	private Team getTeam(int entityId, ResultSet resultSet) throws SQLException {
 		return new Team(resultSet.getInt(1), resultSet.getString(2));
 	}
+	
+	private Message getMessage (int entityId, ResultSet resultSet) throws SQLException{
+		return new Message (resultSet.getString(2), resultSet.getString(3), null, resultSet.getInt(1));
+	}
+	
+	private Event getEvent (int entityType, ResultSet resultSet) throws SQLException{
+		return new Event (resultSet.getString(2), resultSet.getDate(3), resultSet.getInt(1));
+	}
 
 	public Object getEntity(String entityType, int entityId)
 			throws SQLException {
@@ -298,6 +306,10 @@ public class DatabaseController {
 			obj = getTask(entityId, resultSet);
 		} else if (entityType.equals("Team")) {
 			obj = getTeam(entityId, resultSet);
+		} else if (entityType.equals("Message")) {
+			obj = getMessage(entityId, resultSet);
+		} else if (entityType.equals("Event")) {
+			obj = getEvent(entityId, resultSet);
 		}
 		return obj;
 	}
