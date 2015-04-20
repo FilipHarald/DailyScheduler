@@ -1,14 +1,33 @@
 package network.client.GUI.panels;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class TaskPanel extends JPanel {
+public class TaskPanel extends JPanel implements ActionListener {
+	
+	private JButton btnCreateNewTask = new JButton ("New Task");
+	private JButton btnEditTask = new JButton("Edit Task");
+	private JButton btnDeleteTask = new JButton ("Delete Task");
 	
 	private JList listCompletedTask = new JList ();
 	private JList listIncompletedTask = new JList();
-	private JTextArea textDescription = new JTextArea();
 	
+	private JTextArea textDescription = new JTextArea();
+	private JTextArea descriptionArea = new JTextArea();
+	
+	private JTextField titleField = new JTextField(15);
+	
+	private JPanel newTaskPanel = new JPanel();
+	private JPanel editTaskPanel = new JPanel();
+	private JPanel deleteTaskPanel = new JPanel();
+	
+	private JLabel titleLabel = new JLabel("Title");
+	
+	private JButton saveTask = new JButton("Save");
+	private JButton editTask = new JButton("Save changes");
+	private JButton deleteTask = new JButton("Delete task");
 	
 	public TaskPanel(){
 		super();
@@ -17,6 +36,9 @@ public class TaskPanel extends JPanel {
 		AddTasks();
 		AddButtons();
 		AddTextArea();
+		btnCreateNewTask.addActionListener(this);
+		btnEditTask.addActionListener(this);
+		btnDeleteTask.addActionListener(this);
 		
 	}
 	
@@ -64,9 +86,9 @@ public class TaskPanel extends JPanel {
 		labelBtnPanel.setPreferredSize(new Dimension(5,5));
 	
 		
-		JButton btnCreateNewTask = new JButton ("New Task");
-		JButton btnEditTask = new JButton("Edit Task");
-		JButton btnDeleteTask = new JButton ("Delete Task");
+//		JButton btnCreateNewTask = new JButton ("New Task");
+//		JButton btnEditTask = new JButton("Edit Task");
+//		JButton btnDeleteTask = new JButton ("Delete Task");
 
 		labelBtnPanel.add(btnCreateNewTask);
 		labelBtnPanel.add(btnEditTask);
@@ -93,6 +115,84 @@ public class TaskPanel extends JPanel {
     //get description from textarea
     public String getDescription() {
         return textDescription.getText();
+    }
+    
+    public void actionPerformed (ActionEvent e){
+    	if (e.getSource() == btnCreateNewTask) {
+    		JFrame newTaskFrame = new JFrame("New Task");
+			newTaskFrame.setLayout(null);
+			newTaskFrame.setPreferredSize(new Dimension(500, 500));
+			
+			newTaskPanel.setSize(500, 500);
+			newTaskPanel.setLayout(null);
+			
+			titleLabel.setBounds(100,70,120,20);
+			titleField.setBounds(200,70,120,20);
+			
+			descriptionArea.setBounds(100,100,280,300);
+			
+			saveTask .setBounds(100,420,80,25);
+
+			newTaskPanel.add(titleLabel);
+			newTaskPanel.add(titleField);
+			newTaskPanel.add(descriptionArea);
+			newTaskPanel.add(saveTask);
+			
+			newTaskFrame.add(newTaskPanel);
+			newTaskFrame.pack();
+			newTaskFrame.setLocationRelativeTo(null);
+			newTaskFrame.setVisible(true);
+			
+    	} else if (e.getSource() == btnEditTask){
+    		JFrame editTaskFrame = new JFrame("Edit Task");
+			editTaskFrame.setLayout(null);
+			editTaskFrame.setPreferredSize(new Dimension(500, 500));
+			
+			editTaskPanel.setSize(500, 500);
+			editTaskPanel  .setLayout(null);
+			
+			titleLabel.setBounds(100,70,120,20);
+			titleField.setBounds(200,70,120,20);
+			
+			descriptionArea.setBounds(100,100,280,300);
+			
+			editTask.setBounds(100,420,120,30);
+
+			editTaskPanel.add(titleLabel);
+			editTaskPanel.add(titleField);
+			editTaskPanel.add(descriptionArea);
+			editTaskPanel.add(editTask);
+			
+			editTaskFrame.add(editTaskPanel);
+			editTaskFrame.pack();
+			editTaskFrame.setLocationRelativeTo(null);
+			editTaskFrame.setVisible(true);
+			
+    	} else if (e.getSource() == btnDeleteTask){
+    		JFrame deleteTaskFrame = new JFrame("Delete Task");
+			deleteTaskFrame.setLayout(null);
+			deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
+			
+			deleteTaskPanel.setSize(500, 500);
+			deleteTaskPanel.setLayout(null);
+			
+			titleLabel.setBounds(100,70,120,20);
+			titleField.setBounds(200,70,120,20);
+			
+			descriptionArea.setBounds(100,100,280,300);
+			
+			deleteTask.setBounds(100,420,120,30);
+
+			deleteTaskPanel.add(titleLabel);
+			deleteTaskPanel.add(titleField);
+			deleteTaskPanel.add(descriptionArea);
+			deleteTaskPanel.add(deleteTask);
+			
+			deleteTaskFrame.add(deleteTaskPanel);
+			deleteTaskFrame.pack();
+			deleteTaskFrame.setLocationRelativeTo(null);
+			deleteTaskFrame.setVisible(true);
+    	}
     }
 	
 
