@@ -58,12 +58,8 @@ public class ClientController {
 	}
 
 	// disconnect client when user logs out
-	public void logout() {
-		try {
-			client.disconnect();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void logout() throws IOException {
+		client.disconnect();
 	}
 
 }

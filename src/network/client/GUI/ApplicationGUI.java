@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -56,7 +57,11 @@ public class ApplicationGUI extends JFrame {
 	}
 
 	public void logOut() {
-		clientController.logout();
+		try {
+			clientController.logout();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		dispose();
 	}
 }

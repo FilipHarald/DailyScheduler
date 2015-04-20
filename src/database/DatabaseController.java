@@ -67,14 +67,15 @@ public class DatabaseController {
 	 * @throws SQLException
 	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
-				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
-				unP.getUserName(), unP.getPassword());
-		Statement statement = (Statement) connection.createStatement(
-				java.sql.ResultSet.CONCUR_READ_ONLY,
-				java.sql.ResultSet.TYPE_FORWARD_ONLY);
-		ResultSet resultSet = statement.executeQuery(query);
-		return resultSet.isBeforeFirst();
+		return (unP.getUserName().equals("Test"));
+//		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
+//				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
+//				unP.getUserName(), unP.getPassword());
+//		Statement statement = (Statement) connection.createStatement(
+//				java.sql.ResultSet.CONCUR_READ_ONLY,
+//				java.sql.ResultSet.TYPE_FORWARD_ONLY);
+//		ResultSet resultSet = statement.executeQuery(query);
+//		return resultSet.isBeforeFirst();
 
 	}
 
@@ -244,51 +245,42 @@ public class DatabaseController {
 	 *         attributes specific for entityId
 	 * @throws SQLException
 	 */
-	
-	private void getUser (int entityId) throws SQLException{
-		
-		Object obj;
+
+	private User getUser(int entityId, ResultSet resultSet) throws SQLException {
+
+		User user = null;
 		Statement stmtUser = (Statement) connection.createStatement();
 		String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
 		stmtUser.executeQuery(adminQuery);
-		ResultSet resultSet = stmtUser.getResultSet();
 		boolean isAdmin = stmtUser.getResultSet().isBeforeFirst();
-		obj = new User(resultSet.getString(2), isAdmin,
+		user = new User(resultSet.getString(2), isAdmin,
 				resultSet.getString(3), resultSet.getInt(1));
+		return user;
 	}
-	
-	private void getTask (int entityId) throws SQLException{
-		
-		Object obj = null;
+
+	private Task getTask(int entityId, ResultSet resultSet) throws SQLException {
+
+		Task task = null;
 		Statement stmtTask = (Statement) connection.createStatement();
-		String taskQuery = "SELECT * FROM Subtask WHERE Task = "
-				+ entityId;
+		String taskQuery = "SELECT * FROM Subtask WHERE Task = " + entityId;
 		stmtTask.executeQuery(taskQuery);
-		ResultSet resultSet = stmtTask.getResultSet();
 		ResultSet subTaskResults = stmtTask.getResultSet();
-		Task task = new Task(resultSet.getInt(1), resultSet.getString(2),
-				null, resultSet.getDate(3), resultSet.getInt(4));
+		task = new Task(resultSet.getInt(1), resultSet.getString(2), null,
+				resultSet.getDate(3), resultSet.getInt(4));
 		int counter = 0;
 		while (subTaskResults.next()) {
 			task.addSubTask(subTaskResults.getString(2));
 			task.completeSubTask(counter, subTaskResults.getInt(3));
 		}
-		obj = task;
+		return task;
 	}
-	
-	private void getTeam (int entityId) throws SQLException{
-		
-		Object obj = null;
-		Statement stmtTeam = (Statement) connection.createStatement();
-		String teamQuery = "SELECT * FROM Team WHERE TeamID = " 
-					+ entityId;
-		stmtTeam.executeQuery(teamQuery);
-		ResultSet resultSet = stmtTeam.getResultSet();
-		Team team = new Team (resultSet.getInt(1), resultSet.getString(2));
-		obj = team;
+
+	private Team getTeam(int entityId, ResultSet resultSet) throws SQLException {
+		return new Team(resultSet.getInt(1), resultSet.getString(2));
 	}
-	
-	public Object getEntity(String entityType, int entityId) throws SQLException {
+
+	public Object getEntity(String entityType, int entityId)
+			throws SQLException {
 		System.out.println(entityType + entityId);
 
 		Statement statement = (Statement) connection.createStatement();
@@ -300,16 +292,12 @@ public class DatabaseController {
 
 		if (!resultSet.next())
 			return obj;
-
 		if (entityType.equals("User")) {
-			getUser(entityId);
-			
+			obj = getUser(entityId, resultSet);
 		} else if (entityType.equals("Task")) {
-			getTask(entityId);
-			
+			obj = getTask(entityId, resultSet);
 		} else if (entityType.equals("Team")) {
-			getTeam(entityId);
-			
+			obj = getTeam(entityId, resultSet);
 		}
 		return obj;
 	}
