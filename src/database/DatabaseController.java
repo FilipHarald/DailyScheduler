@@ -280,6 +280,13 @@ public class DatabaseController {
 			}
 			obj = task;
 		} else if (entityType.equals("Team")) {
+			Statement stmtTeam = (Statement) connection.createStatement();
+			String teamQuery = "SELECT * FROM Team WHERE TeamID = " 
+						+ entityId;
+			stmtTeam.executeQuery(teamQuery);
+			Team team = new Team (resultSet.getInt(1), resultSet.getString(2));
+			obj = team;
+			
 		}
 		return obj;
 	}
