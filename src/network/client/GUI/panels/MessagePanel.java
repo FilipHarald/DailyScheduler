@@ -90,7 +90,9 @@ public class MessagePanel extends JPanel implements ActionListener  {
 		deleteMessageButton.addActionListener(this);
 		editMessageButton.addActionListener(this);
 		sendNewMessage.addActionListener(this);
-		
+		editMessage.addActionListener(this);
+		deleteMessageYes.addActionListener(this);
+		deleteMessageNo.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -192,6 +194,13 @@ public class MessagePanel extends JPanel implements ActionListener  {
 					String titleText = titleField.getText();
 					String messageText = messageArea.getText();
 					String resipientText = recipientField.getText();
+					
+
+//					else{
+//						if (e.getSource()==deleteMessageYes){
+//							titleField.eraseText();
+//						}
+//					}
 				}
 			}
 		}
