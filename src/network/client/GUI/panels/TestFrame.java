@@ -12,6 +12,7 @@ public class TestFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.add(new TaskPanel(), BorderLayout.CENTER);
+                frame.add(new CalendarPanel(),BorderLayout.SOUTH);
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
