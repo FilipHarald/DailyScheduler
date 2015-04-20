@@ -1,5 +1,7 @@
 package network.server;
 
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 
 import miscellaneous.UsernameAndPwdPair;
@@ -21,7 +23,12 @@ public class ServerController {
 	}
 	
 	public boolean authenticateUser(UsernameAndPwdPair unP){
-		return dbc.authenticateUser(unP);
+		try {
+			return dbc.authenticateUser(unP);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	
@@ -36,7 +43,7 @@ public class ServerController {
 	 */	
 	public void objectHandler(Object arg){
 		if(arg instanceof String){
-			userConnected((String) arg);
+//			userConnected((String) arg);
 		}
 		
 	}

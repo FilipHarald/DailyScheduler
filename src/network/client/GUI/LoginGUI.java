@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.Arrays;
 
-
 import network.client.controllers.ClientController;
 
 public class LoginGUI {
@@ -14,18 +13,18 @@ public class LoginGUI {
 	private JPasswordField passwordText;
 	private ClientController cc;
 	private JFrame frame;
-	
-	public LoginGUI(ClientController cc){
+
+	public LoginGUI(ClientController cc) {
 		this.cc = cc;
-		
+
 		frame = new JFrame("DailyScheduler - login");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		placeComponents(panel);
-		
+
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 	}
@@ -53,35 +52,20 @@ public class LoginGUI {
 		JButton loginButton = new JButton("Login");
 		loginButton.setBounds(10, 80, 80, 25);
 		panel.add(loginButton);
-		
-		loginButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-                    //String cmd = e.getActionCommand();
-                    
-                    //if(OK.equals(cmd) ){
-                       char[] password = passwordText.getPassword();
-                       String userName = userText.getText();
-                       cc.login(userName, password);
-                   
-                       //}
-                       
-                       Arrays.fill(password, '0');
-                       
-                       passwordText.selectAll();
-                       
-                   
-                
-		}});
-	}
 
-	public String getUserName(String userName){
-		return userText.getText();
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				char[] password = passwordText.getPassword();
+				String userName = userText.getText();
+				cc.login(userName, password);
+				Arrays.fill(password, '0');
+				passwordText.selectAll();
+
+			}
+		});
 	}
-	
 	public void close() {
 		frame.dispose();
 	}
-	
-	
-	
+
 }

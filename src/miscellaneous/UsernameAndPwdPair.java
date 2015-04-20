@@ -18,8 +18,11 @@ public class UsernameAndPwdPair implements Serializable {
 	public UsernameAndPwdPair(String userName, String password) {
 		this.userName = userName;
 		this.password = password.toCharArray();
-		
-
+	}
+	
+	public UsernameAndPwdPair(String userName, char[] password) {
+		this.userName = userName;
+		this.password = password;
 	}
 
 	public String getUserName() {
