@@ -158,11 +158,9 @@ public class Server implements Runnable, Observer {
 		public void run() {
 			try {
 				System.out.println("clientHandler thread started");
-				ois = new ObjectInputStream(socket.getInputStream());
-				System.out.println("cgadsgasd");
 				oos = new ObjectOutputStream(socket.getOutputStream());
+				ois = new ObjectInputStream(socket.getInputStream());
 				UsernameAndPwdPair unP;
-				System.out.println("clientHandler streams created");
 
 				unP = (UsernameAndPwdPair) ois.readObject();
 				boolean validUser = sCont.authenticateUser(unP);

@@ -43,17 +43,10 @@ public class Client {
 	 */
 	public Client(String ip, int port) {
 		try {
-			System.out.println("11");
-			socket = new Socket();
-			socket.connect(new InetSocketAddress(ip, port));
-			System.out.println("12");
-			System.out.println(socket.toString());
+			socket = new Socket(ip, port);
+//			socket.connect(new InetSocketAddress(ip, port));
 			ois = new ObjectInputStream(socket.getInputStream());
-			System.out.println("13");
 			oos = new ObjectOutputStream(socket.getOutputStream());
-			System.out.println("14");
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
