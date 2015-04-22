@@ -33,7 +33,7 @@ public class MessageController {
         recipients = getRecipients();
     }
     
-    public Message displayMessage(Message msg){
+    public void displayMessage(Message msg){
         msgPanel.displayMessage(msg);
     }
     

@@ -26,9 +26,6 @@ public class Message {
         
     }
 
-    public String getAuthor(){
-        return user.getName();
-    }
     
     public int getId (){
     	return id;
