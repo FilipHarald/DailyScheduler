@@ -13,14 +13,13 @@ import java.util.ArrayList;
  */
 public class Message {
 	private User user;
-    private String name;
     private String title;
     private String msg;
     private ArrayList<String>recipients = new ArrayList<String>();
     private int id;
     
-    public Message (String name, String title, String msg, ArrayList<String> recipients, int id){
-    	this.name = name;
+    public Message (String title, String msg, ArrayList<String> recipients, int id){
+    
         this.title = title;
         this.msg = msg;
         this.id = id;

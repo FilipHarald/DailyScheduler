@@ -30,6 +30,11 @@ import com.mysql.jdbc.Statement;
 
 import entities.*;
 
+/**
+ * 
+ * @author Henrik & Filip
+ *
+ */
 public class DatabaseController {
 
 	private static Connection connection;
@@ -279,7 +284,7 @@ public class DatabaseController {
 	}
 	
 	private Message getMessage (int entityId, ResultSet resultSet) throws SQLException{
-		return new Message (resultSet.getString(2), resultSet.getString(3), null, resultSet.getInt(1));
+		return new Message (resultSet.getString(2),resultSet.getString(3), null, resultSet.getInt(1));
 	}
 	
 	private Event getEvent (int entityType, ResultSet resultSet) throws SQLException{
