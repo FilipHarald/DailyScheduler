@@ -27,22 +27,23 @@ public class MessageController {
     }
     
     public void createMessage(String name, String title, ArrayList<String> recipients, int id){
-        msg.getAuthor();
+    	msg.getId();
         msg.setTitle(msgPanel.getTitle());
         msg.setMessage(msgPanel.getMessage());
         recipients = getRecipients();
     }
     
-    public void displayMessage(Message msg){
+    public Message displayMessage(Message msg){
         msgPanel.displayMessage(msg);
     }
     
-    public Message editMessage(){
+    public Message editMessage(ArrayList<String> recipients){
         displayMessage(msg);
       
-        msg.getAuthor();
+        msg.getId();
         msg.setTitle(msgPanel.getTitle());
         msg.setMessage(msgPanel.getMessage());
+        recipients = getRecipients();
        
         return msg;
     }
