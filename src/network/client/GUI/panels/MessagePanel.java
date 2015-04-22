@@ -1,5 +1,6 @@
 package network.client.GUI.panels;
 
+import entities.Message;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import network.client.controllers.MessageController;
 
 /**
  * The class creates a panel with new messages for the programs user.
@@ -28,6 +30,8 @@ import javax.swing.JTextField;
  *
  */
 public class MessagePanel extends JPanel implements ActionListener  {
+    
+    private MessageController messageC;
 
 	/*
 	 * Class variables
@@ -256,8 +260,17 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	public String getRecipients() {
 		return recipientField.getText();
 	}
-	public void messageDisplay(){
-		txt.setText(AuthorId.getText());
+        
+        //display the list of all the messages 
+	public void messageListDisplay(Message msg){
+		txt.setText(messageC.displayMessageList(msg).toString());
 	}
+        
+        //display information/content for a specific message
+         public void displayMessage(Message msg) {
+        
+        
+
+    }
 
 }

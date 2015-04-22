@@ -13,6 +13,7 @@ public class TestFrame {
 		
 		frame.add(new TaskPanel(), BorderLayout.CENTER);
                 frame.add(new CalendarPanel(),BorderLayout.SOUTH);
+                frame.add(new MessagePanel(),BorderLayout.SOUTH);
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);

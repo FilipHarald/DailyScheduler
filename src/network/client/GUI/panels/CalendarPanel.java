@@ -1,13 +1,19 @@
 package network.client.GUI.panels;
 
 import com.toedter.calendar.JDateChooser;
+import entities.Event;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
+import network.client.controllers.EventController;
 
 public class CalendarPanel extends JPanel implements ActionListener {
+    private EventController ec;
     
     private JDateChooser jdcDate = new JDateChooser();
     
@@ -21,12 +27,12 @@ public class CalendarPanel extends JPanel implements ActionListener {
     private JButton btnSaveEvent = new JButton("Save");
     private JButton btnSearch = new JButton ("Search");
 
-    private JLabel lblTitle = new JLabel("Title");
+    private JLabel lblDescription = new JLabel("Title");
     private JLabel lblDate = new JLabel("Date");
     private JLabel lblParticipants = new JLabel("Participants");
     private JLabel lblSearch = new JLabel("Type the eventID you wish to search for");
     
-    private JTextField tfTitle = new JTextField(15);
+    private JTextField tfDescription = new JTextField(15);
     private JTextField tfDate = new JTextField(15);
     private JTextField tfSearch = new JTextField(15);
     private JTextArea taParticipants = new JTextArea();
@@ -47,7 +53,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
         add(pnlButton, BorderLayout.CENTER);
 
         pnlNewEvent.setLayout(new BorderLayout());
-        pnlNewEvent.add(tfTitle, BorderLayout.NORTH);
+        pnlNewEvent.add(tfDescription, BorderLayout.NORTH);
         listeners();
     }
 
@@ -68,8 +74,8 @@ public class CalendarPanel extends JPanel implements ActionListener {
         pnlNewEvent.setSize(550, 350);
         pnlNewEvent.setLayout(null);
 
-        lblTitle.setBounds(70, 50, 80, 20);
-        tfTitle.setBounds(170, 50, 180, 20);
+        lblDescription.setBounds(70, 50, 80, 20);
+        tfDescription.setBounds(170, 50, 180, 20);
 
         lblDate.setBounds(70, 80, 80, 20);
         jdcDate.setBounds(170, 80, 180, 20);
@@ -79,8 +85,8 @@ public class CalendarPanel extends JPanel implements ActionListener {
 
         btnSaveEvent.setBounds(175, 250, 100, 25);
 
-        pnlNewEvent.add(lblTitle);
-        pnlNewEvent.add(tfTitle);
+        pnlNewEvent.add(lblDescription);
+        pnlNewEvent.add(tfDescription);
         pnlNewEvent.add(lblDate);
         pnlNewEvent.add(jdcDate);
 
@@ -102,8 +108,8 @@ public class CalendarPanel extends JPanel implements ActionListener {
         pnlEditEvent.setSize(550, 350);
         pnlEditEvent.setLayout(null);
 
-        lblTitle.setBounds(70, 50, 80, 20);
-        tfTitle.setBounds(170, 50, 180, 20);
+        lblDescription.setBounds(70, 50, 80, 20);
+        tfDescription.setBounds(170, 50, 180, 20);
 
         lblDate.setBounds(70, 80, 80, 20);
         jdcDate.setBounds(170, 80, 180, 20);
@@ -114,8 +120,8 @@ public class CalendarPanel extends JPanel implements ActionListener {
         btnSaveEvent.setBounds(175, 250, 100, 25);
         btnDeleteEvent.setBounds(340, 250, 100, 25);
         
-        pnlEditEvent.add(lblTitle);
-        pnlEditEvent.add(tfTitle);
+        pnlEditEvent.add(lblDescription);
+        pnlEditEvent.add(tfDescription);
         pnlEditEvent.add(lblDate);
         pnlEditEvent.add(jdcDate);
 
@@ -156,13 +162,13 @@ public class CalendarPanel extends JPanel implements ActionListener {
     
     
     private void clearFields(){
-        tfTitle.setText(null);
+        tfDescription.setText(null);
         jdcDate.setDate(null);
         taParticipants.setText(null);
         
     }
     private void setLabels(){
-        lblTitle.setText("Title");
+        lblDescription.setText("Title");
         lblDate.setText("Date");
         lblParticipants.setText("Participants");
                 
@@ -171,8 +177,8 @@ public class CalendarPanel extends JPanel implements ActionListener {
     private boolean isEmpty(){
         boolean isEmpty = false;
         
-        if(tfTitle.getText().trim().isEmpty()){
-            lblTitle.setText("Title *");
+        if(tfDescription.getText().trim().isEmpty()){
+            lblDescription.setText("Title *");
             isEmpty= true;
             
         } 
@@ -191,9 +197,16 @@ public class CalendarPanel extends JPanel implements ActionListener {
         
     } 
     
-    private void getTitle(){
-        
-        tfTitle.setText(tfSearch.getText());
+    public String getDescription(){
+        return tfDescription.getText();
+    }
+    
+    public Date getDate(){
+        return jdcDate.getDate();
+    }
+    
+    public String getParticipants(){
+        return taParticipants.getText();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -212,12 +225,12 @@ public class CalendarPanel extends JPanel implements ActionListener {
             frmSearchEvent.dispose();
             setLabels();
             clearFields();
-            tfTitle.setText(tfSearch.getText());
+            tfDescription.setText(tfSearch.getText());
             renderEditEvent();
 
         } else if ((button) == btnDeleteEvent) {
             //JOptionPane.showMessageDialog(null, "Do you wish to delete event: " + tfTitle.getText() + "?");
-            int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + tfTitle.getText() + "?", null, JOptionPane.YES_NO_OPTION);
+            int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + tfDescription.getText() + "?", null, JOptionPane.YES_NO_OPTION);
             if (delete == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, "The event has been deleted");
                 //TODO: delete event from database
@@ -241,8 +254,15 @@ public class CalendarPanel extends JPanel implements ActionListener {
         }
 
     }
+//    public void getTitle(){
+//        
+//    }
 
-    public void displayEvent() {
+    public void displayEvent(Event event) {
+        tfDescription.setText(event.getDescription());
+        jdcDate.setDate(event.getDate());
+        taParticipants.setText(event.getParticipants(null).toString());
+        
 
     }
 
