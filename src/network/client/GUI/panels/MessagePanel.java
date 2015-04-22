@@ -59,11 +59,13 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JButton deleteMessageYes = new JButton ("Yes");
 	private JButton deleteMessageNo = new JButton("No");
 	private JLabel deleteMessageTitle = new JLabel("Do you wish to delete this message?");
+	
 	/**
 	 * Constructor
 	 */
 	public MessagePanel(){
 		super();
+	
 
 		/*
 		 * Borderlayout for the objects
@@ -200,19 +202,23 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				}
 			}
 			if (e.getSource()==sendNewMessage){
-				JFrame confirmMessageFrame = new JFrame("Confirm send Message");
-				confirmMessageFrame.setLayout(null);
-				confirmMessageFrame.setPreferredSize(new Dimension(500, 500));
 				
 				String resRecipient = recipientField.getText();
+				int resRecipientLength=resRecipient.length();
+				
+				JFrame confirmMessageFrame = new JFrame("Confirm send Message");
+				confirmMessageFrame.setLayout(null);
+				confirmMessageFrame.setPreferredSize(new Dimension(500+resRecipientLength,500));
+				
+				
 				confirmSendLabel.setText("Send to " + resRecipient);
 
-				confirmNewMessagePanel.setSize(500, 500);
+				confirmNewMessagePanel.setSize(500+resRecipientLength,500 );
 				confirmNewMessagePanel.setLayout(null);
 
-				int recipientStringLength=resRecipient.length();
 				
-				confirmSendLabel.setBounds(110,80,recipientStringLength,20);
+				
+				confirmSendLabel.setBounds(110,80,(150+resRecipientLength),20);
 				confirmSendButtonYes.setBounds(100,420,80,25);
 				confirmSendButtonNo.setBounds(300,420,80,25);
 				
@@ -249,6 +255,9 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	//get recipients from textfield
 	public String getRecipients() {
 		return recipientField.getText();
+	}
+	public void messageDisplay(){
+		txt.setText(AuthorId.getText());
 	}
 
 }
