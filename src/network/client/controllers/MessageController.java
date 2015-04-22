@@ -5,6 +5,10 @@
  */
 package network.client.controllers;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import database.DatabaseController;
 import entities.Message;
 import network.client.GUI.panels.MessagePanel;
@@ -22,30 +26,48 @@ public class MessageController {
         this.msg = msg;
     }
     
-    public void createMessage(String title, String msg, String[] recipients, int id){
-        Message tmpMessage = new Message(title, msg, recipients, id);
-                
+    public void createMessage(String name, String title, ArrayList<String> recipients, int id){
+    	msg.getId();
+        msg.setTitle(msgPanel.getTitle());
+        msg.setMessage(msgPanel.getMessage());
+        recipients = getRecipients();
     }
     
     public void displayMessage(Message msg){
         msgPanel.displayMessage(msg);
     }
     
-    public Message editMessage(){
+    public Message editMessage(ArrayList<String> recipients){
         displayMessage(msg);
-        
-        Message msg = new Message(null, null, null, 0);
-        msg.getAuthor();
-        msg.setTitle(msgPanel.getTitleText());
-        msg.setMessage(msgPanel.getMessageText());
-        msg.setRecipients(msgPanel.getRecipents());
-        
+      
+        msg.getId();
+        msg.setTitle(msgPanel.getTitle());
+        msg.setMessage(msgPanel.getMessage());
+        recipients = getRecipients();
+       
         return msg;
     }
     
-    public void deleteMessage(int msgIdDelete){
-        database.deleteMessage(msgIdDelete);
+    public void deleteMessage(Object obj){
+        try {
+			database.deleteEntity(obj);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
+    }
+    
+    private ArrayList<String> getRecipients (){
+		String [] parts = msgPanel.getRecipients().split(",");
+		if (parts !=  null){
+			for (int i = 0; i < parts.length; i++){
+				parts [i] = parts [i].trim();			}
+		
+			return new ArrayList <String>(Arrays.asList(parts));
+		}
+    	
+    	return new ArrayList<String>(); 
+    	
     }
     
     
