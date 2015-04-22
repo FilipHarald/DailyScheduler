@@ -23,14 +23,12 @@ public class CalendarPanel extends JPanel implements ActionListener {
 
     private JLabel lblTitle = new JLabel("Title");
     private JLabel lblDate = new JLabel("Date");
-    private JLabel lblDescription = new JLabel("Description");
     private JLabel lblParticipants = new JLabel("Participants");
     private JLabel lblSearch = new JLabel("Type the eventID you wish to search for");
     
     private JTextField tfTitle = new JTextField(15);
     private JTextField tfDate = new JTextField(15);
     private JTextField tfSearch = new JTextField(15);
-    private JTextArea taDescription = new JTextArea();
     private JTextArea taParticipants = new JTextArea();
 
     private JPanel pnlButton = new JPanel();
@@ -59,14 +57,15 @@ public class CalendarPanel extends JPanel implements ActionListener {
         btnEditEvent.addActionListener(this);
         btnDeleteEvent.addActionListener(this);
         btnSaveEvent.addActionListener(this);
+        btnSearch.addActionListener(this);
 
     }
 
     private void renderNewEvent() {
         frmNewEvent.setLayout(null);
-        frmNewEvent.setMinimumSize(new Dimension(600, 600));
+        frmNewEvent.setMinimumSize(new Dimension(550, 350));
 
-        pnlNewEvent.setSize(600, 600);
+        pnlNewEvent.setSize(550, 350);
         pnlNewEvent.setLayout(null);
 
         lblTitle.setBounds(70, 50, 80, 20);
@@ -75,20 +74,16 @@ public class CalendarPanel extends JPanel implements ActionListener {
         lblDate.setBounds(70, 80, 80, 20);
         jdcDate.setBounds(170, 80, 180, 20);
 
-        lblDescription.setBounds(70, 20, 80, 200);
-        taDescription.setBounds(170, 110, 280, 200);
+        lblParticipants.setBounds(70, 80, 80, 100);
+        taParticipants.setBounds(170, 120, 280, 100);
 
-        lblParticipants.setBounds(70, 290, 80, 100);
-        taParticipants.setBounds(170, 330, 280, 100);
-
-        btnSaveEvent.setBounds(175, 480, 100, 25);
+        btnSaveEvent.setBounds(175, 250, 100, 25);
 
         pnlNewEvent.add(lblTitle);
         pnlNewEvent.add(tfTitle);
         pnlNewEvent.add(lblDate);
         pnlNewEvent.add(jdcDate);
-        pnlNewEvent.add(lblDescription);
-        pnlNewEvent.add(taDescription);
+
         pnlNewEvent.add(lblParticipants);
         pnlNewEvent.add(taParticipants);
         pnlNewEvent.add(btnSaveEvent);
@@ -102,9 +97,9 @@ public class CalendarPanel extends JPanel implements ActionListener {
 
     private void renderEditEvent() {
         frmEditEvent.setLayout(null);
-        frmEditEvent.setMinimumSize(new Dimension(600, 600));
+        frmEditEvent.setMinimumSize(new Dimension(550, 350));
 
-        pnlEditEvent.setSize(600, 600);
+        pnlEditEvent.setSize(550, 350);
         pnlEditEvent.setLayout(null);
 
         lblTitle.setBounds(70, 50, 80, 20);
@@ -113,21 +108,17 @@ public class CalendarPanel extends JPanel implements ActionListener {
         lblDate.setBounds(70, 80, 80, 20);
         jdcDate.setBounds(170, 80, 180, 20);
 
-        lblDescription.setBounds(70, 20, 80, 200);
-        taDescription.setBounds(170, 110, 280, 200);
+        lblParticipants.setBounds(70, 80, 80, 100);
+        taParticipants.setBounds(170, 120, 280, 100);
 
-        lblParticipants.setBounds(70, 290, 80, 100);
-        taParticipants.setBounds(170, 330, 280, 100);
-
-        btnSaveEvent.setBounds(175, 480, 100, 25);
-        btnDeleteEvent.setBounds(340, 480, 100, 25);
+        btnSaveEvent.setBounds(175, 250, 100, 25);
+        btnDeleteEvent.setBounds(340, 250, 100, 25);
         
         pnlEditEvent.add(lblTitle);
         pnlEditEvent.add(tfTitle);
         pnlEditEvent.add(lblDate);
         pnlEditEvent.add(jdcDate);
-        pnlEditEvent.add(lblDescription);
-        pnlEditEvent.add(taDescription);
+
         pnlEditEvent.add(lblParticipants);
         pnlEditEvent.add(taParticipants);
         pnlEditEvent.add(btnSaveEvent);
@@ -149,9 +140,11 @@ public class CalendarPanel extends JPanel implements ActionListener {
         
         lblSearch.setBounds(150, 50, 300, 30);
         tfSearch.setBounds(100, 80, 350, 30);
+        btnSearch.setBounds(470, 80, 80, 30);
         
         pnlSearchEvent.add(lblSearch);
         pnlSearchEvent.add(tfSearch);
+        pnlSearchEvent.add(btnSearch);
         
         frmSearchEvent.add(pnlSearchEvent);
         frmSearchEvent.setLocationRelativeTo(null);
@@ -165,14 +158,12 @@ public class CalendarPanel extends JPanel implements ActionListener {
     private void clearFields(){
         tfTitle.setText(null);
         jdcDate.setDate(null);
-        taDescription.setText(null);
         taParticipants.setText(null);
         
     }
     private void setLabels(){
         lblTitle.setText("Title");
         lblDate.setText("Date");
-        lblDescription.setText("Description");
         lblParticipants.setText("Participants");
                 
     }
@@ -190,12 +181,7 @@ public class CalendarPanel extends JPanel implements ActionListener {
             isEmpty= true;
             
         }
-        if(taDescription.getText().trim().isEmpty()){
-            lblDescription.setText("Description *");
-            isEmpty= true;
-            
-        }
-        
+               
         if(taParticipants.getText().trim().isEmpty()){
             lblParticipants.setText("Participants *");
             isEmpty= true;
@@ -204,6 +190,11 @@ public class CalendarPanel extends JPanel implements ActionListener {
         return isEmpty;
         
     } 
+    
+    private void getTitle(){
+        
+        tfTitle.setText(tfSearch.getText());
+    }
 
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
@@ -216,8 +207,12 @@ public class CalendarPanel extends JPanel implements ActionListener {
         } else if ((button) == btnEditEvent) {
             //TODO: add display event
             renderSearchEvent();
+            
+        } else if((button) == btnSearch){
+            frmSearchEvent.dispose();
             setLabels();
             clearFields();
+            tfTitle.setText(tfSearch.getText());
             renderEditEvent();
 
         } else if ((button) == btnDeleteEvent) {
@@ -233,7 +228,6 @@ public class CalendarPanel extends JPanel implements ActionListener {
                 
             }
             
-
         } else if ((button) == btnSaveEvent) {
             setLabels();
             if(isEmpty() == true){
@@ -244,10 +238,6 @@ public class CalendarPanel extends JPanel implements ActionListener {
                 frmEditEvent.dispose();
             }
             
-            
-           
-            
-
         }
 
     }
@@ -256,8 +246,5 @@ public class CalendarPanel extends JPanel implements ActionListener {
 
     }
 
-    //get description from textarea
-    public String getDescription() {
-        return taDescription.getText();
-    }
+  
 }
