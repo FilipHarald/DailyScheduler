@@ -247,7 +247,7 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	}
 
 	//get recipients from textfield
-	public ArrayList<String> getRecipients() {
+	public String getRecipients() {
 		return recipientField.getText();
 	}
 
