@@ -12,13 +12,15 @@ import java.util.ArrayList;
  * @author Aya
  */
 public class Message {
-    private String authorId;
+	private User user;
+    private String name;
     private String title;
     private String msg;
     private ArrayList<String>recipients = new ArrayList<String>();
     private int id;
     
-    public Message (String title, String msg, String[] recipients, int id){
+    public Message (String name, String title, String msg, ArrayList<String> recipients, int id){
+    	this.name = name;
         this.title = title;
         this.msg = msg;
         this.id = id;
@@ -26,7 +28,7 @@ public class Message {
     }
 
     public String getAuthor(){
-        return authorId;
+        return user.getName();
     }
     
     public int getId (){
@@ -45,7 +47,7 @@ public class Message {
         return msg;
     }
     
-    public void setMessage(){
+    public void setMessage(String string){
         this.msg = msg;
     }
     
@@ -53,8 +55,8 @@ public class Message {
         return recipients;
     }
     
-    public void setRecipients(ArrayList<String> recipients){
-        this.recipients = recipients;
+    public void setRecipients(ArrayList<String> string){
+        this.recipients = string;
         
     }
 }

@@ -69,7 +69,7 @@ public class DatabaseController {
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
 		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
-				unP.getUserName(), unP.getPassword());
+				unP.getUserId(), unP.getPassword());
 		Statement statement = (Statement) connection.createStatement(
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
