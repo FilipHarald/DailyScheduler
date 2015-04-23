@@ -120,116 +120,131 @@ public class TaskPanel extends JPanel implements ActionListener {
 		
 		add (labelInputPanel, BorderLayout.SOUTH);
 	}
+	
+	public void createNewTask (){
+		JFrame newTaskFrame = new JFrame("New Task");
+		newTaskFrame.setLayout(null);
+		newTaskFrame.setPreferredSize(new Dimension(500, 500));
+		
+		newTaskPanel.setSize(500, 500);
+		newTaskPanel.setLayout(null);
+		
+		titleLabel.setBounds(100,70,120,20);
+		titleField.setBounds(200,70,120,20);
+		
+		descriptionArea.setBounds(100,100,280,180);
+		subTaskScroll.setBounds(100, 300, 200, 80);
+		
+		saveTask.setBounds(220,420,80,25);
+		btnAddSubTask.setBounds(100, 420, 120, 25);
+		btnCancel.setBounds(300, 420, 80, 25);
+		
+		newTaskPanel.add(titleLabel);
+		newTaskPanel.add(titleField);
+		newTaskPanel.add(descriptionArea);
+		newTaskPanel.add(subTaskScroll);
+		newTaskPanel.add(saveTask);
+		newTaskPanel.add(btnAddSubTask);
+		newTaskPanel.add(btnCancel);
+		
+		newTaskFrame.add(newTaskPanel);
+		newTaskFrame.pack();
+		newTaskFrame.setLocationRelativeTo(null);
+		newTaskFrame.setVisible(true);
+	}
+	
+	public void editTask (){
+		JFrame editTaskFrame = new JFrame("Edit Task");
+		editTaskFrame.setLayout(null);
+		editTaskFrame.setPreferredSize(new Dimension(500, 500));
+		
+		editTaskPanel.setSize(500, 500);
+		editTaskPanel  .setLayout(null);
+		
+		titleLabel.setBounds(100,70,120,20);
+		titleField.setBounds(200,70,120,20);
+		
+		descriptionArea.setBounds(100,100,280,300);
+		
+		editTask.setBounds(100,420,120,30);
+		btnCancel.setBounds(300, 420, 80, 25);
+		
+		editTaskPanel.add(titleLabel);
+		editTaskPanel.add(titleField);
+		editTaskPanel.add(descriptionArea);
+		editTaskPanel.add(editTask);
+		editTaskPanel.add(btnCancel);
+		
+		editTaskFrame.add(editTaskPanel);
+		editTaskFrame.pack();
+		editTaskFrame.setLocationRelativeTo(null);
+		editTaskFrame.setVisible(true);
+	}
+	
+	public void deleteTask(){
+		JFrame deleteTaskFrame = new JFrame("Delete Task");
+		deleteTaskFrame.setLayout(null);
+		deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
+		
+		deleteTaskPanel.setSize(500, 500);
+		deleteTaskPanel.setLayout(null);
+		
+		titleLabel.setBounds(100,70,120,20);
+		titleField.setBounds(200,70,120,20);
+		
+		descriptionArea.setBounds(100,100,280,300);
+		
+		deleteTask.setBounds(100,420,120,30);
+		btnCancel.setBounds(300, 420, 80, 25);
+		
+		deleteTaskPanel.add(titleLabel);
+		deleteTaskPanel.add(titleField);
+		deleteTaskPanel.add(descriptionArea);
+		deleteTaskPanel.add(deleteTask);
+		deleteTaskPanel.add(btnCancel);
+		
+		deleteTaskFrame.add(deleteTaskPanel);
+		deleteTaskFrame.pack();
+		deleteTaskFrame.setLocationRelativeTo(null);
+		deleteTaskFrame.setVisible(true);
+	}
+	
+	public void addSubTask(){
+		JFrame addSubTaskFrame = new JFrame("Add Subtask");
+		addSubTaskFrame.setLayout(null);
+		addSubTaskFrame.setPreferredSize(new Dimension(500, 500));
+		
+		addSubTaskPanel.setSize(500, 500);
+		addSubTaskPanel.setLayout(null);
+		
+		descriptionArea.setBounds(100,100,280,180);
+		descriptionLabel.setBounds(20, 20, 280, 180);
+		saveSubTask.setBounds(100, 420, 120, 30);
+		btnCancel.setBounds(300, 420, 80, 25);
+		
+		addSubTaskPanel.add(descriptionArea);
+		addSubTaskPanel.add(descriptionLabel);
+		addSubTaskPanel.add(saveSubTask);
+		addSubTaskPanel.add(btnCancel);
+		
+		addSubTaskFrame.add(addSubTaskPanel);
+		addSubTaskFrame.pack();
+		addSubTaskFrame.setLocationRelativeTo(null);
+		addSubTaskFrame.setVisible(true);
+	}
 
     public void actionPerformed (ActionEvent e){
     	if (e.getSource() == btnCreateNewTask) {
-    		JFrame newTaskFrame = new JFrame("New Task");
-			newTaskFrame.setLayout(null);
-			newTaskFrame.setPreferredSize(new Dimension(500, 500));
-			
-			newTaskPanel.setSize(500, 500);
-			newTaskPanel.setLayout(null);
-			
-			titleLabel.setBounds(100,70,120,20);
-			titleField.setBounds(200,70,120,20);
-			
-			descriptionArea.setBounds(100,100,280,180);
-			subTaskScroll.setBounds(100, 300, 200, 80);
-			
-			saveTask.setBounds(220,420,80,25);
-			btnAddSubTask.setBounds(100, 420, 120, 25);
-			btnCancel.setBounds(300, 420, 80, 25);
-			
-			newTaskPanel.add(titleLabel);
-			newTaskPanel.add(titleField);
-			newTaskPanel.add(descriptionArea);
-			newTaskPanel.add(subTaskScroll);
-			newTaskPanel.add(saveTask);
-			newTaskPanel.add(btnAddSubTask);
-			newTaskPanel.add(btnCancel);
-			
-			newTaskFrame.add(newTaskPanel);
-			newTaskFrame.pack();
-			newTaskFrame.setLocationRelativeTo(null);
-			newTaskFrame.setVisible(true);
+    		createNewTask();
 			
     	} else if (e.getSource() == btnEditTask){
-    		JFrame editTaskFrame = new JFrame("Edit Task");
-			editTaskFrame.setLayout(null);
-			editTaskFrame.setPreferredSize(new Dimension(500, 500));
-			
-			editTaskPanel.setSize(500, 500);
-			editTaskPanel  .setLayout(null);
-			
-			titleLabel.setBounds(100,70,120,20);
-			titleField.setBounds(200,70,120,20);
-			
-			descriptionArea.setBounds(100,100,280,300);
-			
-			editTask.setBounds(100,420,120,30);
-			btnCancel.setBounds(300, 420, 80, 25);
-			
-			editTaskPanel.add(titleLabel);
-			editTaskPanel.add(titleField);
-			editTaskPanel.add(descriptionArea);
-			editTaskPanel.add(editTask);
-			editTaskPanel.add(btnCancel);
-			
-			editTaskFrame.add(editTaskPanel);
-			editTaskFrame.pack();
-			editTaskFrame.setLocationRelativeTo(null);
-			editTaskFrame.setVisible(true);
+    		editTask();
 			
     	} else if (e.getSource() == btnDeleteTask){
-    		JFrame deleteTaskFrame = new JFrame("Delete Task");
-			deleteTaskFrame.setLayout(null);
-			deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
-			
-			deleteTaskPanel.setSize(500, 500);
-			deleteTaskPanel.setLayout(null);
-			
-			titleLabel.setBounds(100,70,120,20);
-			titleField.setBounds(200,70,120,20);
-			
-			descriptionArea.setBounds(100,100,280,300);
-			
-			deleteTask.setBounds(100,420,120,30);
-			btnCancel.setBounds(300, 420, 80, 25);
-			
-			deleteTaskPanel.add(titleLabel);
-			deleteTaskPanel.add(titleField);
-			deleteTaskPanel.add(descriptionArea);
-			deleteTaskPanel.add(deleteTask);
-			deleteTaskPanel.add(btnCancel);
-			
-			deleteTaskFrame.add(deleteTaskPanel);
-			deleteTaskFrame.pack();
-			deleteTaskFrame.setLocationRelativeTo(null);
-			deleteTaskFrame.setVisible(true);
+    		deleteTask();
     	}
     	if (e.getSource() == btnAddSubTask) {
-    		
-    		JFrame addSubTaskFrame = new JFrame("Add Subtask");
-			addSubTaskFrame.setLayout(null);
-			addSubTaskFrame.setPreferredSize(new Dimension(500, 500));
-			
-			addSubTaskPanel.setSize(500, 500);
-			addSubTaskPanel.setLayout(null);
-    		
-    		descriptionArea.setBounds(100,100,280,180);
-    		descriptionLabel.setBounds(20, 20, 280, 180);
-    		saveSubTask.setBounds(100, 420, 120, 30);
-    		btnCancel.setBounds(300, 420, 80, 25);
-    		
-    		addSubTaskPanel.add(descriptionArea);
-    		addSubTaskPanel.add(descriptionLabel);
-    		addSubTaskPanel.add(saveSubTask);
-    		addSubTaskPanel.add(btnCancel);
-    		
-    		addSubTaskFrame.add(addSubTaskPanel);
-			addSubTaskFrame.pack();
-			addSubTaskFrame.setLocationRelativeTo(null);
-			addSubTaskFrame.setVisible(true);
+    		addSubTask();
     	}
     }
 
