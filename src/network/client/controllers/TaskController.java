@@ -5,13 +5,15 @@
  */
 package network.client.controllers;
 
-import database.Database;
+
+import database.DatabaseController;
 import entities.Task;
 import entities.Task.SubTask;
 
 import java.util.Date;
 import java.util.LinkedList;
 
+import miscellaneous.Updater;
 import network.client.GUI.panels.TaskPanel;
 
 /**
@@ -21,8 +23,9 @@ import network.client.GUI.panels.TaskPanel;
 public class TaskController {
 
     private Task task;
-    private Database database;
+    private DatabaseController database;
     private TaskPanel taskPanel;
+    private Updater up;
 
     public TaskController(Task task) {
         this.task = task;
@@ -38,15 +41,25 @@ public class TaskController {
      */
     public void createTask(int authorId, String description, String[] subTasks, Date date, int Id) {
         Task tmpTask = new Task(authorId, description, subTasks, date, Id);
-        //TODO: add to database 
-        database.SaveResult(tmpTask);
+        tmpTask.getAuthor();
+        tmpTask.getDescription();
+        tmpTask.getSubtasks();
+        tmpTask.getDate();
+        tmpTask.getId();
+        
+        up.addTask(tmpTask);
     }
     
     //forward incoming task from client to GUI
     public void displayTask(Task task){
 		//TODO: call method from GUI that displays the task in the GUI (must create method in taskPanel)
-    	taskPanel.displayTask();
+    	taskPanel.displayTask(task);
     	
+    }
+    
+    public Task displayTaskList (Task task){
+    	up.getTasks();
+    	return task;
     }
     
     //check if task is complete, if it is then move it to completeTasks
@@ -60,22 +73,6 @@ public class TaskController {
     	}
     }
     
-    /**
-     * find an existing task in database by its id
-     *
-     * @param taskId
-     * @return
-     */
-    public Task findTask(int taskId) {
-        //find id for task in database
-    	try {
-			database.ShowResult(taskId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return task;
-        displayTask(task);
-    }
 
     /**
      * edits an existing task
@@ -88,22 +85,22 @@ public class TaskController {
     public Task editTask() {
     	displayTask(task);
         //TODO: save updated info in database (create method in taskPanel)
-    	Task task = new Task(0, null, null, null, 0);
     	task.getAuthor();
-    	task.setDescription(taskPanel.getDescriptionText());
+    	task.setDescription(taskPanel.getDescription());
     	task.addSubTask(null);
     	task.setDate(task.getDate());
     	task.getId();
-        database.SaveResult(taskId);
+     
+    	return task;
+    	
     }
 
     /**
      * deletes a Task from the database
      * @param taskIdDelete
      */
-    public void deleteTask(int taskIdDelete) {
-        database.deleteTask(taskIdDelete);
-        //TODO: delete task from database
+    public void deleteTask(Object obj) {
+        database.deleteEntity(obj);
     }
 
     /**

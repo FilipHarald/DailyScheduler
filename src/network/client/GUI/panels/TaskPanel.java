@@ -5,14 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import network.client.controllers.TaskController;
+import entities.Task;
+
 public class TaskPanel extends JPanel implements ActionListener {
+	private TaskController taskC;
 	
 	private JButton btnCreateNewTask = new JButton ("New Task");
 	private JButton btnEditTask = new JButton("Edit Task");
 	private JButton btnDeleteTask = new JButton ("Delete Task");
 	
-	private JList listCompletedTask = new JList ();
-	private JList listIncompletedTask = new JList();
+	private JList <String> listCompletedTask = new JList ();
+	private JList<String> listIncompletedTask = new JList();
 	
 	private JTextArea textDescription = new JTextArea();
 	private JTextArea descriptionArea = new JTextArea();
@@ -107,16 +111,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 		add (labelInputPanel, BorderLayout.SOUTH);
 	}
 
-    public void displayTask() {
-               
-        
-    }
-    
-    //get description from textarea
-    public String getDescription() {
-        return textDescription.getText();
-    }
-    
     public void actionPerformed (ActionEvent e){
     	if (e.getSource() == btnCreateNewTask) {
     		JFrame newTaskFrame = new JFrame("New Task");
@@ -194,7 +188,27 @@ public class TaskPanel extends JPanel implements ActionListener {
 			deleteTaskFrame.setVisible(true);
     	}
     }
-	
+
+    public String getTitle(){
+    	return titleField.getText();
+    }
+    
+    //get description from textarea
+    public String getDescription() {
+        return textDescription.getText();
+    }
+    
+    public void taskListDisplayIncompleted (Task task){
+    	listIncompletedTask.setModel((ListModel) taskC.displayTaskList(task));
+    }
+    
+    public void taskListDisplayCompleted (Task task){
+    	listCompletedTask.setModel((ListModel) taskC.displayTaskList(task));
+    }
+    
+    public void displayTask (Task task){
+    	
+    }
 
 	
 	
