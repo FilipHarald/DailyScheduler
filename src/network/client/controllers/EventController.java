@@ -20,7 +20,7 @@ import network.client.GUI.panels.EventPanel;
 public class EventController {
 
     private Event event;
-    private EventPanel calendarPanel;
+    private EventPanel eventPanel;
     private ClientController cc;
     private Updater up;
 
@@ -35,14 +35,12 @@ public class EventController {
      * @param date the date of 
      * @param Id the id for the event
      */
-    public void createEvent(String description, Date date, LinkedList<String>participants, int Id) {
-        Event event = new Event(description, date, participants, Id);
-        participants = getParticipants();
-        event.setDescription(calendarPanel.getDescription());
-        event.setDate(calendarPanel.getDate()); 
+    public Event createEvent() {
+        event.setParticipants(getParticipants());
+        event.setDescription(eventPanel.getDescription());
+        event.setDate(eventPanel.getDate()); 
         up.addEvent(event);
-   
-       
+        return event;  
       
     }
     
@@ -53,7 +51,7 @@ public class EventController {
     
     //splits the String[] from the textarea to parts and saves them to a linkedlist
     private LinkedList<String> getParticipants() {
-		String[] parts = calendarPanel.getParticipants().split(",");
+		String[] parts = eventPanel.getParticipants().split(",");
 		if (parts != null) {
 			for (int i = 0; i < parts.length; i++) {
 				parts[i] = parts[i].trim();
@@ -73,7 +71,7 @@ public class EventController {
     //forward incoming event from client to GUI
     public void displayEvent(Event event){
 		//TODO: call method from GUI that displays the event in the GUI
-    	calendarPanel.displayEvent(event);
+    	eventPanel.displayEvent(event);
     	
     }
     
@@ -85,14 +83,13 @@ public class EventController {
      * @param date the date for the event
      * @param Id the id for the given event
      */
-    public Event editEvent(String description, Date date, LinkedList<String>participants, int Id) {
-    	displayEvent(event);
+    public Event editEvent() {        
+        event.setParticipants(getParticipants());
+        event.setDescription(eventPanel.getDescription());
+        event.setDate(eventPanel.getDate()); 
         
-    	Event tmpEvent = new Event(description, date, participants, Id);
-        participants = getParticipants();
-        event.setDescription(calendarPanel.getDescription());
-        event.setDate(calendarPanel.getDate()); 
-        return tmpEvent;
+        up.addEvent(event);
+        return event;
     }
 
     /**

@@ -228,22 +228,23 @@ public class EventPanel extends JPanel implements ActionListener {
             setLabels();
             clearFields();
             renderNewEvent();
+            
 
         } else if ((button) == btnEditEvent) {
             //TODO: add display event
             renderSearchEvent();
 
         } else if ((button) == btnSearch) {
-            try{
-            String s = (String) lstEvents.getSelectedValue().toString();
-            
+            try {
+                String s = (String) lstEvents.getSelectedValue().toString();
+
                 frmSearchEvent.dispose();
                 setLabels();
                 clearFields();
                 tfDescription.setText(s);
                 renderEditEvent();
-            }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Please select an event" );
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Please select an event");
             }
 
         } else if ((button) == btnDeleteEvent) {
@@ -264,6 +265,7 @@ public class EventPanel extends JPanel implements ActionListener {
             if (isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
             } else {
+                ec.createEvent();
                 //TODO: save event to database
                 frmNewEvent.dispose();
                 frmEditEvent.dispose();

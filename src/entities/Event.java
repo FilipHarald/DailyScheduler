@@ -62,8 +62,10 @@ public class Event{
             
         }
         
-        public void setParticipants(){
+        public void setParticipants(LinkedList<String>participants){
             this.participants = participants;
         }
+
+  
 
 }
