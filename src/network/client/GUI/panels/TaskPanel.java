@@ -15,14 +15,24 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JButton btnCreateNewTask = new JButton ("New Task");
 	private JPanel newTaskPanel = new JPanel();
 	private JScrollPane subTaskScroll = new JScrollPane();
+	private JButton saveTask = new JButton("Save");
+	private JButton btnAddSubTask = new JButton("Add subtask");
 	
 	//For edit task:
 	private JButton btnEditTask = new JButton("Edit Task");
 	private JPanel editTaskPanel = new JPanel();
+	private JButton editTask = new JButton("Save changes");
 	
 	//For delete task:
 	private JButton btnDeleteTask = new JButton ("Delete Task");
 	private JPanel deleteTaskPanel = new JPanel();
+	private JButton deleteTask = new JButton("Delete task");
+	
+	//For add subtask:
+	private JButton saveSubTask = new JButton("Save subtask");
+	private JPanel addSubTaskPanel = new JPanel();
+	private JLabel descriptionLabel = new JLabel ("Description");
+	
 	
 	private JList <String> listCompletedTask = new JList ();
 	private JList<String> listIncompletedTask = new JList();
@@ -34,10 +44,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 	
 	private JLabel titleLabel = new JLabel("Title");
 
-	private JButton addSubTask = new JButton("Add subtask");
-	private JButton saveTask = new JButton("Save");
-	private JButton editTask = new JButton("Save changes");
-	private JButton deleteTask = new JButton("Delete task");
 	private JButton btnCancel = new JButton ("Cancel");
 	
 
@@ -51,6 +57,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btnCreateNewTask.addActionListener(this);
 		btnEditTask.addActionListener(this);
 		btnDeleteTask.addActionListener(this);
+		btnAddSubTask.addActionListener(this);
 		
 	}
 	
@@ -130,7 +137,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 			subTaskScroll.setBounds(100, 300, 200, 80);
 			
 			saveTask.setBounds(220,420,80,25);
-			addSubTask.setBounds(100, 420, 120, 25);
+			btnAddSubTask.setBounds(100, 420, 120, 25);
 			btnCancel.setBounds(300, 420, 80, 25);
 			
 			newTaskPanel.add(titleLabel);
@@ -138,7 +145,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 			newTaskPanel.add(descriptionArea);
 			newTaskPanel.add(subTaskScroll);
 			newTaskPanel.add(saveTask);
-			newTaskPanel.add(addSubTask);
+			newTaskPanel.add(btnAddSubTask);
 			newTaskPanel.add(btnCancel);
 			
 			newTaskFrame.add(newTaskPanel);
@@ -199,6 +206,30 @@ public class TaskPanel extends JPanel implements ActionListener {
 			deleteTaskFrame.pack();
 			deleteTaskFrame.setLocationRelativeTo(null);
 			deleteTaskFrame.setVisible(true);
+    	}
+    	if (e.getSource() == btnAddSubTask) {
+    		
+    		JFrame addSubTaskFrame = new JFrame("Add Subtask");
+			addSubTaskFrame.setLayout(null);
+			addSubTaskFrame.setPreferredSize(new Dimension(500, 500));
+			
+			addSubTaskPanel.setSize(500, 500);
+			addSubTaskPanel.setLayout(null);
+    		
+    		descriptionArea.setBounds(100,100,280,180);
+    		descriptionLabel.setBounds(20, 20, 280, 180);
+    		saveSubTask.setBounds(100, 420, 120, 30);
+    		btnCancel.setBounds(300, 420, 80, 25);
+    		
+    		addSubTaskPanel.add(descriptionArea);
+    		addSubTaskPanel.add(descriptionLabel);
+    		addSubTaskPanel.add(saveSubTask);
+    		addSubTaskPanel.add(btnCancel);
+    		
+    		addSubTaskFrame.add(addSubTaskPanel);
+			addSubTaskFrame.pack();
+			addSubTaskFrame.setLocationRelativeTo(null);
+			addSubTaskFrame.setVisible(true);
     	}
     }
 
