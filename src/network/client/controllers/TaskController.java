@@ -39,15 +39,15 @@ public class TaskController {
      * @param date the date for the deadline for the task
      * @param Id the id for the given task
      */
-    public void createTask(int authorId, String description, String[] subTasks, Date date, int Id) {
-        Task tmpTask = new Task(authorId, description, subTasks, date, Id);
-        tmpTask.getAuthor();
-        tmpTask.getDescription();
-        tmpTask.getSubtasks();
-        tmpTask.getDate();
-        tmpTask.getId();
+    public Task createTask() {
+       
+        task.setAuthorId(task.getAuthor());
+        task.setDescription(task.getDescription());
+        task.setSubtasks(task.getSubtasks());
+        task.getDate();
+        task.getId(task.getId());
         
-        up.addTask(tmpTask);
+        up.addTask(task);
     }
     
     //forward incoming task from client to GUI
@@ -107,12 +107,21 @@ public class TaskController {
      * add a new subtask to en existing task
      *
      * @param description
+     * @return 
      */
-    public void addSubTask(String description) {
+    public String addSubTask(String description) {
        //TODO: create tmpSubTask
        task.addSubTask(description);
        //TODO: add to database
        //database.sendToTableTask(idtable_task, description, description);   
+    }
+    
+    public int getId (){
+    	return task.getAuthor();
+    }
+    
+    public Date getDate (){
+    	return task.getDate();
     }
 
     /**

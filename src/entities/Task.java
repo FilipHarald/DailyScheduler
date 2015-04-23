@@ -34,6 +34,10 @@ public class Task {
 		this.Id = Id;
 	}
 	
+	public void setAuthorId (int authorId){
+		this.authorId = authorId;
+	}
+	
 	public int getId() {
 		return Id;
 	}
@@ -173,6 +177,12 @@ public class Task {
 		public String toString() {
 			return description + ",|," + completedByUserId;
 		}
+	}
+
+
+	public void setSubtasks(String[] subtasks) {
+		
+		
 	}
 
 }

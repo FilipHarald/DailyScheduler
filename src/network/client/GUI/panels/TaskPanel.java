@@ -2,6 +2,7 @@ package network.client.GUI.panels;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -10,6 +11,7 @@ import entities.Task;
 
 public class TaskPanel extends JPanel implements ActionListener {
 	private TaskController taskC;
+	private Task task;
 	
 	//For create new task:
 	private JButton btnCreateNewTask = new JButton ("New Task");
@@ -40,7 +42,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JTextArea textDescription = new JTextArea();
 	private JTextArea descriptionArea = new JTextArea();
 	
-	private JTextField titleField = new JTextField(15);
+	private JTextField titleField = new JTextField();
 	
 	private JLabel titleLabel = new JLabel("Title");
 
@@ -121,6 +123,17 @@ public class TaskPanel extends JPanel implements ActionListener {
 		add (labelInputPanel, BorderLayout.SOUTH);
 	}
 	
+    private boolean isEmpty() {
+        boolean isEmpty = false;
+
+        if (titleField.getText().trim().isEmpty()) {
+            titleLabel.setText("Title *");
+            isEmpty = true;
+        }
+        return isEmpty;
+
+    }
+	
 	public void createNewTask (){
 		JFrame newTaskFrame = new JFrame("New Task");
 		newTaskFrame.setLayout(null);
@@ -132,8 +145,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		titleLabel.setBounds(100,70,120,20);
 		titleField.setBounds(200,70,120,20);
 		
-		descriptionArea.setBounds(100,100,280,180);
-		subTaskScroll.setBounds(100, 300, 200, 80);
+		subTaskScroll.setBounds(100, 100, 300, 200);
 		
 		saveTask.setBounds(220,420,80,25);
 		btnAddSubTask.setBounds(100, 420, 120, 25);
@@ -141,7 +153,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 		
 		newTaskPanel.add(titleLabel);
 		newTaskPanel.add(titleField);
-		newTaskPanel.add(descriptionArea);
 		newTaskPanel.add(subTaskScroll);
 		newTaskPanel.add(saveTask);
 		newTaskPanel.add(btnAddSubTask);
@@ -236,6 +247,11 @@ public class TaskPanel extends JPanel implements ActionListener {
     public void actionPerformed (ActionEvent e){
     	if (e.getSource() == btnCreateNewTask) {
     		createNewTask();
+    		if (isEmpty() == true){
+    			JOptionPane.showMessageDialog(null, "Title field is empty");
+    		}else {
+    			taskC.createTask(getTitle(), getDescription(), getSubTasks(), getDate(), getId());
+    		}
 			
     	} else if (e.getSource() == btnEditTask){
     		editTask();
@@ -255,6 +271,20 @@ public class TaskPanel extends JPanel implements ActionListener {
     //get description from textarea
     public String getDescription() {
         return textDescription.getText();
+    }
+    
+    public String getSubTasks(){
+		return taskC.addSubTask(textDescription.getText());
+    	
+    }
+    
+    public int getId (){
+		return taskC.getId();
+    	
+    }
+    
+    public Date getDate(){
+    	return taskC.getDate();
     }
     
     public void taskListDisplayIncompleted (Task task){
