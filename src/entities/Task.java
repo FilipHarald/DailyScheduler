@@ -41,6 +41,10 @@ public class Task {
 	public int getId() {
 		return Id;
 	}
+	
+	public void setId (int Id){
+		this.Id = Id; 
+	}
 
 	/**
 	 * @return the description of the task
@@ -128,6 +132,7 @@ public class Task {
 	public int getAuthor() {
 		return authorId;
 	}
+	
 	
 
 	/**

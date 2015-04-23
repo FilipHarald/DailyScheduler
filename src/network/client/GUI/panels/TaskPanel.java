@@ -16,7 +16,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 	//For create new task:
 	private JButton btnCreateNewTask = new JButton ("New Task");
 	private JPanel newTaskPanel = new JPanel();
-	private JScrollPane subTaskScroll = new JScrollPane();
+	private JTextArea showSubTasks = new JTextArea();
+	private JScrollPane subTaskScroll = new JScrollPane(showSubTasks);
 	private JButton saveTask = new JButton("Save");
 	private JButton btnAddSubTask = new JButton("Add subtask");
 	
@@ -243,15 +244,22 @@ public class TaskPanel extends JPanel implements ActionListener {
 		addSubTaskFrame.setLocationRelativeTo(null);
 		addSubTaskFrame.setVisible(true);
 	}
+	
+	   private void clearFields() {
+	        titleField.setText(null);
+	        showSubTasks.setText(null);
+
+	    }
 
     public void actionPerformed (ActionEvent e){
     	if (e.getSource() == btnCreateNewTask) {
     		createNewTask();
-    		if (isEmpty() == true){
-    			JOptionPane.showMessageDialog(null, "Title field is empty");
-    		}else {
-    			taskC.createTask(getTitle(), getDescription(), getSubTasks(), getDate(), getId());
-    		}
+    		clearFields();
+//    		if (isEmpty() == true){
+//    			JOptionPane.showMessageDialog(null, "Title field is empty");
+//    		}else {
+//    			taskC.createTask();
+//    		}
 			
     	} else if (e.getSource() == btnEditTask){
     		editTask();
@@ -274,18 +282,10 @@ public class TaskPanel extends JPanel implements ActionListener {
     }
     
     public String getSubTasks(){
-		return taskC.addSubTask(textDescription.getText());
+		return showSubTasks.getText();
     	
     }
     
-    public int getId (){
-		return taskC.getId();
-    	
-    }
-    
-    public Date getDate(){
-    	return taskC.getDate();
-    }
     
     public void taskListDisplayIncompleted (Task task){
     	listIncompletedTask.setModel((ListModel) taskC.displayTaskList(task));

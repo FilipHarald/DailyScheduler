@@ -8,8 +8,11 @@ package network.client.controllers;
 
 import database.DatabaseController;
 import entities.Task;
-import entities.Task.SubTask;
 
+
+
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -45,9 +48,10 @@ public class TaskController {
         task.setDescription(task.getDescription());
         task.setSubtasks(task.getSubtasks());
         task.getDate();
-        task.getId(task.getId());
+        task.setId(task.getId());
         
         up.addTask(task);
+		return task;
     }
     
     //forward incoming task from client to GUI
@@ -63,14 +67,26 @@ public class TaskController {
     }
     
     //check if task is complete, if it is then move it to completeTasks
-    public void completedTask(LinkedList<SubTask> subTasks){
-    	for(i = 0, subTasks.length, i++){
-    		if(subTask.getCompletedBy() != null){
-    			//TODO: move task from incompleteTask to completeTasks
-    			
+    
+//    public void completedTask(LinkedList<SubTask> subTasks){
+//    	for(i = 0, subTasks.length, i++){
+//    		if(subTask.getCompletedBy() != null){
+//    			//TODO: move task from incompleteTask to completeTasks
+//    			
+//    		}
+//    		
+//    	}
+//    }
+    
+    private LinkedList <String> getSubTasks (){
+    	String [] tasks = taskPanel.getSubTasks().split(",");
+    	if (tasks != null){
+    		for (int i = 0; i < tasks.length; i++){
+    			tasks [i] = tasks [i].trim();
     		}
-    		
+    		return new LinkedList <String> (Arrays.asList(tasks)); 
     	}
+    	return new LinkedList <String>(); 
     }
     
 
@@ -98,8 +114,9 @@ public class TaskController {
     /**
      * deletes a Task from the database
      * @param taskIdDelete
+     * @throws SQLException 
      */
-    public void deleteTask(Object obj) {
+    public void deleteTask(Object obj) throws SQLException {
         database.deleteEntity(obj);
     }
 
@@ -114,6 +131,7 @@ public class TaskController {
        task.addSubTask(description);
        //TODO: add to database
        //database.sendToTableTask(idtable_task, description, description);   
+	return description;
     }
     
     public int getId (){
