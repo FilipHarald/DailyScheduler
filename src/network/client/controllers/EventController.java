@@ -11,7 +11,7 @@ import entities.Event;
 import java.util.*;
 import miscellaneous.Updater;
 
-import network.client.GUI.panels.CalendarPanel;
+import network.client.GUI.panels.EventPanel;
 
 /**
  *
@@ -20,7 +20,7 @@ import network.client.GUI.panels.CalendarPanel;
 public class EventController {
 
     private Event event;
-    private CalendarPanel calendarPanel;
+    private EventPanel calendarPanel;
     private ClientController cc;
     private Updater up;
 
@@ -62,6 +62,13 @@ public class EventController {
 		}
 		return new LinkedList<String>();
 	}
+    
+    //displays the list of events
+    public Event displayEventList(Event event){
+        up.getEvents();
+        return event;
+    }
+    
     
     //forward incoming event from client to GUI
     public void displayEvent(Event event){
