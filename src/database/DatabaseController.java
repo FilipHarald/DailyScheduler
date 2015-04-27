@@ -73,7 +73,7 @@ public class DatabaseController {
 	 * @throws SQLException
 	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		String query = String.format("SELECT * FROM User WHERE ID = " + '"'
+		String query = String.format("SELECT * FROM User WHERE UserID = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserId(), unP.getPassword());
 		Statement statement = (Statement) connection.createStatement(
@@ -326,13 +326,13 @@ public class DatabaseController {
 	public Updater getUpdater(int userId) throws SQLException {
 		Updater updater = new Updater();
 		Statement statement = (Statement) connection.createStatement();
-		String sqlQuery = "SELECT * FROM Recipients WHERE Recipient = "
+		String sqlQuery = "select * from Recipients inner join Message where Recipients.Message = Message.MessageID and Recipients.Recipient = "
 				+ userId;
 		statement.executeQuery(sqlQuery);
 		ResultSet resultSet = statement.getResultSet();
 		while (resultSet.next()) {
-			updater.addMessage(new Message(resultSet.getString(2), resultSet
-					.getString(3), null, resultSet.getInt(1)));
+			updater.addMessage(new Message(resultSet.getString(4), resultSet
+					.getString(5), null, resultSet.getInt(3)));
 		}
 
 		statement = (Statement) connection.createStatement();
@@ -345,21 +345,22 @@ public class DatabaseController {
 		}
 
 		statement = (Statement) connection.createStatement();
-		sqlQuery = "SELECT * FROM Task inner join Team, 'Member in' where Team.Manager = Task.Author and 'Member in'.Team = Team.TeamID and 'Member in'.User = "
+		sqlQuery = "SELECT * FROM Task inner join Team, `Member in` where Team.Manager = Task.Author and `Member in`.Team = Team.TeamID and `Member in`.User = "
 				+ userId;
 		statement.executeQuery(sqlQuery);
 		resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			Statement stmt = (Statement) connection.createStatement();
 			String query = "select count(*) from Subtask where Task = " + resultSet.getInt(1);
-			stmt.executeQuery(sqlQuery);
+			stmt.executeQuery(query);
 			ResultSet rs = stmt.getResultSet();
-			
+			rs.next();
 			String[] subTasks = new String[rs.getInt(1)];
+			System.out.println(rs.getInt(1));
 			
 			stmt = (Statement) connection.createStatement();
 			query = "select * from Subtask where Task = " + resultSet.getInt(1);
-			stmt.executeQuery(sqlQuery);
+			stmt.executeQuery(query);
 			rs = stmt.getResultSet();
 			int counter = 0;
 			while(rs.next()){

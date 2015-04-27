@@ -35,7 +35,7 @@ public class ClientController {
 	public ClientController(String serverIp, int port) {
 		ip = serverIp;
 		this.port = port;
-		client = new Client(serverIp, port);
+		client = new Client(serverIp, port, this);
 	}
 
 	// start application

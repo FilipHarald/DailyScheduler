@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -10,7 +11,7 @@ import java.util.LinkedList;
  * @author Filip
  *
  */
-public class Task {
+public class Task implements Serializable {
 
 	private int authorId;
 	private int teamId;
@@ -141,7 +142,7 @@ public class Task {
 	 * @author Filip
 	 *
 	 */
-	private class SubTask {
+	private class SubTask implements Serializable {
 
 		private int completedByUserId;
 		private String description;

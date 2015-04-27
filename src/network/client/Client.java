@@ -42,7 +42,8 @@ public class Client {
 	/*
 	 * constructor: sets the ip, port and ID
 	 */
-	public Client(String ip, int port) {
+	public Client(String ip, int port, ClientController cc) {
+		this.cc = cc; 
 		try {
 			socket = new Socket(ip, port);
 			// socket.connect(new InetSocketAddress(ip, port));

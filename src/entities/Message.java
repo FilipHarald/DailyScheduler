@@ -5,13 +5,14 @@
  */
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Aya
  */
-public class Message {
+public class Message implements Serializable {
 	private User user;
     private String title;
     private String msg;

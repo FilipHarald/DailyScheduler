@@ -1,12 +1,14 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * This class represents a user
  * 
  * @author Filip
  *
  */
-public class User {
+public class User implements Serializable{
 	private String name;
 	private boolean isAdmin;
 	private String password;

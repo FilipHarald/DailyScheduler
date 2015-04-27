@@ -1,10 +1,11 @@
 package miscellaneous;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import entities.*;
 
-public class Updater {
+public class Updater implements Serializable {
 	private LinkedList<Event> events;
 	private LinkedList<Message> messages;
 	private LinkedList<Task> tasks;

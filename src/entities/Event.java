@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,7 +9,7 @@ import java.util.*;
  * @author Filip
  *
  */
-public class Event{
+public class Event implements Serializable{
 	
 	private String description;
 	private Date date;

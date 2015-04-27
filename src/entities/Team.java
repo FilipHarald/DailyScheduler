@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -11,7 +12,7 @@ import java.util.LinkedList;
  *
  */
 
-public class Team {
+public class Team implements Serializable{
 	private LinkedList<User> managers;
 	private LinkedList<User> members;
 	private int teamSize;
