@@ -71,10 +71,10 @@ public class ApplicationGUI extends JFrame {
 
         });
 
-        add(logOutButton, BorderLayout.SOUTH);
+       
         logOutButton.setFont(logOutButton.getFont().deriveFont(
                 Font.BOLD | Font.ITALIC));
-        add(refreshButton, BorderLayout.SOUTH);
+       
         refreshButton.setFont(refreshButton.getFont().deriveFont(
                 Font.BOLD | Font.ITALIC));
     }
