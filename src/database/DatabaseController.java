@@ -319,7 +319,7 @@ public class DatabaseController {
 		return obj;
 	}
 
-	public Updater getUpdater(int userId) {
+	public Updater getUpdater(int userId) throws SQLException {
 		Updater updater = new Updater();
 		Statement statement = (Statement) connection.createStatement();
 		String sqlQuery = "SELECT * FROM Recipients WHERE Recipient = " + userId; 
@@ -338,7 +338,12 @@ public class DatabaseController {
 		}
 		
 		statement = (Statement) connection.createStatement();
-		sqlQuery = "SELECT * FROM 'Member in' WHERE User = " + userId; 
+		sqlQuery = "SELECT * FROM 'Member in' WHERE User = " + userId;
+		sqlQuery = "SELECT * FROM Team WHERE Manager = " + userId;
+		sqlQuery = "select *,"
+				+		"(select *"
+				+			"from `Member in` inner join User where `Member in`.User = User.UserID)" + userId
+				+			"from Team inner join User where Team.TeamID = User.UserID" + userId;
 		statement.executeQuery(sqlQuery);
 		resultSet = statement.getResultSet();
 		while(resultSet.next()){
