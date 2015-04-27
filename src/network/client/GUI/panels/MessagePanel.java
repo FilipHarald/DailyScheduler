@@ -1,6 +1,7 @@
 package network.client.GUI.panels;
 
 import entities.Message;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,19 +10,23 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import network.client.controllers.MessageController;
 
 /**
@@ -30,8 +35,8 @@ import network.client.controllers.MessageController;
  *
  */
 public class MessagePanel extends JPanel implements ActionListener  {
-    
-    private MessageController messageC;
+
+	private MessageController messageC;
 
 	/*
 	 * Class variables
@@ -41,8 +46,9 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JButton deleteMessageButton = new JButton ("Delete");
 	private JPanel textPanel = new JPanel();
 	private JPanel buttonsPanel= new JPanel();
-	private JTextArea txt = new JTextArea();
-
+	final  DefaultListModel listModel = new DefaultListModel();
+	private JList txt = new JList(listModel);
+	
 	private JPanel newMessagePanel = new JPanel();
 	private JTextField titleField = new JTextField(15);
 	private JTextField recipientField = new JTextField(15);
@@ -64,12 +70,19 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JButton deleteMessageNo = new JButton("No");
 	private JLabel deleteMessageTitle = new JLabel("Do you wish to delete this message?");
 	
+//	private String titleText = new String() ;
+//	private String messageText = new String();
+//	private String resipientText = new String();
+//	private Object[] messageObject ;
+	
+
 	/**
 	 * Constructor
 	 */
 	public MessagePanel(){
+		
 		super();
-	
+
 
 		/*
 		 * Borderlayout for the objects
@@ -206,27 +219,27 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				}
 			}
 			if (e.getSource()==sendNewMessage){
-				
+
 				String resRecipient = recipientField.getText();
 				int resRecipientLength=resRecipient.length();
-				
+
 				JFrame confirmMessageFrame = new JFrame("Confirm send Message");
 				confirmMessageFrame.setLayout(null);
 				confirmMessageFrame.setPreferredSize(new Dimension(500+resRecipientLength,500));
-				
-				
+
+
 				confirmSendLabel.setText("Send to " + resRecipient);
 
 				confirmNewMessagePanel.setSize(500+resRecipientLength,500 );
 				confirmNewMessagePanel.setLayout(null);
 
-				
-				
+
+
 				confirmSendLabel.setBounds(110,80,(150+resRecipientLength),20);
 				confirmSendButtonYes.setBounds(100,420,80,25);
 				confirmSendButtonNo.setBounds(300,420,80,25);
-				
-				
+
+
 				confirmNewMessagePanel.add(confirmSendLabel);
 				confirmNewMessagePanel.add(confirmSendButtonYes);
 				confirmNewMessagePanel.add(confirmSendButtonNo);
@@ -237,9 +250,15 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				confirmMessageFrame.setVisible(true);
 
 				if(e.getSource()==confirmSendButtonYes){
-					String titleText = titleField.getText();
-					String messageText = messageArea.getText();
-					String resipientText = recipientField.getText();
+
+					
+					
+				String titleText = titleField.getText();
+//					messageText = messageArea.getText();
+//					resipientText = recipientField.getText();
+					listModel.addElement(titleText);
+					
+					
 					
 				}
 			}
@@ -260,17 +279,20 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	public String getRecipients() {
 		return recipientField.getText();
 	}
-        
-        //display the list of all the messages 
+
+	//display the list of all the messages 
 	public void messageListDisplay(Message msg){
-		txt.setText(messageC.displayMessageList(msg).toString());
+//		txt.setText(messageC.displayMessageList(msg).toString());
 	}
-        
-        //display information/content for a specific message
-         public void displayMessage(Message msg) {
-        
-        
 
-    }
+	//display information/content for a specific message
+	public void displayMessage(Message msg) {
 
+
+
+	}
+	public void update(LinkedList<Message> messages){
+		titleText = titleField.getText();
+		
+	}
 }
