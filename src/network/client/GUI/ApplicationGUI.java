@@ -14,69 +14,82 @@ import network.client.controllers.ClientController;
 import network.client.GUI.panels.*;
 
 public class ApplicationGUI extends JFrame {
-	private ClientController clientController;
 
-	private Container contentPane;
+    private ClientController clientController;
 
-	private EventPanel eventPanel;
-	private MessagePanel messagePanel;
-	private TaskPanel taskPanel;
+    private Container contentPane;
 
-	public ApplicationGUI(String userName, ClientController clientController) {
-		super("DailyScheduler - " + userName);
-		contentPane = getContentPane();
-		this.clientController = clientController;
+    private JPanel pnlButtons = new JPanel();
 
-		setComponents();
+    JButton logOutButton = new JButton("Log out");
+    JButton refreshButton = new JButton("Refresh");
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setVisible(true);
+    private EventPanel eventPanel;
+    private MessagePanel messagePanel;
+    private TaskPanel taskPanel;
 
-	}
+    public ApplicationGUI(String userName, ClientController clientController) {
+        super("DailyScheduler - " + userName);
+        contentPane = getContentPane();
+        this.clientController = clientController;
 
-	public void setComponents() {
+        setComponents();
 
-		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("Welcome", new WelcomePanel());
-		tabbedPane.add("Messages", new MessagePanel());
-		tabbedPane.add("Tasks", new TaskPanel());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
+
+        pnlButtons.setLayout(new BorderLayout());
+        pnlButtons.add(logOutButton, BorderLayout.EAST);
+        pnlButtons.add(refreshButton, BorderLayout.WEST);
+
+        contentPane.add(pnlButtons, BorderLayout.SOUTH);
+
+    }
+
+    public void setComponents() {
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.add("Welcome", new WelcomePanel());
+        tabbedPane.add("Messages", new MessagePanel());
+        tabbedPane.add("Tasks", new TaskPanel());
         tabbedPane.add("Event", new EventPanel());
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+        contentPane.add(tabbedPane, BorderLayout.CENTER);
 
-		JButton logOutButton = new JButton("Log out");
-		logOutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				logOut();
-			}
-		});
-		
-		JButton refreshButton = new JButton("Refresh");
-		logOutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				refresh();
-			}
+        
+        logOutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                logOut();
+            }
+        });
 
-		});
+        
+        logOutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                refresh();
+            }
 
-		add(logOutButton, BorderLayout.SOUTH);
-		logOutButton.setFont(logOutButton.getFont().deriveFont(
-				Font.BOLD | Font.ITALIC));
-		add(refreshButton, BorderLayout.SOUTH);
-		refreshButton.setFont(refreshButton.getFont().deriveFont(
-				Font.BOLD | Font.ITALIC));
-	}
-	private void refresh() {
-		clientController.refresh();
-		
-	}
+        });
 
-	public void logOut() {
-		try {
-			clientController.logout();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		dispose();
-	}
+        add(logOutButton, BorderLayout.SOUTH);
+        logOutButton.setFont(logOutButton.getFont().deriveFont(
+                Font.BOLD | Font.ITALIC));
+        add(refreshButton, BorderLayout.SOUTH);
+        refreshButton.setFont(refreshButton.getFont().deriveFont(
+                Font.BOLD | Font.ITALIC));
+    }
+
+    private void refresh() {
+        clientController.refresh();
+
+    }
+
+    public void logOut() {
+        try {
+            clientController.logout();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dispose();
+    }
 }
