@@ -283,13 +283,17 @@ public class DatabaseController {
 	private Team getTeam(int entityId, ResultSet resultSet) throws SQLException {
 		return new Team(resultSet.getInt(1), resultSet.getString(2));
 	}
-	
-	private Message getMessage (int entityId, ResultSet resultSet) throws SQLException{
-		return new Message (resultSet.getString(2),resultSet.getString(3), null, resultSet.getInt(1));
+
+	private Message getMessage(int entityId, ResultSet resultSet)
+			throws SQLException {
+		return new Message(resultSet.getString(2), resultSet.getString(3),
+				null, resultSet.getInt(1));
 	}
-	
-	private Event getEvent (int entityType, ResultSet resultSet) throws SQLException{
-		return new Event (resultSet.getString(2), resultSet.getDate(3), resultSet.getInt(1));
+
+	private Event getEvent(int entityType, ResultSet resultSet)
+			throws SQLException {
+		return new Event(resultSet.getString(2), resultSet.getDate(3),
+				null, resultSet.getInt(1));
 	}
 
 	public Object getEntity(String entityType, int entityId)
@@ -322,32 +326,53 @@ public class DatabaseController {
 	public Updater getUpdater(int userId) throws SQLException {
 		Updater updater = new Updater();
 		Statement statement = (Statement) connection.createStatement();
-		String sqlQuery = "SELECT * FROM Recipients WHERE Recipient = " + userId; 
+		String sqlQuery = "SELECT * FROM Recipients WHERE Recipient = "
+				+ userId;
 		statement.executeQuery(sqlQuery);
 		ResultSet resultSet = statement.getResultSet();
-		while(resultSet.next()){
-			updater.addMessage(new Message(resultSet.getString(2), resultSet.getString(3), null, resultSet.getInt(1)));
+		while (resultSet.next()) {
+			updater.addMessage(new Message(resultSet.getString(2), resultSet
+					.getString(3), null, resultSet.getInt(1)));
 		}
-		
+
 		statement = (Statement) connection.createStatement();
-		sqlQuery = "SELECT * FROM Event"; 
+		sqlQuery = "SELECT * FROM Event";
 		statement.executeQuery(sqlQuery);
 		resultSet = statement.getResultSet();
-		while(resultSet.next()){
-			updater.addEvent(new Event(resultSet.getString(2), resultSet.getDate(3), null, resultSet.getInt(1)));
+		while (resultSet.next()) {
+			updater.addEvent(new Event(resultSet.getString(2), resultSet
+					.getDate(3), null, resultSet.getInt(1)));
 		}
-		
+
 		statement = (Statement) connection.createStatement();
-		sqlQuery = "SELECT * FROM 'Member in' WHERE User = " + userId;
-		sqlQuery = "SELECT * FROM Team WHERE Manager = " + userId;
-		sqlQuery = "select *,"
-				+		"(select *"
-				+			"from `Member in` inner join User where `Member in`.User = User.UserID)" + userId
-				+			"from Team inner join User where Team.TeamID = User.UserID" + userId;
+		sqlQuery = "SELECT * FROM Task inner join Team, 'Member in' where Team.Manager = Task.Author and 'Member in'.Team = Team.TeamID and 'Member in'.User = "
+				+ userId;
 		statement.executeQuery(sqlQuery);
 		resultSet = statement.getResultSet();
-		while(resultSet.next()){
-			updater.addTask(new Task(userId, sqlQuery, null, null, userId, userId));
+		while (resultSet.next()) {
+			Stament stmt = (Statement) connection.createStatement();
+			String query = "select count(*) from Subtask where Task = " + resultSet.getInt(1);
+			stmt.executeQuery(sqlQuery);
+			ResultSet rs = stmt.getResultSet();
+			
+			String[] subTasks = new String[rs.getInt(1)];
+			
+			stmt = (Statement) connection.createStatement();
+			query = "select * from Subtask where Task = " + resultSet.getInt(1);
+			stmt.executeQuery(sqlQuery);
+			rs = stmt.getResultSet();
+			int counter = 0;
+			while(rs.next()){
+				subTasks[counter++] = rs.getString(2);
+			}
+			Task task =new Task(resultSet.getInt(4), resultSet.getString(2), subTasks, resultSet.getDate(3), resultSet.getInt(1));
+			
+			rs.beforeFirst();
+			counter = 0;
+			while(rs.next()){
+				task.completeSubTask(counter++, rs.getInt(3));
+			}
+			updater.addTask(task);
 		}
 		return updater;
 	}

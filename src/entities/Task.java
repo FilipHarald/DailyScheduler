@@ -20,10 +20,9 @@ public class Task {
 	private int Id;
 
 
-	public Task(int authorId, String description, String[] subTasks, Date date, int Id, int teamId) {
+	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
 		this.authorId = authorId;
 		this.description = description;
-		this.teamId = teamId;
 		
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
 		if(subTasks != null){
