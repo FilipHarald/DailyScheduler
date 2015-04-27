@@ -13,15 +13,17 @@ import java.util.LinkedList;
 public class Task {
 
 	private int authorId;
+	private int teamId;
 	private String description;
 	private LinkedList<SubTask> subTasks;
 	private Date date;
 	private int Id;
 
 
-	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
+	public Task(int authorId, String description, String[] subTasks, Date date, int Id, int teamId) {
 		this.authorId = authorId;
 		this.description = description;
+		this.teamId = teamId;
 		
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
 		if(subTasks != null){
@@ -188,6 +190,10 @@ public class Task {
 	public void setSubtasks(String[] subtasks) {
 		
 		
+	}
+
+	public int getTeamId() {
+		return teamId;
 	}
 
 }

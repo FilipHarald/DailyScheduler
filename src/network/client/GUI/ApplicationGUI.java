@@ -18,7 +18,7 @@ public class ApplicationGUI extends JFrame {
 
 	private Container contentPane;
 
-	private CalendarPanel calendarPanel;
+	private EventPanel eventPanel;
 	private MessagePanel messagePanel;
 	private TaskPanel taskPanel;
 
@@ -41,7 +41,7 @@ public class ApplicationGUI extends JFrame {
 		tabbedPane.add("Welcome", new WelcomePanel());
 		tabbedPane.add("Messages", new MessagePanel());
 		tabbedPane.add("Tasks", new TaskPanel());
-        tabbedPane.add("Calendar", new CalendarPanel());
+        tabbedPane.add("Event", new EventPanel());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		JButton logOutButton = new JButton("Log out");
@@ -50,10 +50,25 @@ public class ApplicationGUI extends JFrame {
 				logOut();
 			}
 		});
+		
+		JButton refreshButton = new JButton("Refresh");
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+
+		});
 
 		add(logOutButton, BorderLayout.SOUTH);
 		logOutButton.setFont(logOutButton.getFont().deriveFont(
 				Font.BOLD | Font.ITALIC));
+		add(refreshButton, BorderLayout.SOUTH);
+		refreshButton.setFont(refreshButton.getFont().deriveFont(
+				Font.BOLD | Font.ITALIC));
+	}
+	private void refresh() {
+		clientController.refresh();
+		
 	}
 
 	public void logOut() {

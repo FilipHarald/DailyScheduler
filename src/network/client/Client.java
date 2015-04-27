@@ -61,7 +61,7 @@ public class Client {
 	 * @param password
 	 * @return
 	 */
-	public boolean validateUser(String userName, char[] password) {
+	public boolean validateUser(int userName, char[] password) {
 		boolean validUser = false;
 		try {
 			oos.writeObject(new UsernameAndPwdPair(userName, password));
@@ -76,48 +76,15 @@ public class Client {
 		return validUser;
 	}
 
-	// send task to server
-	public void sendTask(Task task) {
-
+	public void send(Object obj) {
 		try {
-			oos.writeObject(task);
+			oos.writeObject(obj);
 			oos.flush();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-
-	// send event to server
-	public void sendEvent(Event event) {
-		try {
-			oos.writeObject(event);
-			oos.flush();
-		} catch (IOException e) {
-		}
-	}
-
-	// send created user to server
-	public void sendUser(User user) {
-		try {
-			oos.writeObject(user);
-			oos.flush();
-		} catch (IOException e) {
-		}
-	}
-
-	// send team to server
-	public void sendTeam(Team team) {
-		try {
-			oos.writeObject(team);
-			oos.flush();
-		} catch (IOException e) {
-		}
-	}
-
-	/**
-	 * send userName to server via oos incoming object can be instance of task,
-	 * event, user or team.
-	 * 
-	 */
+	
 	private class Listener extends Thread {
 		Object object;
 
@@ -154,6 +121,10 @@ public class Client {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void refresh() {
+		send("update");
 	}
 
 }

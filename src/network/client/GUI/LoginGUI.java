@@ -56,8 +56,8 @@ public class LoginGUI {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[] password = passwordText.getPassword();
-				String userName = userText.getText();
-				cc.login(userName, password);
+				int userId = new Integer(userText.getText());
+				cc.login(userId, password);
 				Arrays.fill(password, '0');
 				passwordText.selectAll();
 

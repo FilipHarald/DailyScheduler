@@ -50,8 +50,8 @@ public class ClientController {
 	 * @param password
 	 *            the password for the username ("1234")
 	 */
-	public void login(String userName, char[] password) {
-		if (client.validateUser(userName, password) == true) {
+	public void login(int userId, char[] password) {
+		if (client.validateUser(userId, password) == true) {
 			loginWindow.close();
 			gui = new ApplicationGUI(null, this);
 		} else {
@@ -66,13 +66,16 @@ public class ClientController {
 	
 	public Updater updateGui (Event event, Message message, Task task){
 		Updater updater = null;
-		
 		updater.addEvent(event);
 		updater.addMessage(message);
 		updater.addTask(task);
 		
 		return updater;
 		
+	}
+
+	public void refresh() {
+		client.refresh();
 	}
 
 }

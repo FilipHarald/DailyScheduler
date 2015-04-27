@@ -47,7 +47,6 @@ public class Server implements Runnable {
 				Socket socket = sSocket.accept();
 				System.out.println("client connected to serverSocket");
 				ClientHandler ch = new ClientHandler(socket);
-				ch.addObserver(this);
 				new Thread(ch).start();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -80,7 +79,7 @@ public class Server implements Runnable {
 	 * 
 	 * @author Adam Henriksson
 	 */
-	public class ClientHandler extends Observable implements Runnable {
+	public class ClientHandler implements Runnable {
 		private ObjectInputStream ois;
 		private ObjectOutputStream oos;
 		private int userId;
@@ -93,6 +92,10 @@ public class Server implements Runnable {
 		 */
 		public ClientHandler(Socket socket) {
 			this.socket = socket;
+		}
+
+		public String getName() {
+			return null;
 		}
 
 		/**
