@@ -30,8 +30,8 @@ public class TaskController {
     private TaskPanel taskPanel;
     private Updater up;
 
-    public TaskController(Task task) {
-        this.task = task;
+    public TaskController() {
+        taskPanel = new TaskPanel();
     }
 
     /**
@@ -155,6 +155,8 @@ public class TaskController {
 		// TODO Auto-generated method stub
 		
 	} 
-    
+    public TaskPanel getPanel(){
+    	return taskPanel;
+    }
     
 }

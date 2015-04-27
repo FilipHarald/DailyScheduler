@@ -26,8 +26,8 @@ public class MessageController {
     private Updater up;
     private MessagePanel messagePanel;
     
-    public MessageController(Message msg){
-        this.msg = msg;
+    public MessageController(){
+        messagePanel = new MessagePanel();
     }
     
     public void createMessage(String name, String title, ArrayList<String> recipients, int id){
@@ -85,5 +85,9 @@ public class MessageController {
 	public void updatePanel(LinkedList<Message> messages) {
 		messagePanel.update(messages);
 	}  
+	
+	public MessagePanel getPanel(){
+		return messagePanel;
+	}
     
 }

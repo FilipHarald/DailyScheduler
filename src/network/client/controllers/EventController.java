@@ -24,9 +24,8 @@ public class EventController {
     private ClientController cc;
     private Updater up;
 
-    public EventController(Event event) {
-        this.event = event;
-
+    public EventController() {
+    	eventPanel = new EventPanel();
     }
 
     /**
@@ -105,5 +104,7 @@ public class EventController {
 	public void updatePanel(LinkedList<Event> events) {
 		eventPanel.update(events);
 	}
-
+	public EventPanel getPanel(){
+		return eventPanel;
+	}
 }

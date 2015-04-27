@@ -19,10 +19,19 @@ public class ApplicationGUI extends JFrame {
 
     private Container contentPane;
 
+<<<<<<< HEAD
     private JPanel pnlButtons = new JPanel();
 
     JButton logOutButton = new JButton("Log out");
     JButton refreshButton = new JButton("Refresh");
+=======
+	public ApplicationGUI(String userName, ClientController clientController, EventPanel eP, TaskPanel tP, MessagePanel mP) {
+		super("DailyScheduler - " + userName);
+		contentPane = getContentPane();
+		this.clientController = clientController;
+
+		setComponents(eP, tP, mP);
+>>>>>>> lite ändringar
 
     private EventPanel eventPanel;
     private MessagePanel messagePanel;
@@ -33,6 +42,7 @@ public class ApplicationGUI extends JFrame {
         contentPane = getContentPane();
         this.clientController = clientController;
 
+<<<<<<< HEAD
         setComponents();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,4 +102,50 @@ public class ApplicationGUI extends JFrame {
         }
         dispose();
     }
+=======
+	public void setComponents(EventPanel eP, TaskPanel tP, MessagePanel mP) {
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.add("Welcome", new WelcomePanel());
+		tabbedPane.add("Messages", mP);
+		tabbedPane.add("Tasks", tP);
+        tabbedPane.add("Event", eP);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+
+		JButton logOutButton = new JButton("Log out");
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logOut();
+			}
+		});
+		
+		JButton refreshButton = new JButton("Refresh");
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+
+		});
+
+		add(logOutButton, BorderLayout.SOUTH);
+		logOutButton.setFont(logOutButton.getFont().deriveFont(
+				Font.BOLD | Font.ITALIC));
+		add(refreshButton, BorderLayout.SOUTH);
+		refreshButton.setFont(refreshButton.getFont().deriveFont(
+				Font.BOLD | Font.ITALIC));
+	}
+	private void refresh() {
+		clientController.refresh();
+		
+	}
+
+	public void logOut() {
+		try {
+			clientController.logout();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		dispose();
+	}
+>>>>>>> lite ändringar
 }
