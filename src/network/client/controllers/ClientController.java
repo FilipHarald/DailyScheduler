@@ -27,6 +27,8 @@ public class ClientController {
 	private LoginGUI loginWindow;
 	private ApplicationGUI gui;
 	private Server server;
+        private EventController ec;
+        private TaskController tc;
 
 	// constructor sets ip and port
 	public ClientController(String serverIp, int port) {
@@ -64,11 +66,33 @@ public class ClientController {
 		client.disconnect();
 	}
 	
-	public Updater updateGui (Event event, Message message, Task task){
+	public Updater updateGui (){
 		Updater updater = null;
-		updater.addEvent(event);
-		updater.addMessage(message);
-		updater.addTask(task);
+                Object object = updater;
+//		updater.addEvent(event);
+//		updater.addMessage(message);
+//		updater.addTask(task);
+                
+//                Object object;
+//                object = updater;
+                
+                if(object instanceof Event){
+                    Event event = (Event) object;
+                    updater.addEvent(event);
+                    updater.getEvents();
+                    ec.displayEventList(event);
+                    
+                }else if(object instanceof Message){
+                    Message msg = (Message) object;
+                    updater.addMessage(msg);
+                    updater.getMessages();
+                    
+                }else if (object instanceof Task){
+                    Task task = (Task) object;
+                    updater.addTask(task);
+                    updater.getTasks();
+                    tc.displayTaskList(task);
+                }
 		
 		return updater;
 		
@@ -77,5 +101,9 @@ public class ClientController {
 	public void refresh() {
 		client.refresh();
 	}
+
+    public void update() {
+        
+    }
 
 }
