@@ -350,7 +350,7 @@ public class DatabaseController {
 		statement.executeQuery(sqlQuery);
 		resultSet = statement.getResultSet();
 		while (resultSet.next()) {
-			Stament stmt = (Statement) connection.createStatement();
+			Statement stmt = (Statement) connection.createStatement();
 			String query = "select count(*) from Subtask where Task = " + resultSet.getInt(1);
 			stmt.executeQuery(sqlQuery);
 			ResultSet rs = stmt.getResultSet();
