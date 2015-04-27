@@ -52,9 +52,7 @@ public class ServerController {
 
 
 	public Updater getUpdater(int userId) {
-		Updater updater = new Updater();
-		//get useful information(for the user with userId) from database and store in updater here
-		return updater;
+		return dbc.getUpdater(userId);
 	}
 
 	

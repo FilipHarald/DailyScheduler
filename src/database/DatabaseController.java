@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
+import miscellaneous.Updater;
 import miscellaneous.UsernameAndPwdPair;
 
 import com.mysql.jdbc.Statement;
@@ -72,7 +73,7 @@ public class DatabaseController {
 	 * @throws SQLException
 	 */
 	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		String query = String.format("SELECT * FROM User WHERE Name = " + '"'
+		String query = String.format("SELECT * FROM User WHERE ID = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserId(), unP.getPassword());
 		Statement statement = (Statement) connection.createStatement(
@@ -316,5 +317,33 @@ public class DatabaseController {
 			obj = getEvent(entityId, resultSet);
 		}
 		return obj;
+	}
+
+	public Updater getUpdater(int userId) {
+		Updater updater = new Updater();
+		Statement statement = (Statement) connection.createStatement();
+		String sqlQuery = "SELECT * FROM Recipients WHERE Recipient = " + userId; 
+		statement.executeQuery(sqlQuery);
+		ResultSet resultSet = statement.getResultSet();
+		while(resultSet.next()){
+			updater.addMessage(new Message(resultSet.getString(2), resultSet.getString(3), null, resultSet.getInt(1)));
+		}
+		
+		statement = (Statement) connection.createStatement();
+		sqlQuery = "SELECT * FROM Event"; 
+		statement.executeQuery(sqlQuery);
+		resultSet = statement.getResultSet();
+		while(resultSet.next()){
+			updater.addEvent(new Event(resultSet.getString(2), resultSet.getDate(3), null, resultSet.getInt(1)));
+		}
+		
+		statement = (Statement) connection.createStatement();
+		sqlQuery = "SELECT * FROM 'Member in' WHERE User = " + userId; 
+		statement.executeQuery(sqlQuery);
+		resultSet = statement.getResultSet();
+		while(resultSet.next()){
+			updater.addTask(new Task(userId, sqlQuery, null, null, userId, userId));
+		}
+		return updater;
 	}
 }
