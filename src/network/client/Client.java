@@ -18,6 +18,7 @@ import miscellaneous.UsernameAndPwdPair;
 import java.io.*;
 import java.net.*;
 import java.util.Arrays;
+import miscellaneous.Updater;
 
 import network.server.Server;
 
@@ -104,7 +105,10 @@ public class Client {
 						User user = (User) object;
 					} else if (object instanceof Team) {
 						Team team = (Team) object;
-					}
+					}else if (object instanceof Updater){
+                                                Updater updater = (Updater) object;
+                                                cc.update();
+                                        }
 				}
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
