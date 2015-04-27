@@ -56,7 +56,10 @@ public class ClientController {
 	public void login(int userId, char[] password) {
 		if (client.validateUser(userId, password) == true) {
 			loginWindow.close();
-			gui = new ApplicationGUI(null, this);
+			ec = new EventController();
+			tc = new TaskController();
+			mc = new MessageController();
+			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
 		} else {
 			System.out.println("Fail!");
 		}
