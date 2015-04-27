@@ -27,8 +27,9 @@ public class ClientController {
 	private LoginGUI loginWindow;
 	private ApplicationGUI gui;
 	private Server server;
-        private EventController ec;
-        private TaskController tc;
+	private EventController ec;
+	private TaskController tc;
+	private MessageController mc;
 
 	// constructor sets ip and port
 	public ClientController(String serverIp, int port) {
@@ -65,45 +66,46 @@ public class ClientController {
 	public void logout() throws IOException {
 		client.disconnect();
 	}
-	
-	public Updater updateGui (){
+
+	public Updater updateGui() {
 		Updater updater = null;
-                Object object = updater;
-//		updater.addEvent(event);
-//		updater.addMessage(message);
-//		updater.addTask(task);
-                
-//                Object object;
-//                object = updater;
-                
-                if(object instanceof Event){
-                    Event event = (Event) object;
-                    updater.addEvent(event);
-                    updater.getEvents();
-                    ec.displayEventList(event);
-                    
-                }else if(object instanceof Message){
-                    Message msg = (Message) object;
-                    updater.addMessage(msg);
-                    updater.getMessages();
-                    
-                }else if (object instanceof Task){
-                    Task task = (Task) object;
-                    updater.addTask(task);
-                    updater.getTasks();
-                    tc.displayTaskList(task);
-                }
-		
+		Object object = updater;
+		// updater.addEvent(event);
+		// updater.addMessage(message);
+		// updater.addTask(task);
+
+		// Object object;
+		// object = updater;
+
+		if (object instanceof Event) {
+			Event event = (Event) object;
+			updater.addEvent(event);
+			updater.getEvents();
+			ec.displayEventList(event);
+
+		} else if (object instanceof Message) {
+			Message msg = (Message) object;
+			updater.addMessage(msg);
+			updater.getMessages();
+
+		} else if (object instanceof Task) {
+			Task task = (Task) object;
+			updater.addTask(task);
+			updater.getTasks();
+			tc.displayTaskList(task);
+		}
+
 		return updater;
-		
+
 	}
 
 	public void refresh() {
 		client.refresh();
 	}
 
-    public void update() {
-        
+	public void update(Updater updater) {
+        mc.updatePanel(updater.getMessages());
+        tc.updatePanel(updater.getTasks());
+        ec.updatePanel(updater.getEvents());
     }
-
 }

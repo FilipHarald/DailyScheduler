@@ -8,6 +8,7 @@ package network.client.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import database.DatabaseController;
 import entities.Message;
@@ -80,8 +81,9 @@ public class MessageController {
     	return new ArrayList<String>(); 
     	
     }
-    
-    
-    
+
+	public void updatePanel(LinkedList<Message> messages) {
+		messagePanel.update(messages);
+	}  
     
 }

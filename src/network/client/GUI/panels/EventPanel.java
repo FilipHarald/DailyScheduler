@@ -311,4 +311,8 @@ public class EventPanel extends JPanel implements ActionListener {
 //        lstEvents.setModel((ListModel)ec.displayEventList(event));
     }
 
+	public void update(LinkedList<Event> events) {
+		
+	}
+
 }

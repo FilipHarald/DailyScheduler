@@ -9,8 +9,8 @@ import database.DatabaseController;
 import entities.Event;
 
 import java.util.*;
-import miscellaneous.Updater;
 
+import miscellaneous.Updater;
 import network.client.GUI.panels.EventPanel;
 
 /**
@@ -46,7 +46,7 @@ public class EventController {
     
     public void updateEventList(){
         up.addEvent(event);
-        cc.updateGui(event, null, null);
+        cc.refresh();
     }
     
     //splits the String[] from the textarea to parts and saves them to a linkedlist
@@ -101,5 +101,9 @@ public class EventController {
         //TODO: remove event from database
 
     }
+
+	public void updatePanel(LinkedList<Event> events) {
+		eventPanel.update(events);
+	}
 
 }

@@ -149,7 +149,12 @@ public class TaskController {
     public void deleteSubTask(int index){
         task.removeSubTask(index);
         
-    } 
+    }
+
+	public void updatePanel(LinkedList<Task> tasks) {
+		// TODO Auto-generated method stub
+		
+	} 
     
     
 }

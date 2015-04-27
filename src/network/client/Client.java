@@ -45,7 +45,7 @@ public class Client {
 	public Client(String ip, int port) {
 		try {
 			socket = new Socket(ip, port);
-//			socket.connect(new InetSocketAddress(ip, port));
+			// socket.connect(new InetSocketAddress(ip, port));
 			ois = new ObjectInputStream(socket.getInputStream());
 			oos = new ObjectOutputStream(socket.getOutputStream());
 		} catch (Exception e) {
@@ -85,14 +85,15 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private class Listener extends Thread {
 		Object object;
 
 		public void run() {
 			try {
 				while (true) {
-					System.out.println("this is the client Listener while-loop");
+					System.out
+							.println("this is the client Listener while-loop");
 					object = ois.readObject();
 
 					if (object instanceof Task) {
@@ -105,10 +106,10 @@ public class Client {
 						User user = (User) object;
 					} else if (object instanceof Team) {
 						Team team = (Team) object;
-					}else if (object instanceof Updater){
-                                                Updater updater = (Updater) object;
-                                                cc.update();
-                                        }
+					} else if (object instanceof Updater) {
+
+						cc.update((Updater) object);
+					}
 				}
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -118,7 +119,7 @@ public class Client {
 	}
 
 	// close connection to server
-	public void disconnect(){
+	public void disconnect() {
 		try {
 			socket.close();
 		} catch (IOException e) {

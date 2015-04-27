@@ -52,7 +52,12 @@ public class ServerController {
 
 
 	public Updater getUpdater(int userId) {
-		return dbc.getUpdater(userId);
+		try {
+			return dbc.getUpdater(userId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	
