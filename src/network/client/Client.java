@@ -112,7 +112,7 @@ public class Client {
 						cc.update((Updater) object);
 					}
 				}
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (IOException | ClassNotFoundException | NullPointerException e) {
 				e.printStackTrace();
 			}
 		}
