@@ -301,7 +301,7 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
-    private void displayEventList(Event event) {
+    public void displayEventList(Event event) {
         DefaultListModel model = new DefaultListModel();
         for (int i = 0; i < 5; i++) {
             model.addElement(i);
