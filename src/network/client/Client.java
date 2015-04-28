@@ -10,6 +10,7 @@ import entities.Event;
 import network.client.controllers.EventController;
 import entities.Task;
 import network.client.controllers.TaskController;
+import entities.Message;
 import entities.Team;
 import entities.User;
 import network.client.controllers.UserAndTeamController;
@@ -18,8 +19,8 @@ import miscellaneous.UsernameAndPwdPair;
 import java.io.*;
 import java.net.*;
 import java.util.Arrays;
-import miscellaneous.Updater;
 
+import miscellaneous.Updater;
 import network.server.Server;
 
 /**
@@ -107,6 +108,8 @@ public class Client {
 						User user = (User) object;
 					} else if (object instanceof Team) {
 						Team team = (Team) object;
+					} else if (object instanceof Message){
+						Message message = (Message) object;
 					} else if (object instanceof Updater) {
 
 						cc.update((Updater) object);
