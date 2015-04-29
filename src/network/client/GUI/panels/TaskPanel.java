@@ -10,10 +10,12 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
+import network.client.controllers.ClientController;
 import network.client.controllers.TaskController;
 import entities.Task;
 
 public class TaskPanel extends JPanel implements ActionListener {
+	private ClientController cc;
 	private TaskController taskC;
 	private Task task;
 	
@@ -282,7 +284,7 @@ public class TaskPanel extends JPanel implements ActionListener {
     		addSubTask();
     	}
     	if (e.getSource() == saveTask){
-    		
+    		cc.sendObject(task);
     	}
     	if (e.getSource() == saveSubTask){
     		
