@@ -1,5 +1,6 @@
 package network.client.GUI.panels;
 
+import entities.Event;
 import entities.Message;
 
 import java.awt.BorderLayout;
@@ -242,8 +243,11 @@ public class MessagePanel extends JPanel implements ActionListener {
 	public void displayMessage(Message msg) {
 
 	}
-	 public void update(LinkedList<Message> messages){
-//	 titleText = titleField.getText();
-	
-	 }
+    public void updateMessageList(LinkedList<Message> messages) {
+        DefaultListModel model = new DefaultListModel();
+        for (Message m : messages) {
+            model.addElement(m);
+        }
+        messageList.setModel(model);
+    }
 }

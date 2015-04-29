@@ -83,7 +83,7 @@ public class MessageController {
     }
 
 	public void updatePanel(LinkedList<Message> messages) {
-		messagePanel.update(messages);
+		messagePanel.updateMessageList(messages);
 	}  
 	
 	public MessagePanel getPanel(){
