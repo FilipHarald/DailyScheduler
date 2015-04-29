@@ -45,10 +45,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 	private JButton newMessageButton = new JButton("New Message");
 	private JButton editMessageButton = new JButton("Edit");
 	private JButton deleteMessageButton = new JButton("Delete");
-	private JPanel textPanel = new JPanel();
 	private JPanel buttonsPanel = new JPanel();
 	private DefaultListModel listModel = new DefaultListModel();
-	private JList txt = new JList(listModel);
+	private JList messageList = new JList(listModel);
 
 	private JPanel newMessagePanel = new JPanel();
 	private JTextField titleField = new JTextField(15);
@@ -66,12 +65,6 @@ public class MessagePanel extends JPanel implements ActionListener {
 	private JPanel editMessagePanel = new JPanel();
 	private JButton editMessage = new JButton("Edit");
 
-	private JPanel deleteMessagePanel = new JPanel();
-	private JButton deleteMessageYes = new JButton("Yes");
-	private JButton deleteMessageNo = new JButton("No");
-	private JLabel deleteMessageTitle = new JLabel(
-			"Do you wish to delete this message?");
-
 	// private String titleText = new String() ;
 	// private String messageText = new String();
 	// private String resipientText = new String();
@@ -81,25 +74,17 @@ public class MessagePanel extends JPanel implements ActionListener {
 	 * Constructor
 	 */
 	public MessagePanel() {
-
 		super();
-
-		/*
-		 * Borderlayout for the objects
-		 */
 		setBorder(BorderFactory.createTitledBorder("Message view"));
-
 		buttonsPanel.setLayout(new BorderLayout());
 		buttonsPanel.add(newMessageButton, BorderLayout.NORTH);
 		buttonsPanel.add(deleteMessageButton, BorderLayout.CENTER);
 		buttonsPanel.add(editMessageButton, BorderLayout.SOUTH);
 
-		textPanel.add(txt, BorderLayout.CENTER);
-		txt.setPreferredSize(new Dimension(200, 200));
+		messageList.setPreferredSize(new Dimension(400, 400));
 
 		add(buttonsPanel, BorderLayout.WEST);
-		add(textPanel, BorderLayout.CENTER);
-		// add(newMessagePanel);
+		add(messageList, BorderLayout.CENTER);
 		listeners();
 	}
 
@@ -114,9 +99,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 
 		sendNewMessage.addActionListener(this);
 		editMessage.addActionListener(this);
-		deleteMessageYes.addActionListener(this);
 
-		deleteMessageNo.addActionListener(this);
 		confirmSendButtonYes.addActionListener(this);
 		confirmSendButtonNo.addActionListener(this);
 	}
@@ -208,33 +191,16 @@ public class MessagePanel extends JPanel implements ActionListener {
 
 				String resRecipient = recipientField.getText();
 				int resRecipientLength=resRecipient.length();
-
-				JFrame confirmMessageFrame = new JFrame("Confirm send Message");
-				confirmMessageFrame.setLayout(null);
-				confirmMessageFrame.setPreferredSize(new Dimension(500+resRecipientLength,500));
-
-
-				confirmSendLabel.setText("Send to " + resRecipient);
-
-				confirmNewMessagePanel.setSize(500+resRecipientLength,500 );
-				confirmNewMessagePanel.setLayout(null);
-
-
-
-				confirmSendLabel.setBounds(110,80,(150+resRecipientLength),20);
-				confirmSendButtonYes.setBounds(100,420,80,25);
-				confirmSendButtonNo.setBounds(300,420,80,25);
-
-
-				confirmNewMessagePanel.add(confirmSendLabel);
-				confirmNewMessagePanel.add(confirmSendButtonYes);
-				confirmNewMessagePanel.add(confirmSendButtonNo);
-
-				confirmMessageFrame.add(confirmNewMessagePanel);
-				confirmMessageFrame.pack();
-				confirmMessageFrame.setLocationRelativeTo(null);
-				confirmMessageFrame.setVisible(true);
-
+				
+				int n = JOptionPane.showConfirmDialog(
+					    this,
+					    ("Send to " + resRecipient),
+					    "Confirm send Message",
+					    JOptionPane.YES_NO_OPTION);
+				if(n == JOptionPane.YES_OPTION){
+			}else{
+				System.out.println("chose option no!");
+			}
 				if(e.getSource()==confirmSendButtonYes){
 
 					
