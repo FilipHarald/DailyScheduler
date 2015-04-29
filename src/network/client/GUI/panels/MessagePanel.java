@@ -21,7 +21,7 @@ import network.client.controllers.MessageController;
  * @author Fredrik N�rell
  *
  */
-public class MessagePanel extends JPanel implements ActionListener {
+public class MessagePanel extends JPanel implements ActionListener{
 
 	private MessageController mc;
 
@@ -94,22 +94,12 @@ public class MessagePanel extends JPanel implements ActionListener {
 			newMessageFrame.setLayout(null);
 			newMessageFrame.setPreferredSize(new Dimension(500, 500));
 
-			newMessageFrame.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent we) {
-					System.exit(if(e.getSource()==deleteMessageButton){
-						int n = JOptionPane.showConfirmDialog(
-								this,
-								"Are you sure you wish to delete this message?",
-								"Deleting a message",
-								JOptionPane.YES_NO_OPTION);
-						if(n == JOptionPane.YES_OPTION){
-						}else{
-							System.out.println("chose option no!");
-						});
-					}
+		
+			
+					
+
 				
-				});
-			}
+			
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
 
@@ -137,120 +127,132 @@ public class MessagePanel extends JPanel implements ActionListener {
 			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
+			newMessageFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			
+			//Kod för att öppna ett window för att säkerställa att man ska stänga fönstert, behöver sättas på rätt
+			//plats. Leta även upp hur man ska fixa så att x-knappen i JFrame kan modifieras.
+//			int n =JOptionPane.showConfirmDialog(this,("Do you wish to exit without saving?"), 
+//					"Confirm exit", JOptionPane.YES_NO_OPTION);
+//			if(n==JOptionPane.YES_OPTION){
+//
+//			}else{
+//				System.out.println("Chose not to save");
+//			}
+		}
+		else{
+			if(e.getSource()==editMessageButton){
+				JFrame editMessageFrame = new JFrame("Edit Message");
+				editMessageFrame.setLayout(null);
+				editMessageFrame.setPreferredSize(new Dimension(500, 500));
+
+				editMessagePanel.setSize(500, 500);
+				editMessagePanel.setLayout(null);
+
+				recipientLabel.setBounds(100,50,120,20);
+				recipientField.setBounds(200,50,120,20);
+
+				titleLabel.setBounds(100,70,120,20);
+				titleField.setBounds(200,70,120,20);
+
+				messageArea.setBounds(100,100,280,300);
+
+				editMessage.setBounds(100,420,80,25);
+
+				//Lägg till kod för att hämta information från gamla meddelanden, String -> getText osv
+				//för att editera dem.
+
+				editMessagePanel.add(titleLabel);
+				editMessagePanel.add(recipientLabel);
+				editMessagePanel.add(titleField);
+				editMessagePanel.add(recipientField);
+				editMessagePanel.add(messageArea);
+				editMessagePanel.add(editMessage);
 
 
-			}
-			else{
-				if(e.getSource()==editMessageButton){
-					JFrame editMessageFrame = new JFrame("Edit Message");
-					editMessageFrame.setLayout(null);
-					editMessageFrame.setPreferredSize(new Dimension(500, 500));
 
-					editMessagePanel.setSize(500, 500);
-					editMessagePanel.setLayout(null);
+				editMessageFrame.add(editMessagePanel);
+				editMessageFrame.pack();
+				editMessageFrame.setLocationRelativeTo(null);
+				editMessageFrame.setVisible(true);
 
-					recipientLabel.setBounds(100,50,120,20);
-					recipientField.setBounds(200,50,120,20);
+			}else{
+				if(e.getSource()==deleteMessageButton){
+					int n = JOptionPane.showConfirmDialog(
+							this,
+							"Are you sure you wish to delete this message?",
+							"Deleting a message",
+							JOptionPane.YES_NO_OPTION);
+					if(n == JOptionPane.YES_OPTION){
+					}else{
+						System.out.println("chose option no!");
+					}
+				}
 
-					titleLabel.setBounds(100,70,120,20);
-					titleField.setBounds(200,70,120,20);
+				if (e.getSource()==sendNewMessage){
 
-					messageArea.setBounds(100,100,280,300);
+					String resRecipient = recipientField.getText();
+					int resRecipientLength=resRecipient.length();
 
-					editMessage.setBounds(100,420,80,25);
+					int n = JOptionPane.showConfirmDialog(
+							this,
+							("Send to " + resRecipient),
+							"Confirm send Message",
+							JOptionPane.YES_NO_OPTION);
+					if(n == JOptionPane.YES_OPTION){
+					}
+					else{
+						System.out.println("chose option no!");
+					}
+					if(e.getSource()==confirmSendButtonYes){
 
-					//Lägg till kod för att hämta information från gamla meddelanden, String -> getText osv
-					//för att editera dem.
-
-					editMessagePanel.add(titleLabel);
-					editMessagePanel.add(recipientLabel);
-					editMessagePanel.add(titleField);
-					editMessagePanel.add(recipientField);
-					editMessagePanel.add(messageArea);
-					editMessagePanel.add(editMessage);
-
-
-
-					editMessageFrame.add(editMessagePanel);
-					editMessageFrame.pack();
-					editMessageFrame.setLocationRelativeTo(null);
-					editMessageFrame.setVisible(true);
-				}else{
-					if(e.getSource()==deleteMessageButton){
-						int n = JOptionPane.showConfirmDialog(
-								this,
-								"Are you sure you wish to delete this message?",
-								"Deleting a message",
-								JOptionPane.YES_NO_OPTION);
-						if(n == JOptionPane.YES_OPTION){
-						}else{
-							System.out.println("chose option no!");
-						}
 					}
 
-					if (e.getSource()==sendNewMessage){
+					//Alternative flow Send New Message 
+					// typ if x is pressed JOptionPane Wanna exit?
 
-						String resRecipient = recipientField.getText();
-						int resRecipientLength=resRecipient.length();
+				}
 
-						int n = JOptionPane.showConfirmDialog(
-								this,
-								("Send to " + resRecipient),
-								"Confirm send Message",
-								JOptionPane.YES_NO_OPTION);
-						if(n == JOptionPane.YES_OPTION){
-						}else{
-							System.out.println("chose option no!");
-						}
-						if(e.getSource()==confirmSendButtonYes){
 
-						}
-
-						//Alternative flow Send New Message 
-						// typ if x is pressed JOptionPane Wanna exit?
-
+				//Alt Edit Message 1
+				if (e.getSource() == editMessage){
+					int n = JOptionPane.showConfirmDialog(
+							this,
+							("Do you wish to cancel the editing of the message X?"),
+							"Confirm send Message",
+							JOptionPane.YES_NO_OPTION);
+					if(n == JOptionPane.YES_OPTION){
+					}else{
+						System.out.println("chose option no!");
 					}
+					if(e.getSource()==confirmSendButtonYes){
 
-
-					//Alt Edit Message 1
-					if (e.getSource() == editMessage){
-						int n = JOptionPane.showConfirmDialog(
-								this,
-								("Do you wish to cancel the editing of the message X?"),
-								"Confirm send Message",
-								JOptionPane.YES_NO_OPTION);
-						if(n == JOptionPane.YES_OPTION){
-						}else{
-							System.out.println("chose option no!");
-						}
-						if(e.getSource()==confirmSendButtonYes){
-
-						} 
-					}
+					} 
 				}
 			}
 		}
-
-		// get title from textfield
-		public String getTitle() {
-			return titleField.getText();
-		}
-
-		// get message from textarea
-		public String getMessage() {
-			return messageArea.getText();
-		}
-
-		// get recipients from textfield
-		public String getRecipients() {
-			return recipientField.getText();
-		}
-
-		public void updateMessageList(LinkedList<Message> messages) {
-			DefaultListModel model = new DefaultListModel();
-			for (Message m : messages) {
-				model.addElement(m);
-			}
-			messageList.setModel(model);
-		}
 	}
+
+
+	// get title from textfield
+	public String getTitle() {
+		return titleField.getText();
+	}
+
+	// get message from textarea
+	public String getMessage() {
+		return messageArea.getText();
+	}
+
+	// get recipients from textfield
+	public String getRecipients() {
+		return recipientField.getText();
+	}
+
+	public void updateMessageList(LinkedList<Message> messages) {
+		DefaultListModel model = new DefaultListModel();
+		for (Message m : messages) {
+			model.addElement(m);
+		}
+		messageList.setModel(model);
+	}
+}
