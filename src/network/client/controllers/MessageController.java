@@ -25,7 +25,7 @@ public class MessageController {
 		messagePanel = new MessagePanel();
 		this.cc = cc;
 	}
-
+	
 	public void sendMessage(String name, String title, ArrayList<String> recipients, int id) {
 		Message msg = new Message(name, title, recipients, id);
 	}
