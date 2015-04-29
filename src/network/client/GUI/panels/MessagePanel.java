@@ -31,10 +31,11 @@ import network.client.controllers.MessageController;
 
 /**
  * The class creates a panel with new messages for the programs user.
+ * 
  * @author Fredrik N�rell
  *
  */
-public class MessagePanel extends JPanel implements ActionListener  {
+public class MessagePanel extends JPanel implements ActionListener {
 
 	private MessageController messageC;
 
@@ -42,19 +43,19 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	 * Class variables
 	 */
 	private JButton newMessageButton = new JButton("New Message");
-	private JButton editMessageButton = new JButton ("Edit");
-	private JButton deleteMessageButton = new JButton ("Delete");
+	private JButton editMessageButton = new JButton("Edit");
+	private JButton deleteMessageButton = new JButton("Delete");
 	private JPanel textPanel = new JPanel();
-	private JPanel buttonsPanel= new JPanel();
-	final  DefaultListModel listModel = new DefaultListModel();
+	private JPanel buttonsPanel = new JPanel();
+	private DefaultListModel listModel = new DefaultListModel();
 	private JList txt = new JList(listModel);
-	
+
 	private JPanel newMessagePanel = new JPanel();
 	private JTextField titleField = new JTextField(15);
 	private JTextField recipientField = new JTextField(15);
 	private JTextArea messageArea = new JTextArea();
 	private JLabel titleLabel = new JLabel("Title");
-	private JLabel recipientLabel = new JLabel ("Recipient");
+	private JLabel recipientLabel = new JLabel("Recipient");
 	private JButton sendNewMessage = new JButton("Send");
 
 	private JPanel confirmNewMessagePanel = new JPanel();
@@ -66,23 +67,22 @@ public class MessagePanel extends JPanel implements ActionListener  {
 	private JButton editMessage = new JButton("Edit");
 
 	private JPanel deleteMessagePanel = new JPanel();
-	private JButton deleteMessageYes = new JButton ("Yes");
+	private JButton deleteMessageYes = new JButton("Yes");
 	private JButton deleteMessageNo = new JButton("No");
-	private JLabel deleteMessageTitle = new JLabel("Do you wish to delete this message?");
-	
-//	private String titleText = new String() ;
-//	private String messageText = new String();
-//	private String resipientText = new String();
-//	private Object[] messageObject ;
-	
+	private JLabel deleteMessageTitle = new JLabel(
+			"Do you wish to delete this message?");
+
+	// private String titleText = new String() ;
+	// private String messageText = new String();
+	// private String resipientText = new String();
+	// private Object[] messageObject ;
 
 	/**
 	 * Constructor
 	 */
-	public MessagePanel(){
-		
-		super();
+	public MessagePanel() {
 
+		super();
 
 		/*
 		 * Borderlayout for the objects
@@ -94,21 +94,19 @@ public class MessagePanel extends JPanel implements ActionListener  {
 		buttonsPanel.add(deleteMessageButton, BorderLayout.CENTER);
 		buttonsPanel.add(editMessageButton, BorderLayout.SOUTH);
 
-		textPanel.add(txt,BorderLayout.CENTER);	
-		txt.setPreferredSize(new Dimension(200,200));
+		textPanel.add(txt, BorderLayout.CENTER);
+		txt.setPreferredSize(new Dimension(200, 200));
 
 		add(buttonsPanel, BorderLayout.WEST);
 		add(textPanel, BorderLayout.CENTER);
-		//		add(newMessagePanel);
+		// add(newMessagePanel);
 		listeners();
 	}
-
-
 
 	/**
 	 * Listener for the JButtons in the buttonsPanel.
 	 */
-	public void listeners(){
+	public void listeners() {
 
 		newMessageButton.addActionListener(this);
 		deleteMessageButton.addActionListener(this);
@@ -196,26 +194,14 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				editMessageFrame.setVisible(true);
 			}else{
 				if(e.getSource()==deleteMessageButton){
-					JFrame deleteMessageFrame = new JFrame("Delete Message");
-					deleteMessageFrame.setLayout(null);
-					deleteMessageFrame.setPreferredSize(new Dimension(500,500));
-
-					deleteMessagePanel.setSize(500,500);
-					deleteMessagePanel.setLayout(null);
-
-					deleteMessageTitle.setBounds(140,80,250,20);
-
-					deleteMessageYes.setBounds(100,420,80,25);
-					deleteMessageNo.setBounds(300,420,80,25);
-
-					deleteMessagePanel.add(deleteMessageTitle);
-					deleteMessagePanel.add(deleteMessageYes);
-					deleteMessagePanel.add(deleteMessageNo);
-
-					deleteMessageFrame.add(deleteMessagePanel);
-					deleteMessageFrame.pack();
-					deleteMessageFrame.setLocationRelativeTo(null);
-					deleteMessageFrame.setVisible(true);
+					int n = JOptionPane.showConfirmDialog(
+						    this,
+						    "Are you sure you wish to delete this message?",
+						    "Deleting a message",
+						    JOptionPane.YES_NO_OPTION);
+					if(n == JOptionPane.YES_OPTION){
+				}else{
+					System.out.println("chose option no!");
 				}
 			}
 			if (e.getSource()==sendNewMessage){
@@ -263,36 +249,35 @@ public class MessagePanel extends JPanel implements ActionListener  {
 				}
 			}
 		}
+		}
 	}
 
-	//get title from textfield
+	// get title from textfield
 	public String getTitle() {
 		return titleField.getText();
 	}
 
-	//get message from textarea
+	// get message from textarea
 	public String getMessage() {
 		return messageArea.getText();
 	}
 
-	//get recipients from textfield
+	// get recipients from textfield
 	public String getRecipients() {
 		return recipientField.getText();
 	}
 
-	//display the list of all the messages 
-	public void messageListDisplay(Message msg){
-//		txt.setText(messageC.displayMessageList(msg).toString());
+	// display the list of all the messages
+	public void messageListDisplay(Message msg) {
+		// txt.setText(messageC.displayMessageList(msg).toString());
 	}
 
-	//display information/content for a specific message
+	// display information/content for a specific message
 	public void displayMessage(Message msg) {
 
-
-
 	}
-	public void update(LinkedList<Message> messages){
-		titleText = titleField.getText();
-		
-	}
+	 public void update(LinkedList<Message> messages){
+//	 titleText = titleField.getText();
+	
+	 }
 }
