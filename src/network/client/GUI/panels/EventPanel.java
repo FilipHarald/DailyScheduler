@@ -159,12 +159,10 @@ public class EventPanel extends JPanel implements ActionListener {
 
         lblSearch.setBounds(120, 50, 300, 30);
         lstEvents.setPreferredSize(new Dimension(135, 90));
-        lstEvents.setBounds(135, 90, 200, 25);
         jspList.setBounds(135, 90, 200, 250);
         btnSearch.setBounds(370, 90, 80, 30);
 
         pnlSearchEvent.add(lblSearch);
-//        pnlSearchEvent.add(lstEvents);
         pnlSearchEvent.add(jspList);
         pnlSearchEvent.add(btnSearch);
 
