@@ -92,10 +92,10 @@ public class TaskPanel extends JPanel implements ActionListener {
 		JLabel lblIncompleted = new JLabel ("Incompleted tasks");
 		
 		panelIncompletedTask.setBorder(BorderFactory.createTitledBorder(""));
+		listIncompletedTask.setPreferredSize(new Dimension(200,100));
 		scrollerIncompletedTask.setPreferredSize(new Dimension(200,100));
 	
 		panelIncompletedTask.add(lblIncompleted);
-		panelIncompletedTask.add(listIncompletedTask);
 		panelIncompletedTask.add(scrollerIncompletedTask);
 		
 		tasksPanel.add (panelIncompletedTask);
@@ -288,14 +288,20 @@ public class TaskPanel extends JPanel implements ActionListener {
     }
     
     
-    public void taskListDisplayIncompleted (Task task){
-    	listIncompletedTask.setModel((ListModel) taskC.displayTaskList(task));
+    public void taskListDisplayIncompleted (LinkedList<Task> tasks){
+    	DefaultListModel model2 = new DefaultListModel();
+    	for (Task inCompleteTasks : tasks) {
+    	model2.addElement(inCompleteTasks);
+    	listIncompletedTask.setModel(model2);
+    	
+    	}
+    
     }
     
     public void taskListDisplayCompleted (LinkedList<Task> tasks){
     	DefaultListModel model = new DefaultListModel();
-    	for (Task t : tasks) {
-    	model.addElement(t);
+    	for (Task completeTasks : tasks) {
+    	model.addElement(completeTasks);
     	listCompletedTask.setModel(model);
     	
     }

@@ -9,8 +9,6 @@ package network.client.controllers;
 import database.DatabaseController;
 import entities.Task;
 
-
-
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
@@ -150,11 +148,21 @@ public class TaskController {
         task.removeSubTask(index);
         
     }
-
-	public void updatePanel(LinkedList<Task> tasks) {
-		taskPanel.taskListDisplayCompleted(tasks);
-		
-	} 
+    public void updatePanel (LinkedList<Task> tasks){
+    	LinkedList<Task> completeTasks = new LinkedList();
+    	LinkedList <Task> inCompleteTasks = new LinkedList();
+    	for (Task t: tasks){
+    		if(t.isComplete() == true){
+    				completeTasks.add(t);
+    		} else if (t.isComplete() == false){
+    			inCompleteTasks.add(t);
+    		}
+    	}
+		taskPanel.taskListDisplayCompleted(completeTasks);
+		taskPanel.taskListDisplayIncompleted(inCompleteTasks);
+    }
+    
+	
     public TaskPanel getPanel(){
     	return taskPanel;
     }
