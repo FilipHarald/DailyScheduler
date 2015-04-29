@@ -60,6 +60,7 @@ public class ClientController {
 			tc = new TaskController();
 			mc = new MessageController();
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
+			client.startListening();
 		} else {
 			System.out.println("Fail!");
 		}
@@ -70,45 +71,45 @@ public class ClientController {
 		client.disconnect();
 	}
 
-	public Updater updateGui() {
-		Updater updater = null;
-		Object object = updater;
-		// updater.addEvent(event);
-		// updater.addMessage(message);
-		// updater.addTask(task);
-
-		// Object object;
-		// object = updater;
-
-		if (object instanceof Event) {
-			Event event = (Event) object;
-			updater.addEvent(event);
-			updater.getEvents();
-			ec.displayEventList(event);
-
-		} else if (object instanceof Message) {
-			Message msg = (Message) object;
-			updater.addMessage(msg);
-			updater.getMessages();
-
-		} else if (object instanceof Task) {
-			Task task = (Task) object;
-			updater.addTask(task);
-			updater.getTasks();
-			tc.displayTaskList(task);
-		}
-
-		return updater;
-
-	}
+//	public Updater updateGui() {
+//		Updater updater = null;
+//		Object object = updater;
+//		// updater.addEvent(event);
+//		// updater.addMessage(message);
+//		// updater.addTask(task);
+//
+//		// Object object;
+//		// object = updater;
+//
+//		if (object instanceof Event) {
+//			Event event = (Event) object;
+//			updater.addEvent(event);
+//			updater.getEvents();
+//			ec.displayEventList(event);
+//
+//		} else if (object instanceof Message) {
+//			Message msg = (Message) object;
+//			updater.addMessage(msg);
+//			updater.getMessages();
+//
+//		} else if (object instanceof Task) {
+//			Task task = (Task) object;
+//			updater.addTask(task);
+//			updater.getTasks();
+//			tc.displayTaskList(task);
+//		}
+//
+//		return updater;
+//
+//	}
 
 	public void refresh() {
 		client.refresh();
 	}
 
 	public void update(Updater updater) {
-        mc.updatePanel(updater.getMessages());
-        tc.updatePanel(updater.getTasks());
+//        tc.updatePanel(updater.getTasks());
+//        mc.updatePanel(updater.getMessages());
         ec.updatePanel(updater.getEvents());
     }
 }

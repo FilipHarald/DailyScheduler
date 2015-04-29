@@ -61,9 +61,9 @@ public class EventController {
 	}
     
     //displays the list of events
-    public Event displayEventList(Event event){
-        up.getEvents();
-        return event;
+    public LinkedList<Event> displayEventList(LinkedList<Event> events){
+        cc.update(up);
+        return events;
     }
     
     
@@ -102,7 +102,7 @@ public class EventController {
     }
 
 	public void updatePanel(LinkedList<Event> events) {
-		eventPanel.update(events);
+		eventPanel.displayEventList(events);
 	}
 	public EventPanel getPanel(){
 		return eventPanel;

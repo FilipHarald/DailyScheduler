@@ -73,10 +73,10 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (validUser) {
-			new Listener().start();
-		}
 		return validUser;
+	}
+	public void startListening(){
+		new Listener().start();
 	}
 
 	public void send(Object obj) {

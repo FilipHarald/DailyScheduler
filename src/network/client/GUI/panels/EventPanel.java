@@ -168,7 +168,8 @@ public class EventPanel extends JPanel implements ActionListener {
         frmSearchEvent.pack();
         frmSearchEvent.setVisible(true);
 
-        displayEventList(event);
+        LinkedList<Event> events = null;
+		displayEventList(events);
 
     }
 
@@ -264,7 +265,7 @@ public class EventPanel extends JPanel implements ActionListener {
             setLabels();
             if (isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
-            } else {
+            } else if (isEmpty() == false){
                 ec.createEvent();
                 //TODO: save event to database
                 frmNewEvent.dispose();
@@ -301,14 +302,13 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
-    public void displayEventList(Event event) {
+    public void displayEventList(LinkedList<Event> events) {
         DefaultListModel model = new DefaultListModel();
-        for (int i = 0; i < 5; i++) {
-            model.addElement(i);
-
+        for (Event e : events) {
+            model.addElement(e);
         }
         lstEvents.setModel(model);
-//        lstEvents.setModel((ListModel)ec.displayEventList(event));
+//        lstEvents.setModel((ListModel)ec.displayEventList(events));
     }
 
 	public void update(LinkedList<Event> events) {
