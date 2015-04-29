@@ -33,6 +33,7 @@ public class Server implements Runnable {
 	 */
 
 	public Server(int port, ServerController sCont) {
+		clientHandlerMap = new HashMap<Integer, ClientHandler>();
 		try {
 			this.sCont = sCont;
 			sSocket = new ServerSocket(port);
