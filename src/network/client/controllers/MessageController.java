@@ -28,6 +28,7 @@ public class MessageController {
 	
 	public void sendMessage(String name, String title, ArrayList<String> recipients, int id) {
 		Message msg = new Message(name, title, recipients, id);
+		cc.sendObject(msg);
 	}
 
 	public void updatePanel(LinkedList<Message> messages) {

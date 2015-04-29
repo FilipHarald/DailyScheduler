@@ -80,6 +80,9 @@ public class ClientController {
         mc.updatePanel(updater.getMessages());
         ec.updatePanel(updater.getEvents());
     }
+	public void sendObject(Object obj){
+		client.send(obj);
+	}
 	
 
 	public void newMessageReceived(Message m) {
