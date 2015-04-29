@@ -173,7 +173,6 @@ public class EventPanel extends JPanel implements ActionListener {
 
         LinkedList<Event> events = null;
 		displayEventList(events);
-
     }
 
     private void clearFields() {
