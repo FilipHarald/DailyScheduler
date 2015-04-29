@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.swing.*;
 
@@ -77,10 +78,10 @@ public class TaskPanel extends JPanel implements ActionListener {
 		JLabel lblCompletedTask = new JLabel ("Completed tasks");
 		
 		panelCompletedTask.setBorder(BorderFactory.createTitledBorder(""));
+		listCompletedTask.setPreferredSize(new Dimension(200,100));
 		scrollerCompletedTask.setPreferredSize(new Dimension(200,100));
 
 		panelCompletedTask.add(lblCompletedTask);
-		panelCompletedTask.add(listCompletedTask);
 		panelCompletedTask.add(scrollerCompletedTask);
 		
 		
@@ -291,8 +292,13 @@ public class TaskPanel extends JPanel implements ActionListener {
     	listIncompletedTask.setModel((ListModel) taskC.displayTaskList(task));
     }
     
-    public void taskListDisplayCompleted (Task task){
-    	listCompletedTask.setModel((ListModel) taskC.displayTaskList(task));
+    public void taskListDisplayCompleted (LinkedList<Task> tasks){
+    	DefaultListModel model = new DefaultListModel();
+    	for (Task t : tasks) {
+    	model.addElement(t);
+    	listCompletedTask.setModel(model);
+    	
+    }
     	
     	
     }

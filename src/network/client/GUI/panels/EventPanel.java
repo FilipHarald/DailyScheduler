@@ -27,6 +27,8 @@ public class EventPanel extends JPanel implements ActionListener {
     private JDateChooser jdcDate = new JDateChooser();
 
     private JList lstEvents = new JList();
+    
+    private JScrollPane jspList = new JScrollPane(lstEvents);
 
     private JFrame frmNewEvent = new JFrame("New event");
     private JFrame frmEditEvent = new JFrame("Edit event");
@@ -156,11 +158,14 @@ public class EventPanel extends JPanel implements ActionListener {
         pnlSearchEvent.setSize(500, 450);
 
         lblSearch.setBounds(120, 50, 300, 30);
-        lstEvents.setBounds(135, 90, 200, 250);
+        lstEvents.setPreferredSize(new Dimension(135, 90));
+        lstEvents.setBounds(135, 90, 200, 25);
+        jspList.setBounds(135, 90, 200, 250);
         btnSearch.setBounds(370, 90, 80, 30);
 
         pnlSearchEvent.add(lblSearch);
-        pnlSearchEvent.add(lstEvents);
+//        pnlSearchEvent.add(lstEvents);
+        pnlSearchEvent.add(jspList);
         pnlSearchEvent.add(btnSearch);
 
         frmSearchEvent.add(pnlSearchEvent);
@@ -311,8 +316,5 @@ public class EventPanel extends JPanel implements ActionListener {
 //        lstEvents.setModel((ListModel)ec.displayEventList(events));
     }
 
-	public void update(LinkedList<Event> events) {
-		
-	}
 
 }

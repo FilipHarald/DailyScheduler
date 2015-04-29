@@ -152,7 +152,7 @@ public class TaskController {
     }
 
 	public void updatePanel(LinkedList<Task> tasks) {
-		// TODO Auto-generated method stub
+		taskPanel.taskListDisplayCompleted(tasks);
 		
 	} 
     public TaskPanel getPanel(){
