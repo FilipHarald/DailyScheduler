@@ -10,10 +10,12 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
+import network.client.controllers.ClientController;
 import network.client.controllers.TaskController;
 import entities.Task;
 
 public class TaskPanel extends JPanel implements ActionListener {
+	private ClientController cc;
 	private TaskController taskC;
 	private Task task;
 	
@@ -29,10 +31,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JButton saveTask = new JButton("Save");
 	private JButton btnAddSubTask = new JButton("Add subtask");
 	
+	
 	//For edit task:
 	private JButton btnEditTask = new JButton("Edit Task");
 	private JPanel editTaskPanel = new JPanel();
-	private JButton editTask = new JButton("Save changes");
+	private JButton saveEditTask = new JButton("Save changes");
 	
 	//For delete task:
 	private JButton btnDeleteTask = new JButton ("Delete Task");
@@ -118,7 +121,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		labelBtnPanel.add(btnCreateNewTask);
 		labelBtnPanel.add(btnEditTask);
 		labelBtnPanel.add(btnDeleteTask);
-		
+		editTaskPanel.addMouseListener(mouseEvent);
 		add (labelBtnPanel, BorderLayout.CENTER);
 	}
 
@@ -144,8 +147,8 @@ public class TaskPanel extends JPanel implements ActionListener {
     }
     
     private void setLabels (){
-    	titleLabel.setText("Title");
-    	textDescription.setText("Text");
+    	titleLabel.getText();
+    	textDescription.getText();
     }
 	
 	public void createNewTask (){
@@ -189,13 +192,13 @@ public class TaskPanel extends JPanel implements ActionListener {
 		
 		descriptionArea.setBounds(100,100,280,300);
 		
-		editTask.setBounds(100,420,120,30);
+		saveEditTask.setBounds(100,420,120,30);
 		btnCancel.setBounds(300, 420, 80, 25);
 		
 		editTaskPanel.add(titleLabel);
 		editTaskPanel.add(titleField);
 		editTaskPanel.add(descriptionArea);
-		editTaskPanel.add(editTask);
+		editTaskPanel.add(saveEditTask);
 		editTaskPanel.add(btnCancel);
 		
 		editTaskFrame.add(editTaskPanel);
@@ -207,28 +210,28 @@ public class TaskPanel extends JPanel implements ActionListener {
 	public void deleteTask(){
 		deleteTaskFrame.setLayout(null);
 		deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
-		
-		deleteTaskPanel.setSize(500, 500);
-		deleteTaskPanel.setLayout(null);
-		
-		titleLabel.setBounds(100,70,120,20);
-		titleField.setBounds(200,70,120,20);
-		
-		descriptionArea.setBounds(100,100,280,300);
-		
-		deleteTask.setBounds(100,420,120,30);
-		btnCancel.setBounds(300, 420, 80, 25);
-		
-		deleteTaskPanel.add(titleLabel);
-		deleteTaskPanel.add(titleField);
-		deleteTaskPanel.add(descriptionArea);
-		deleteTaskPanel.add(deleteTask);
-		deleteTaskPanel.add(btnCancel);
-		
-		deleteTaskFrame.add(deleteTaskPanel);
-		deleteTaskFrame.pack();
-		deleteTaskFrame.setLocationRelativeTo(null);
-		deleteTaskFrame.setVisible(true);
+		JOptionPane.showConfirmDialog(null, "Do you want to delete task: " + Integer.toString(listCompletedTask.getSelectedIndex()));
+//		deleteTaskPanel.setSize(500, 500);
+//		deleteTaskPanel.setLayout(null);
+//		
+//		titleLabel.setBounds(100,70,120,20);
+//		titleField.setBounds(200,70,120,20);
+//		
+//		descriptionArea.setBounds(100,100,280,300);
+//		
+//		deleteTask.setBounds(100,420,120,30);
+//		btnCancel.setBounds(300, 420, 80, 25);
+//		
+//		deleteTaskPanel.add(titleLabel);
+//		deleteTaskPanel.add(titleField);
+//		deleteTaskPanel.add(descriptionArea);
+//		deleteTaskPanel.add(deleteTask);
+//		deleteTaskPanel.add(btnCancel);
+//		
+//		deleteTaskFrame.add(deleteTaskPanel);
+//		deleteTaskFrame.pack();
+//		deleteTaskFrame.setLocationRelativeTo(null);
+//		deleteTaskFrame.setVisible(true);
 	}
 	
 	public void addSubTask(){
@@ -279,6 +282,12 @@ public class TaskPanel extends JPanel implements ActionListener {
     	}
     	if (e.getSource() == btnAddSubTask) {
     		addSubTask();
+    	}
+    	if (e.getSource() == saveTask){
+    		cc.sendObject(task);
+    	}
+    	if (e.getSource() == saveSubTask){
+    		
     	}
     }
 
