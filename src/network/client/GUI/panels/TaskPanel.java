@@ -29,10 +29,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JButton saveTask = new JButton("Save");
 	private JButton btnAddSubTask = new JButton("Add subtask");
 	
+	
 	//For edit task:
 	private JButton btnEditTask = new JButton("Edit Task");
 	private JPanel editTaskPanel = new JPanel();
-	private JButton editTask = new JButton("Save changes");
+	private JButton saveEditTask = new JButton("Save changes");
 	
 	//For delete task:
 	private JButton btnDeleteTask = new JButton ("Delete Task");
@@ -189,13 +190,13 @@ public class TaskPanel extends JPanel implements ActionListener {
 		
 		descriptionArea.setBounds(100,100,280,300);
 		
-		editTask.setBounds(100,420,120,30);
+		saveEditTask.setBounds(100,420,120,30);
 		btnCancel.setBounds(300, 420, 80, 25);
 		
 		editTaskPanel.add(titleLabel);
 		editTaskPanel.add(titleField);
 		editTaskPanel.add(descriptionArea);
-		editTaskPanel.add(editTask);
+		editTaskPanel.add(saveEditTask);
 		editTaskPanel.add(btnCancel);
 		
 		editTaskFrame.add(editTaskPanel);
@@ -279,6 +280,12 @@ public class TaskPanel extends JPanel implements ActionListener {
     	}
     	if (e.getSource() == btnAddSubTask) {
     		addSubTask();
+    	}
+    	if (e.getSource() == saveTask){
+    		clearFields();
+    	}
+    	if (e.getSource() == saveSubTask){
+    		clearFields();
     	}
     }
 
