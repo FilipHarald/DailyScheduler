@@ -77,8 +77,13 @@ public class TaskController {
 //    	}
 //    }
     
-    public void sendTask (String title, String description, String [] subTasks, Date date, int Id){
-    	Task task = new Task(Id, description, subTasks, date, Id);
+    public void sendTask (int authorId, String title, String description, String [] subTasks, Date date, int taskId){
+    	Task task = new Task(authorId, title, description, subTasks, date, taskId);
+    	cc.sendObject(task);
+    }
+    
+    public void sendEditTask (String title, String description, String [] subTasks, Date date){
+    	Task task = new Task(0,title, description, subTasks, date, 0);
     	cc.sendObject(task);
     }
     
