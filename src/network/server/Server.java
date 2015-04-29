@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,7 +19,7 @@ public class Server implements Runnable {
 
 	private ServerSocket sSocket;
 	private ServerController sCont;
-	private ArrayList<ClientHandler> handlerList = new ArrayList<ClientHandler>();
+	private Map<String, ClientHandler> clientHandlerMap;
 
 	/**
 	 * Starts the server socket. Will connect to controller.
@@ -54,25 +55,25 @@ public class Server implements Runnable {
 		}
 	}
 
-	/**
-	 * Sends an object to every connected client.
-	 * 
-	 * @param obj
-	 * @throws IOException
-	 */
-	public synchronized void broadcast(Object obj) throws IOException {
-		for (ClientHandler ch : handlerList) {
-			ch.send(obj);
-		}
-	}
-
-	public String[] connectedUsers() {
-		String[] temp = new String[handlerList.size()];
-		for (int i = 0; i < handlerList.size(); i++) {
-			temp[i] = handlerList.get(i).getName();
-		}
-		return temp;
-	}
+//	/**
+//	 * Sends an object to every connected client.
+//	 * 
+//	 * @param obj
+//	 * @throws IOException
+//	 */
+//	public synchronized void broadcast(Object obj) throws IOException {
+//		for (ClientHandler ch : handlerList) {
+//			ch.send(obj);
+//		}
+//	}
+//
+//	public String[] connectedUsers() {
+//		String[] temp = new String[handlerList.size()];
+//		for (int i = 0; i < handlerList.size(); i++) {
+//			temp[i] = handlerList.get(i).getName();
+//		}
+//		return temp;
+//	}
 
 	/**
 	 * Handles a connected client's input and output streams.
@@ -146,6 +147,7 @@ public class Server implements Runnable {
 					oos.writeBoolean(validUser);
 					oos.flush();
 					if (validUser) {
+						clientHandlerMap.put(new Integer(unP.getUserId()).toString(), this);
 						System.out.println("User is valid while-loop starting");
 						int id = unP.getUserId();
 						while (true) {
