@@ -22,7 +22,8 @@ import network.client.GUI.panels.TaskPanel;
  * @author Aya
  */
 public class TaskController {
-
+	
+	private ClientController cc;
     private Task task;
     private DatabaseController database;
     private TaskPanel taskPanel;
@@ -75,6 +76,11 @@ public class TaskController {
 //    		
 //    	}
 //    }
+    
+    public void sendTask (String title, String description, String [] subTasks, Date date, int Id){
+    	Task task = new Task(Id, description, subTasks, date, Id);
+    	cc.sendObject(task);
+    }
     
     private LinkedList <String> getSubTasks (){
     	String [] tasks = taskPanel.getSubTasks().split(",");
