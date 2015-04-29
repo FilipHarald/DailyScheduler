@@ -19,12 +19,13 @@ public class Task implements Serializable {
 	private LinkedList<SubTask> subTasks;
 	private Date date;
 	private int Id;
+	private String title;
 
 
-	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
+	public Task(int authorId,String title, String description, String[] subTasks, Date date, int Id) {
 		this.authorId = authorId;
 		this.description = description;
-		
+		this.title = title;
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
 		if(subTasks != null){
 			for (String str : subTasks) {
