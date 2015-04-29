@@ -22,19 +22,15 @@ import network.server.Server;
  */
 public class ClientController {
 	private Client client;
-	private String ip;
-	private int port;
 	private LoginGUI loginWindow;
 	private ApplicationGUI gui;
-	private Server server;
 	private EventController ec;
 	private TaskController tc;
 	private MessageController mc;
+	private int userId;
 
 	// constructor sets ip and port
 	public ClientController(String serverIp, int port) {
-		ip = serverIp;
-		this.port = port;
 		client = new Client(serverIp, port, this);
 	}
 
@@ -60,6 +56,7 @@ public class ClientController {
 			tc = new TaskController();
 			mc = new MessageController(this);
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
+			this.userId = userId;
 			client.startListening();
 		} else {
 			System.out.println("Fail!");
@@ -87,5 +84,9 @@ public class ClientController {
 
 	public void newMessageReceived(Message m) {
 		gui.displayMessage(m);
+	}
+	
+	public int getUserId(){
+		return userId;
 	}
 }

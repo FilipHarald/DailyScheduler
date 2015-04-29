@@ -28,17 +28,11 @@ import network.server.Server;
  * @author Aya
  */
 public class Client {
-	private String userName;
+	private String userId;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 	private Socket socket;
-
-	private TaskController tc;
-	private EventController ec;
-	private UserAndTeamController utc;
-	private Server server;
 	private ClientController cc;
-	private UsernameAndPwdPair auth;
 
 	/*
 	 * constructor: sets the ip, port and ID
