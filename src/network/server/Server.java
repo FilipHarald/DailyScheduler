@@ -6,8 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,7 +21,7 @@ public class Server implements Runnable {
 
 	private ServerSocket sSocket;
 	private ServerController sCont;
-	private ArrayList<ClientHandler> handlerList = new ArrayList<ClientHandler>();
+	private HashMap<Integer, ClientHandler> clientHandlerMap;
 
 	/**
 	 * Starts the server socket. Will connect to controller.
@@ -30,6 +33,7 @@ public class Server implements Runnable {
 	 */
 
 	public Server(int port, ServerController sCont) {
+		clientHandlerMap = new HashMap<Integer, ClientHandler>();
 		try {
 			this.sCont = sCont;
 			sSocket = new ServerSocket(port);
@@ -54,24 +58,11 @@ public class Server implements Runnable {
 		}
 	}
 
-	/**
-	 * Sends an object to every connected client.
-	 * 
-	 * @param obj
-	 * @throws IOException
-	 */
-	public synchronized void broadcast(Object obj) throws IOException {
-		for (ClientHandler ch : handlerList) {
-			ch.send(obj);
+	public void sendObject(String recipient, Object obj) {
+		ClientHandler temp = clientHandlerMap.get(recipient);
+		if (temp != null) {
+			temp.send(obj);
 		}
-	}
-
-	public String[] connectedUsers() {
-		String[] temp = new String[handlerList.size()];
-		for (int i = 0; i < handlerList.size(); i++) {
-			temp[i] = handlerList.get(i).getName();
-		}
-		return temp;
 	}
 
 	/**
@@ -83,7 +74,6 @@ public class Server implements Runnable {
 		private ObjectInputStream ois;
 		private ObjectOutputStream oos;
 		private int userId;
-		private Socket socket;
 
 		/**
 		 * Sets up the connecting socket.
@@ -91,7 +81,12 @@ public class Server implements Runnable {
 		 * @param socket
 		 */
 		public ClientHandler(Socket socket) {
-			this.socket = socket;
+			try {
+				oos = new ObjectOutputStream(socket.getOutputStream());
+				ois = new ObjectInputStream(socket.getInputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		public String getName() {
@@ -114,20 +109,12 @@ public class Server implements Runnable {
 		 */
 		public void send(Object obj) {
 			try {
-				if (oos != null) {
-					oos.writeObject(obj);
-					oos.flush();
-				} else
-					System.out.println("No output stream");
-			} catch (SocketException e) {
-				try {
-					if (oos != null)
-						oos.close();
-				} catch (IOException e1) {
-				}
+				oos.writeObject(obj);
+				oos.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		}
 
 		/**
@@ -137,8 +124,6 @@ public class Server implements Runnable {
 		public void run() {
 			try {
 				System.out.println("clientHandler thread started");
-				oos = new ObjectOutputStream(socket.getOutputStream());
-				ois = new ObjectInputStream(socket.getInputStream());
 				UsernameAndPwdPair unP;
 				while (true) {
 					unP = (UsernameAndPwdPair) ois.readObject();
@@ -146,21 +131,26 @@ public class Server implements Runnable {
 					oos.writeBoolean(validUser);
 					oos.flush();
 					if (validUser) {
+						userId = unP.getUserId();
+						clientHandlerMap.put(userId, this);
 						System.out.println("User is valid while-loop starting");
-						int id = unP.getUserId();
 						while (true) {
-							oos.writeObject(sCont.getUpdater(id));
+							oos.writeObject(sCont.getUpdater(userId));
 							Object obj = ois.readObject();
-							if (obj.equals("update")){
-								//no code needed, this is just intended to re-do the loop and update the client
+							if (obj.equals("update")) {
+								// no code needed, this is just intended to
+								// re-do the loop and update the client
+							} else {
+								sCont.objectRecivied(obj);
 							}
 						}
 					}
 
 				}
 
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (ClassNotFoundException | IOException | SQLException e) {
 				e.printStackTrace();
+
 			}
 		}
 	}

@@ -113,7 +113,16 @@ public class Task implements Serializable {
 		}
 		return temp;
 	} 
-
+	
+	public boolean isComplete(){
+		boolean taskIsComplete = true;
+		for(SubTask st : subTasks){
+			if(st.getCompletedBy() == 0){
+				taskIsComplete = false;
+			}
+		}
+		return taskIsComplete;
+	}
 	/**
 	 * @return the date of the task
 	 */

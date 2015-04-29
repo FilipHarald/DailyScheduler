@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import miscellaneous.*;
 import database.DatabaseController;
+import entities.*;
 
 public class ServerController {
 	
@@ -32,24 +33,6 @@ public class ServerController {
 		}
 		return false;
 	}
-	
-	
-	
-	public void checkID(){
-		
-	}
-	
-	/**
-	 * Handles objects coming in from the server.
-	 * @param arg Object to be handled.
-	 */	
-	public void objectHandler(Object arg){
-		if(arg instanceof String){
-//			userConnected((String) arg);
-		}
-		
-	}
-
 
 	public Updater getUpdater(int userId) {
 		try {
@@ -58,6 +41,16 @@ public class ServerController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+
+	public void objectRecivied(Object obj) throws SQLException {
+		if(obj instanceof Message){
+			dbc.saveEntity(obj);
+			for(String s : ((Message) obj).getRecipients()){
+				server.sendObject(s, obj);
+			}
+		}
 	}
 
 	

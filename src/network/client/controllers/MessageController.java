@@ -15,77 +15,27 @@ import network.client.GUI.panels.MessagePanel;
 
 /**
  *
- * @author Aya
+ * @author Aya & Filip
  */
 public class MessageController {
-    private Message msg;
-    private DatabaseController database;
-    private MessagePanel msgPanel;
-    private Updater up;
-    private MessagePanel messagePanel;
-    
-    public MessageController(){
-        messagePanel = new MessagePanel();
-    }
-    
-    public void createMessage(String name, String title, ArrayList<String> recipients, int id){
-        Message msg = new Message(name, title, recipients, id);
-    	msg.getId();
-        msg.setTitle(msgPanel.getTitle());
-        msg.setMessage(msgPanel.getMessage());
-        recipients = getRecipients();
-        
-        up.addMessage(msg);
-    }
-    
-    public Message displayMessageList(Message msg){
-        up.getMessages();
-        return msg;
-    }
-    
-     public void displayMessage(Message msg){
-        messagePanel.displayMessage(msg);
-    }
-    
-    public Message editMessage(ArrayList<String> recipients){
-        displayMessage(msg);
-      
-        msg.getId();
-        msg.setTitle(msgPanel.getTitle());
-        msg.setMessage(msgPanel.getMessage());
-        recipients = getRecipients();
-       
-        return msg;
-    }
-    
-    public void deleteMessage(Object obj){
-        try {
-			database.deleteEntity(obj);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        
-    }
-    
-    private ArrayList<String> getRecipients (){
-		String [] parts = msgPanel.getRecipients().split(",");
-		if (parts !=  null){
-			for (int i = 0; i < parts.length; i++){
-				parts [i] = parts [i].trim();			}
-		
-			return new ArrayList <String>(Arrays.asList(parts));
-		}
-    	
-    	return new ArrayList<String>(); 
-    	
-    }
+	private MessagePanel messagePanel;
+	private ClientController cc;
+
+	public MessageController(ClientController cc) {
+		messagePanel = new MessagePanel();
+		this.cc = cc;
+	}
+	
+	public void sendMessage(String name, String title, ArrayList<String> recipients, int id) {
+		Message msg = new Message(name, title, recipients, id);
+	}
 
 	public void updatePanel(LinkedList<Message> messages) {
 		messagePanel.updateMessageList(messages);
-	}  
-	
-	public MessagePanel getPanel(){
+	}
+
+	public MessagePanel getPanel() {
 		return messagePanel;
 	}
-    
+
 }

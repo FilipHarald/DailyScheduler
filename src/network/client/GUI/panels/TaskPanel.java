@@ -2,6 +2,9 @@ package network.client.GUI.panels;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -13,6 +16,10 @@ import entities.Task;
 public class TaskPanel extends JPanel implements ActionListener {
 	private TaskController taskC;
 	private Task task;
+	
+	JFrame newTaskFrame = new JFrame("New Task");
+	JFrame editTaskFrame = new JFrame("Edit Task");
+	JFrame deleteTaskFrame = new JFrame("Delete Task");
 	
 	//For create new task:
 	private JButton btnCreateNewTask = new JButton ("New Task");
@@ -92,10 +99,10 @@ public class TaskPanel extends JPanel implements ActionListener {
 		JLabel lblIncompleted = new JLabel ("Incompleted tasks");
 		
 		panelIncompletedTask.setBorder(BorderFactory.createTitledBorder(""));
+		listIncompletedTask.setPreferredSize(new Dimension(200,100));
 		scrollerIncompletedTask.setPreferredSize(new Dimension(200,100));
 	
 		panelIncompletedTask.add(lblIncompleted);
-		panelIncompletedTask.add(listIncompletedTask);
 		panelIncompletedTask.add(scrollerIncompletedTask);
 		
 		tasksPanel.add (panelIncompletedTask);
@@ -135,9 +142,13 @@ public class TaskPanel extends JPanel implements ActionListener {
         return isEmpty;
 
     }
+    
+    private void setLabels (){
+    	titleLabel.setText("Title");
+    	textDescription.setText("Text");
+    }
 	
 	public void createNewTask (){
-		JFrame newTaskFrame = new JFrame("New Task");
 		newTaskFrame.setLayout(null);
 		newTaskFrame.setPreferredSize(new Dimension(500, 500));
 		
@@ -167,7 +178,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 	}
 	
 	public void editTask (){
-		JFrame editTaskFrame = new JFrame("Edit Task");
 		editTaskFrame.setLayout(null);
 		editTaskFrame.setPreferredSize(new Dimension(500, 500));
 		
@@ -195,7 +205,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 	}
 	
 	public void deleteTask(){
-		JFrame deleteTaskFrame = new JFrame("Delete Task");
 		deleteTaskFrame.setLayout(null);
 		deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
 		
@@ -288,24 +297,49 @@ public class TaskPanel extends JPanel implements ActionListener {
     }
     
     
-    public void taskListDisplayIncompleted (Task task){
-    	listIncompletedTask.setModel((ListModel) taskC.displayTaskList(task));
+    public void taskListDisplayIncompleted (LinkedList<Task> tasks){
+    	DefaultListModel model2 = new DefaultListModel();
+    	for (Task inCompleteTasks : tasks) {
+    	model2.addElement(inCompleteTasks);
+    	listIncompletedTask.setModel(model2);
+    	
+    	}
+    
     }
     
     public void taskListDisplayCompleted (LinkedList<Task> tasks){
     	DefaultListModel model = new DefaultListModel();
-    	for (Task t : tasks) {
-    	model.addElement(t);
+    	for (Task completeTasks : tasks) {
+    	model.addElement(completeTasks);
     	listCompletedTask.setModel(model);
     	
     }
     	
     	
     }
+
+    MouseListener mouseEvent = new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            JList listIncompletedTasks = (JList) e.getSource();
+            if (e.getClickCount() == 2) {
+
+                String selected = (String) listIncompletedTasks.getSelectedValue().toString();
+
+                editTaskFrame.dispose();
+                setLabels();
+                clearFields();
+                textDescription.setText(selected);
+                editTask();
+            }
+        }
+    };
+
+
+	public void displayTask(Task tasks) {
+		
+		
+	}
     
-    public void displayTask (Task task){
-    	
-    }
 
 	
 	

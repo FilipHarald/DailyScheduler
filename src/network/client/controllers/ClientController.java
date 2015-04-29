@@ -58,7 +58,7 @@ public class ClientController {
 			loginWindow.close();
 			ec = new EventController();
 			tc = new TaskController();
-			mc = new MessageController();
+			mc = new MessageController(this);
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
 			client.startListening();
 		} else {
@@ -71,38 +71,6 @@ public class ClientController {
 		client.disconnect();
 	}
 
-//	public Updater updateGui() {
-//		Updater updater = null;
-//		Object object = updater;
-//		// updater.addEvent(event);
-//		// updater.addMessage(message);
-//		// updater.addTask(task);
-//
-//		// Object object;
-//		// object = updater;
-//
-//		if (object instanceof Event) {
-//			Event event = (Event) object;
-//			updater.addEvent(event);
-//			updater.getEvents();
-//			ec.displayEventList(event);
-//
-//		} else if (object instanceof Message) {
-//			Message msg = (Message) object;
-//			updater.addMessage(msg);
-//			updater.getMessages();
-//
-//		} else if (object instanceof Task) {
-//			Task task = (Task) object;
-//			updater.addTask(task);
-//			updater.getTasks();
-//			tc.displayTaskList(task);
-//		}
-//
-//		return updater;
-//
-//	}
-
 	public void refresh() {
 		client.refresh();
 	}
@@ -112,4 +80,9 @@ public class ClientController {
         mc.updatePanel(updater.getMessages());
         ec.updatePanel(updater.getEvents());
     }
+	
+
+	public void newMessageReceived(Message m) {
+		gui.displayMessage(m);
+	}
 }

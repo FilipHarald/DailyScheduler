@@ -98,20 +98,9 @@ public class Client {
 							.println("this is the client Listener while-loop");
 					object = ois.readObject();
 
-					if (object instanceof Task) {
-						Task task = (Task) object;
-						tc.displayTask(task);
-					} else if (object instanceof Event) {
-						Event event = (Event) object;
-						ec.displayEvent(event);
-					} else if (object instanceof User) {
-						User user = (User) object;
-					} else if (object instanceof Team) {
-						Team team = (Team) object;
-					} else if (object instanceof Message){
-						Message message = (Message) object;
+					if (object instanceof Message){
+						cc.newMessageReceived((Message) object);
 					} else if (object instanceof Updater) {
-
 						cc.update((Updater) object);
 					}
 				}
