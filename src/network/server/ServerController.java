@@ -47,7 +47,9 @@ public class ServerController {
 	public void objectRecivied(Object obj) throws SQLException {
 		if(obj instanceof Message){
 			dbc.saveEntity(obj);
-			
+			for(String s : ((Message) obj).getRecipients()){
+				server.sendObject(s, obj);
+			}
 		}
 	}
 
