@@ -1,32 +1,14 @@
 package network.client.GUI.panels;
 
-import entities.Event;
 import entities.Message;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import network.client.controllers.MessageController;
 
@@ -38,7 +20,7 @@ import network.client.controllers.MessageController;
  */
 public class MessagePanel extends JPanel implements ActionListener {
 
-	private MessageController messageC;
+	private MessageController mc;
 
 	/*
 	 * Class variables
@@ -47,8 +29,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 	private JButton editMessageButton = new JButton("Edit");
 	private JButton deleteMessageButton = new JButton("Delete");
 	private JPanel buttonsPanel = new JPanel();
-	private DefaultListModel listModel = new DefaultListModel();
-	private JList messageList = new JList(listModel);
+	private JList messageList = new JList();
 
 	private JPanel newMessagePanel = new JPanel();
 	private JTextField titleField = new JTextField(15);
@@ -64,7 +45,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 	private JButton confirmSendButtonNo = new JButton("No");
 
 	private JPanel editMessagePanel = new JPanel();
-	private JButton editMessage = new JButton("Edit");
+	private JButton editMessage = new JButton("Save");
 
 	// private String titleText = new String() ;
 	// private String messageText = new String();
@@ -100,9 +81,6 @@ public class MessagePanel extends JPanel implements ActionListener {
 
 		sendNewMessage.addActionListener(this);
 		editMessage.addActionListener(this);
-
-		confirmSendButtonYes.addActionListener(this);
-		confirmSendButtonNo.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -203,15 +181,6 @@ public class MessagePanel extends JPanel implements ActionListener {
 				System.out.println("chose option no!");
 			}
 				if(e.getSource()==confirmSendButtonYes){
-
-					
-					
-				String titleText = titleField.getText();
-//					messageText = messageArea.getText();
-//					resipientText = recipientField.getText();
-					listModel.addElement(titleText);
-					
-					
 					
 				}
 			}
@@ -233,16 +202,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 	public String getRecipients() {
 		return recipientField.getText();
 	}
-
-	// display the list of all the messages
-	public void messageListDisplay(Message msg) {
-		// txt.setText(messageC.displayMessageList(msg).toString());
-	}
-
-	// display information/content for a specific message
-	public void displayMessage(Message msg) {
-
-	}
+	
     public void updateMessageList(LinkedList<Message> messages) {
         DefaultListModel model = new DefaultListModel();
         for (Message m : messages) {
