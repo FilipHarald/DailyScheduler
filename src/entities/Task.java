@@ -195,5 +195,10 @@ public class Task implements Serializable {
 	public int getTeamId() {
 		return teamId;
 	}
+	
+	public String toString (){
+		return description;
+		
+	}
 
 }
