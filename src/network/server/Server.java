@@ -147,8 +147,9 @@ public class Server implements Runnable {
 					oos.flush();
 					if (validUser) {
 						System.out.println("User is valid while-loop starting");
+						int id = unP.getUserId();
 						while (true) {
-							oos.writeObject(sCont.getUpdater(unP.getUserId()));
+							oos.writeObject(sCont.getUpdater(id));
 							Object obj = ois.readObject();
 							if (obj.equals("update")){
 								//no code needed, this is just intended to re-do the loop and update the client
