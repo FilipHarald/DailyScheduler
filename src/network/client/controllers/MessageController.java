@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import database.DatabaseController;
 import entities.Message;
-import miscellaneous.Updater;
 import network.client.GUI.panels.MessagePanel;
 
 /**
