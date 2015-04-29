@@ -22,7 +22,7 @@ public class Task implements Serializable {
 	private String title;
 
 
-	public Task(int authorId,String title, String description, String[] subTasks, Date date, int Id) {
+	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
 		this.authorId = authorId;
 		this.description = description;
 		this.title = title;

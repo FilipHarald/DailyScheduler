@@ -282,10 +282,10 @@ public class TaskPanel extends JPanel implements ActionListener {
     		addSubTask();
     	}
     	if (e.getSource() == saveTask){
-    		clearFields();
+    		
     	}
     	if (e.getSource() == saveSubTask){
-    		clearFields();
+    		
     	}
     }
 
