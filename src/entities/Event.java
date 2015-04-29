@@ -4,46 +4,49 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * This class represents an event with a certain (start) date and time and description.
+ * This class represents an event with a certain (start) date and time and
+ * description.
  * 
  * @author Filip
  *
  */
-public class Event implements Serializable{
-	
+public class Event implements Serializable {
+
 	private String description;
 	private Date date;
-        private LinkedList<String>participants;
+	private LinkedList<String> participants;
 	private int Id;
-	
-	public Event (String description, Date date, LinkedList<String>participants, int Id) {
+
+	public Event(String description, Date date,
+			LinkedList<String> participants, int Id) {
 		this.description = description;
 		this.date = date;
-                this.participants = participants;
+		this.participants = participants;
 		this.Id = Id;
 	}
 
 	/**
 	 * @return the ID of the event
 	 */
-	public int getId () {
+	public int getId() {
 		return Id;
 	}
-	
+
 	/**
 	 * @return the description of the event
 	 */
-	public String getDescription () {
+	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * @param description the description that the event should change to
+	 * @param description
+	 *            the description that the event should change to
 	 */
 	public synchronized void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
 	 * @return the date of the event
 	 */
@@ -52,21 +55,24 @@ public class Event implements Serializable{
 	}
 
 	/**
-	 * @param date the date that the event should change to
+	 * @param date
+	 *            the date that the event should change to
 	 */
 	public synchronized void setDate(Date date) {
 		this.date = date;
 	}
-        
-        public LinkedList<String> getParticipants(LinkedList<String>participants){
-            return participants;
-            
-        }
-        
-        public void setParticipants(LinkedList<String>participants){
-            this.participants = participants;
-        }
 
-  
+	public LinkedList<String> getParticipants(LinkedList<String> participants) {
+		return participants;
+
+	}
+
+	public void setParticipants(LinkedList<String> participants) {
+		this.participants = participants;
+	}
+	
+	public String toString(){
+		return description;
+	}
 
 }
