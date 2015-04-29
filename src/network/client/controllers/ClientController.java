@@ -109,7 +109,7 @@ public class ClientController {
 
 	public void update(Updater updater) {
         tc.updatePanel(updater.getTasks());
-//        mc.updatePanel(updater.getMessages());
+        mc.updatePanel(updater.getMessages());
         ec.updatePanel(updater.getEvents());
     }
 }
