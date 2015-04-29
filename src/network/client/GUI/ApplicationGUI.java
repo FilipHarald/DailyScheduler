@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import entities.Message;
 import network.client.controllers.ClientController;
 import network.client.GUI.panels.*;
 
@@ -83,4 +84,11 @@ public class ApplicationGUI extends JFrame {
         }
         dispose();
     }
+
+	public void displayMessage(Message m) {
+		JOptionPane.showMessageDialog(this, 
+				(m.getTitle() + "\n \n"
+				+ m.getMessage() + "\n \n"));
+		
+	}
 }
