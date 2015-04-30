@@ -34,22 +34,21 @@ public class EventController {
      * @param date the date of 
      * @param Id the id for the event
      */
-    public Event createEvent() {
-        event.setParticipants(getParticipants());
-        event.setDescription(eventPanel.getDescription());
-        event.setDate(eventPanel.getDate()); 
-        up.addEvent(event);
-        return event;  
-      
+
+    //create new event and send to cc
+    public void createEvent(String description, Date date,LinkedList<String> participants, int eventId) {
+        Event tmpEvent = new Event(description, date, participants, event.getId());
+        cc.sendObject(tmpEvent);
     }
     
+    //updates the eventlist (necessary?)
     public void updateEventList(){
         up.addEvent(event);
         cc.refresh();
     }
     
     //splits the String[] from the textarea to parts and saves them to a linkedlist
-    private LinkedList<String> getParticipants() {
+    public LinkedList<String> getParticipants() {
 		String[] parts = eventPanel.getParticipants().split(",");
 		if (parts != null) {
 			for (int i = 0; i < parts.length; i++) {

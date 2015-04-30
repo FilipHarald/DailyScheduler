@@ -17,8 +17,7 @@ public class Event implements Serializable {
 	private LinkedList<String> participants;
 	private int Id;
 
-	public Event(String description, Date date,
-			LinkedList<String> participants, int Id) {
+	public Event(String description, Date date, LinkedList<String> participants, int Id) {
 		this.description = description;
 		this.date = date;
 		this.participants = participants;
@@ -61,12 +60,14 @@ public class Event implements Serializable {
 	public synchronized void setDate(Date date) {
 		this.date = date;
 	}
-
+        
+        //gets the participants from the list
 	public LinkedList<String> getParticipants(LinkedList<String> participants) {
 		return participants;
 
 	}
 
+        //adds participants to the list
 	public void setParticipants(LinkedList<String> participants) {
 		this.participants = participants;
 	}
