@@ -47,22 +47,9 @@ public class ServerController {
 	public void objectRecivied(Object obj) throws SQLException {
 		if(obj instanceof Message){
 			dbc.saveEntity(obj);
-			for(String s : ((Message) obj).getRecipients()){
-				server.sendObject(s, obj);
+			for(String recipient : ((Message) obj).getRecipients()){
+				server.sendObject(recipient, obj);
 			}
 		}
 	}
-
-	
-	/**
-	 * Sends objects to all connected clients.
-	 * @param obj Object to be sent to all connected clients.
-	 * @throws IOException Thrown due to connection issues.
-	 */
-	//public void broadcast(Object obj) throws IOException{
-		//server.broadcast(obj);
-	//}
-	
-
-	
 }
