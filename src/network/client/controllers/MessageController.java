@@ -26,9 +26,8 @@ public class MessageController {
 		this.cc = cc;
 	}
 	
-	public void sendMessage(String name, String title, ArrayList<String> recipients, int id) {
-		Message msg = new Message(name, title, recipients, id);
-		cc.sendObject(msg);
+	public void sendMessage(String title, String msg, int[] recipients) {
+		cc.sendObject(new Message(title, msg, recipients, cc.getUserId()));
 	}
 
 	public void updatePanel(LinkedList<Message> messages) {
@@ -38,5 +37,4 @@ public class MessageController {
 	public MessagePanel getPanel() {
 		return messagePanel;
 	}
-
 }

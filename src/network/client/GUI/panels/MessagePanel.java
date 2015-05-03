@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -180,15 +181,13 @@ public class MessagePanel extends JPanel implements ActionListener{
 					}
 				} else if (e.getSource()==sendNewMessage){
 
-					String resRecipient = recipientField.getText();
-					int resRecipientLength=resRecipient.length();
-
 					int n = JOptionPane.showConfirmDialog(
 							this,
-							("Send to " + resRecipient),
+							("Send to " + getRecipients()),
 							"Confirm send Message",
 							JOptionPane.YES_NO_OPTION);
 					if(n == JOptionPane.YES_OPTION){
+						mc.sendMessage(getTitle(), getMessage(), getRecipients());
 					}
 					else{
 						System.out.println("chose option no!");
@@ -229,8 +228,14 @@ public class MessagePanel extends JPanel implements ActionListener{
 	}
 
 	// get recipients from textfield
-	public String getRecipients() {
-		return recipientField.getText();
+	public int[] getRecipients() {
+		String[] temp = recipientField.getText().split(",");
+		int[] toBeReturned = new int[temp.length];
+		int i = 0;
+		for(String s : temp){
+			toBeReturned[i++] = Integer.parseInt(s);
+		}
+		return toBeReturned;
 	}
 
 	public void updateMessageList(LinkedList<Message> messages) {

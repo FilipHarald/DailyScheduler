@@ -58,7 +58,7 @@ public class Server implements Runnable {
 		}
 	}
 
-	public void sendObject(String recipient, Object obj) {
+	public void sendObject(int recipient, Object obj) {
 		ClientHandler temp = clientHandlerMap.get(recipient);
 		if (temp != null) {
 			temp.send(obj);

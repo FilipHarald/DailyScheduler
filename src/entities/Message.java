@@ -14,49 +14,52 @@ import java.util.ArrayList;
  */
 public class Message implements Serializable {
 	private User user;
-    private String title;
-    private String msg;
-    private ArrayList<String>recipients = new ArrayList<String>();
-    private int id;
-    
-    public Message (String title, String msg, ArrayList<String> recipients, int id){
-    
-        this.title = title;
-        this.msg = msg;
-        this.id = id;
-        
-    }
+	private String title;
+	private String msg;
+	private ArrayList<Integer> recipients = new ArrayList<Integer>();
+	private int id;
 
-    
-    public int getId (){
-    	return id;
-    }
-                
-    public String getTitle(){
-        return title;
-    }
-    
-    public void setTitle(String title){
-        this.title = title;
-    }
-    
-    public String getMessage(){
-        return msg;
-    }
-    
-    public void setMessage(String string){
-        this.msg = msg;
-    }
-    
-    public ArrayList<String> getRecipients(){
-        return recipients;
-    }
-    
-    public void setRecipients(ArrayList<String> string){
-        this.recipients = string;
-        
-    }
-    public String toString(){
-    	return title;
-    }
+	public Message(String title, String msg, int[] recipients, int id) {
+		this.title = title;
+		this.msg = msg;
+		this.id = id;
+		for (int r : recipients) {
+			this.recipients.add(r);
+		}
+
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getMessage() {
+		return msg;
+	}
+
+	public void setMessage(String string) {
+		this.msg = msg;
+	}
+
+	public ArrayList<Integer> getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(Integer[] recipients) {
+		for (Integer r : recipients) {
+			this.recipients.add(r);
+		}
+	}
+
+	public String toString() {
+		return title;
+	}
 }
