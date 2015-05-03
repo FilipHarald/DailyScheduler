@@ -58,9 +58,6 @@ public class ApplicationGUI extends JFrame {
 
 		});
 
-//		pnlButtons.setLayout(new BorderLayout());
-//		pnlButtons.add(logOutButton, BorderLayout.EAST);
-//		pnlButtons.add(refreshButton, BorderLayout.WEST);
 		pnlButtons.setLayout(new FlowLayout());
 		pnlButtons.add(logOutButton);
 		pnlButtons.add(refreshButton);
@@ -92,7 +89,5 @@ public class ApplicationGUI extends JFrame {
 		JOptionPane.showMessageDialog(this,
 				(m.getTitle() + "\n \n" + m.getMessage()));
 	}
-	public static void main(String[] args) {
-		new ApplicationGUI("test", new ClientController("  ", 2), null, new TaskPanel(), null);
-	}
+	
 }
