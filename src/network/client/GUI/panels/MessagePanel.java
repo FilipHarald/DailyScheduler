@@ -94,12 +94,6 @@ public class MessagePanel extends JPanel implements ActionListener{
 			newMessageFrame.setLayout(null);
 			newMessageFrame.setPreferredSize(new Dimension(500, 500));
 
-		
-			
-					
-
-				
-			
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
 
@@ -138,9 +132,7 @@ public class MessagePanel extends JPanel implements ActionListener{
 //			}else{
 //				System.out.println("Chose not to save");
 //			}
-		}
-		else{
-			if(e.getSource()==editMessageButton){
+		} else if(e.getSource()==editMessageButton){
 				JFrame editMessageFrame = new JFrame("Edit Message");
 				editMessageFrame.setLayout(null);
 				editMessageFrame.setPreferredSize(new Dimension(500, 500));
@@ -175,20 +167,18 @@ public class MessagePanel extends JPanel implements ActionListener{
 				editMessageFrame.setLocationRelativeTo(null);
 				editMessageFrame.setVisible(true);
 
-			}else{
-				if(e.getSource()==deleteMessageButton){
+			}else if(e.getSource()==deleteMessageButton){
 					int n = JOptionPane.showConfirmDialog(
 							this,
 							"Are you sure you wish to delete this message?",
 							"Deleting a message",
 							JOptionPane.YES_NO_OPTION);
 					if(n == JOptionPane.YES_OPTION){
+						
 					}else{
 						System.out.println("chose option no!");
 					}
-				}
-
-				if (e.getSource()==sendNewMessage){
+				} else if (e.getSource()==sendNewMessage){
 
 					String resRecipient = recipientField.getText();
 					int resRecipientLength=resRecipient.length();
@@ -203,18 +193,16 @@ public class MessagePanel extends JPanel implements ActionListener{
 					else{
 						System.out.println("chose option no!");
 					}
-					if(e.getSource()==confirmSendButtonYes){
+				}else if(e.getSource()==confirmSendButtonYes){
 
-					}
+				}
 
 					//Alternative flow Send New Message 
 					// typ if x is pressed JOptionPane Wanna exit?
 
-				}
-
 
 				//Alt Edit Message 1
-				if (e.getSource() == editMessage){
+				else if (e.getSource() == editMessage){
 					int n = JOptionPane.showConfirmDialog(
 							this,
 							("Do you wish to cancel the editing of the message X?"),
@@ -224,13 +212,10 @@ public class MessagePanel extends JPanel implements ActionListener{
 					}else{
 						System.out.println("chose option no!");
 					}
-					if(e.getSource()==confirmSendButtonYes){
+				}else if(e.getSource()==confirmSendButtonYes){
 
 					} 
 				}
-			}
-		}
-	}
 
 
 	// get title from textfield
