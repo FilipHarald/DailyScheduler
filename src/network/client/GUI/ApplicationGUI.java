@@ -3,6 +3,7 @@ package network.client.GUI;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,9 +58,13 @@ public class ApplicationGUI extends JFrame {
 
 		});
 
-		pnlButtons.setLayout(new BorderLayout());
-		pnlButtons.add(logOutButton, BorderLayout.EAST);
-		pnlButtons.add(refreshButton, BorderLayout.WEST);
+//		pnlButtons.setLayout(new BorderLayout());
+//		pnlButtons.add(logOutButton, BorderLayout.EAST);
+//		pnlButtons.add(refreshButton, BorderLayout.WEST);
+		pnlButtons.setLayout(new FlowLayout());
+		pnlButtons.add(logOutButton);
+		pnlButtons.add(refreshButton);
+		
 
 		logOutButton.setFont(logOutButton.getFont().deriveFont(
 				Font.BOLD | Font.ITALIC));
@@ -86,5 +91,8 @@ public class ApplicationGUI extends JFrame {
 	public void displayMessage(Message m) {
 		JOptionPane.showMessageDialog(this,
 				(m.getTitle() + "\n \n" + m.getMessage()));
+	}
+	public static void main(String[] args) {
+		new ApplicationGUI("test", new ClientController("  ", 2), null, new TaskPanel(), null);
 	}
 }

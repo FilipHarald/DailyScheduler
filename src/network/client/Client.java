@@ -25,7 +25,7 @@ import network.server.Server;
 
 /**
  *
- * @author Aya
+ * @author Aya & Filip
  */
 public class Client {
 	private String userId;
