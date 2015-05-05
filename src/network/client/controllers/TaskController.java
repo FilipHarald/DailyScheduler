@@ -25,7 +25,6 @@ public class TaskController {
 	
 	private ClientController cc;
     private Task task;
-    private DatabaseController database;
     private TaskPanel taskPanel;
     private Updater up;
 
@@ -126,7 +125,7 @@ public class TaskController {
      * @throws SQLException 
      */
     public void deleteTask(Object obj) throws SQLException {
-        database.deleteEntity(obj);
+        cc.sendObject(obj);
     }
 
     /**
