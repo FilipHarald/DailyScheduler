@@ -58,7 +58,7 @@ public class EventPanel extends JPanel implements ActionListener {
     private JPanel pnlNewEvent = new JPanel();
     private JPanel pnlEditEvent = new JPanel();
     private JPanel pnlSearchEvent = new JPanel();
-    private DatabaseController dbc;
+
     
 
     //constructor: set layout and add panel
