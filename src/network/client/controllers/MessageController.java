@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import entities.Message;
+import miscellaneous.Updater;
 import network.client.GUI.panels.MessagePanel;
 
 /**
@@ -19,7 +20,9 @@ import network.client.GUI.panels.MessagePanel;
  */
 public class MessageController {
 	private MessagePanel messagePanel;
+        private Message message;
 	private ClientController cc;
+        private Updater up;
 
 	public MessageController(ClientController cc) {
 		messagePanel = new MessagePanel();
@@ -29,6 +32,10 @@ public class MessageController {
 	public void sendMessage(String title, String msg, int[] recipients) {
 		cc.sendObject(new Message(title, msg, recipients, cc.getUserId()));
 	}
+        public void updateMessageList(){
+            up.addMessage(message);
+            cc.refresh();
+        }
 
 	public void updatePanel(LinkedList<Message> messages) {
 		messagePanel.updateMessageList(messages);
