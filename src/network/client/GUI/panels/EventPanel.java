@@ -296,7 +296,7 @@ public class EventPanel extends JPanel implements ActionListener {
                 Date date = jdcDate.getDate();
                 LinkedList<String> participants = ec.getParticipants();
                 System.out.println("So far so good");
-                int id = dbc.getUser();
+                int id = 0;
                 
                 ec.createEvent(description, date, participants, id);
                 //TODO: save event to database
