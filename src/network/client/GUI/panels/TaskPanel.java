@@ -310,9 +310,9 @@ public class TaskPanel extends JPanel implements ActionListener {
     	DefaultListModel model2 = new DefaultListModel();
     	for (Task inCompleteTasks : tasks) {
     	model2.addElement(inCompleteTasks);
-    	listIncompletedTask.setModel(model2);
     	
     	}
+    	listIncompletedTask.setModel(model2);
     
     }
     
@@ -320,9 +320,9 @@ public class TaskPanel extends JPanel implements ActionListener {
     	DefaultListModel model = new DefaultListModel();
     	for (Task completeTasks : tasks) {
     	model.addElement(completeTasks);
-    	listCompletedTask.setModel(model);
     	
     }
+    	listCompletedTask.setModel(model);
     	
     	
     }
