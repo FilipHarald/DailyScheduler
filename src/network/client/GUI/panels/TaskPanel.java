@@ -48,8 +48,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JLabel descriptionLabel = new JLabel ("Description");
 	
 	
-	private JList <String> listCompletedTask = new JList ();
-	private JList<String> listIncompletedTask = new JList();
+	private JList listCompletedTask = new JList ();
+	private JList listIncompletedTask = new JList();
 	
 	private JTextArea textDescription = new JTextArea();
 	private JTextArea descriptionArea = new JTextArea();
@@ -72,6 +72,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btnEditTask.addActionListener(this);
 		btnDeleteTask.addActionListener(this);
 		btnAddSubTask.addActionListener(this);
+                listIncompletedTask.addMouseListener(mouseEvent);
+                
 		
 	}
 	
@@ -121,7 +123,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 		labelBtnPanel.add(btnCreateNewTask);
 		labelBtnPanel.add(btnEditTask);
 		labelBtnPanel.add(btnDeleteTask);
-		editTaskPanel.addMouseListener(mouseEvent);
 		add (labelBtnPanel, BorderLayout.CENTER);
 	}
 
@@ -275,7 +276,18 @@ public class TaskPanel extends JPanel implements ActionListener {
 //    		}
 			
     	} else if (e.getSource() == btnEditTask){
-    		editTask();
+            try{
+                String s = (String) listIncompletedTask.getSelectedValue().toString();
+                
+                setLabels();
+                clearFields();
+                titleField.setText(s);
+                editTask();
+                
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Please select a task");
+            }
+    		
 			
     	} else if (e.getSource() == btnDeleteTask){
     		deleteTask();
@@ -337,7 +349,7 @@ public class TaskPanel extends JPanel implements ActionListener {
                 editTaskFrame.dispose();
                 setLabels();
                 clearFields();
-                textDescription.setText(selected);
+                titleField.setText(selected);
                 editTask();
             }
         }
