@@ -20,7 +20,7 @@ public class Message implements Serializable {
     private int id;
     private ArrayList<Integer> recipients;
 
-    public Message(String title, String msg, int[] recipients, int id) {
+    public Message(String msg, String title, int[] recipients, int id) {
         this.title = title;
         this.msg = msg;
         this.id = id;
@@ -67,6 +67,7 @@ public class Message implements Serializable {
     }
 
     public String toString() {
-        return title;
+        return msg;
     }
+    
 }
