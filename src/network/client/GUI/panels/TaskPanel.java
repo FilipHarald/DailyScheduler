@@ -72,7 +72,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btnEditTask.addActionListener(this);
 		btnDeleteTask.addActionListener(this);
 		btnAddSubTask.addActionListener(this);
-                listIncompletedTask.addMouseListener(mouseEvent);
+        listIncompletedTask.addMouseListener(mouseEventIncompletedTask);
+        listCompletedTask.addMouseListener(mouseEventCompletedTask);
                 
 		
 	}
@@ -277,15 +278,24 @@ public class TaskPanel extends JPanel implements ActionListener {
 			
     	} else if (e.getSource() == btnEditTask){
             try{
-                String s = (String) listIncompletedTask.getSelectedValue().toString();
+                String inCompletedTask = (String) listIncompletedTask.getSelectedValue().toString();
                 
                 setLabels();
                 clearFields();
-                titleField.setText(s);
+                titleField.setText(inCompletedTask);
                 editTask();
                 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Please select a task");
+            }
+            try {
+            	String completedTaskk = (String) listCompletedTask.getSelectedValue().toString();
+            	setLabels();
+            	clearFields();
+            	titleField.setText(completedTaskk);
+            	editTask();
+            } catch (Exception ex){
+            	JOptionPane.showMessageDialog(null, "Please select a task");
             }
     		
 			
@@ -339,13 +349,13 @@ public class TaskPanel extends JPanel implements ActionListener {
     	
     }
 
-    MouseListener mouseEvent = new MouseAdapter() {
+    MouseListener mouseEventIncompletedTask = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             JList listIncompletedTasks = (JList) e.getSource();
             if (e.getClickCount() == 2) {
 
                 String selected = (String) listIncompletedTasks.getSelectedValue().toString();
-
+                
                 editTaskFrame.dispose();
                 setLabels();
                 clearFields();
@@ -354,6 +364,21 @@ public class TaskPanel extends JPanel implements ActionListener {
             }
         }
     };
+    MouseListener mouseEventCompletedTask = new MouseAdapter(){
+    public void mouseClicked(MouseEvent e) {
+        JList listCompletedTasks = (JList) e.getSource();
+        if (e.getClickCount() == 2) {
+
+            String selected = (String) listCompletedTasks.getSelectedValue().toString();
+            
+            editTaskFrame.dispose();
+            setLabels();
+            clearFields();
+            titleField.setText(selected);
+            editTask();
+        }
+    }
+};
 
 
 	public void displayTask(Task tasks) {
