@@ -16,15 +16,16 @@ public class Message implements Serializable {
 	private User user;
 	private String title;
 	private String msg;
-	private ArrayList<Integer> recipients = new ArrayList<Integer>();
 	private int id;
+	private ArrayList<Integer> temp;
 
 	public Message(String title, String msg, int[] recipients, int id) {
 		this.title = title;
 		this.msg = msg;
 		this.id = id;
+		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for (int r : recipients) {
-			this.recipients.add(r);
+			temp.add(r);
 		}
 
 	}
@@ -50,12 +51,12 @@ public class Message implements Serializable {
 	}
 
 	public ArrayList<Integer> getRecipients() {
-		return recipients;
+		return temp;
 	}
 
 	public void setRecipients(Integer[] recipients) {
 		for (Integer r : recipients) {
-			this.recipients.add(r);
+			temp.add(r);
 		}
 	}
 
