@@ -32,6 +32,7 @@ public class MessageController {
 	public void sendMessage(String title, String msg, int[] recipients) {
 		cc.sendObject(new Message(title, msg, recipients, cc.getUserId()));
 	}
+        //add messages to the list to be displayed in the GUI
         public void updateMessageList(){
             up.addMessage(message);
             cc.refresh();
