@@ -51,6 +51,8 @@ public class ServerController {
 				server.sendObject(recipient, obj);
 				dbc.saveEntity(obj);
 			}
+		}else{
+			dbc.saveEntity(obj);
 		}
 	}
 }
