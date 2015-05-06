@@ -183,8 +183,6 @@ public class EventPanel extends JPanel implements ActionListener {
         frmSearchEvent.pack();
         frmSearchEvent.setVisible(true);
 
-//        LinkedList<Event> events = null;
-//		displayEventList(events);
     }
 
     //clear all fields in frame 
