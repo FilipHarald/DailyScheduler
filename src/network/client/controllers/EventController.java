@@ -24,10 +24,18 @@ public class EventController {
     private ClientController cc;
     private Updater up;
 
+<<<<<<< HEAD
     public EventController(ClientController clientController) {
     	eventPanel = new EventPanel();
     	cc = clientController;
+=======
+    public EventController(ClientController cc) {
+        eventPanel = new EventPanel(this);
+        this.cc = cc;
+    	
+>>>>>>> 5ed3e99ed1da886bf81c7bbe8e91c7ad7a15b922
     }
+
 
     /**
      * creates a new event and adds it to the database
@@ -36,29 +44,18 @@ public class EventController {
      * @param Id the id for the event
      */
 
-    //create new event and send to cc
-    public void createEvent(String description, Date date,LinkedList<String> participants, int eventId) {
-        Event tmpEvent = new Event(description, date, participants, event.getId());
-        cc.sendObject(tmpEvent);
-    }
-    
-    //updates the eventlist (necessary?)
-    public void updateEventList(){
+    //create new event 
+    public Event createEvent() {
+       event.setDescription((eventPanel.getDescription()));
+       event.setDate(eventPanel.getDate());
+       event.setParticipants(eventPanel.getParticipants());
+       event.setId(event.getId());
+        
         up.addEvent(event);
-        cc.refresh();
+	return event;
     }
     
-    //splits the String[] from the textarea to parts and saves them to a linkedlist
-    public LinkedList<String> getParticipants() {
-		String[] parts = eventPanel.getParticipants().split(",");
-		if (parts != null) {
-			for (int i = 0; i < parts.length; i++) {
-				parts[i] = parts[i].trim();
-			}
-			return new LinkedList<String>(Arrays.asList(parts));
-		}
-		return new LinkedList<String>();
-	}
+    
     
     //displays the list of events
     public LinkedList<Event> displayEventList(LinkedList<Event> events){
@@ -83,12 +80,18 @@ public class EventController {
      * @param Id the id for the given event
      */
     public Event editEvent() {        
-        event.setParticipants(getParticipants());
+//        event.setParticipants(getParticipants());
         event.setDescription(eventPanel.getDescription());
         event.setDate(eventPanel.getDate()); 
         
         up.addEvent(event);
         return event;
+    }
+    
+    public void sendEvent(String description, Date date,int [] participants) {
+//        Event tmpEvent = new Event(description, date, participants, event.getId());
+        cc.sendObject(new Event(description, date, participants, 0));
+        System.out.println(cc);
     }
 
     /**
@@ -107,4 +110,5 @@ public class EventController {
 	public EventPanel getPanel(){
 		return eventPanel;
 	}
+
 }

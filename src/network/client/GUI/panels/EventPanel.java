@@ -62,8 +62,9 @@ public class EventPanel extends JPanel implements ActionListener {
     
 
     //constructor: set layout and add panel
-    public EventPanel() {
+    public EventPanel(EventController ec) {
         super();
+        this.ec = ec;
         setBorder(BorderFactory.createTitledBorder("Calendar view"));
 
         pnlButton.setLayout(new BorderLayout());
@@ -234,11 +235,13 @@ public class EventPanel extends JPanel implements ActionListener {
     public Date getDate() {
         return jdcDate.getDate();
     }
+    
+    
 
     //get participants from textarea
-    public String getParticipants() {
-        return taParticipants.getText();
-    }
+//    public String getParticipants() {
+//        return taParticipants.getText();
+//    }
 
     //set actions to buttons
     public void actionPerformed(ActionEvent e) {
@@ -266,6 +269,7 @@ public class EventPanel extends JPanel implements ActionListener {
                 clearFields();
                 tfDescription.setText(s);
                 renderEditEvent();
+                displayEvent(event);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Please select an event");
             }
@@ -289,14 +293,11 @@ public class EventPanel extends JPanel implements ActionListener {
             if (isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
             } else if (isEmpty() == false){
-                ec = new EventController();
-                String description = tfDescription.getText();
-                Date date = jdcDate.getDate();
-                LinkedList<String> participants = ec.getParticipants();
-                System.out.println("So far so good");
-                int id = 0;
+//                ec.createEvent();
+                System.out.println("1" + ec);
+                ec.sendEvent(getDescription(), getDate(), getParticipants());
+                System.out.println(ec);
                 
-                ec.createEvent(description, date, participants, id);
                 //TODO: save event to database
                 frmNewEvent.dispose();
                 frmEditEvent.dispose();
@@ -306,6 +307,20 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
+    /**
+     *
+     * @return
+     */
+    public int[] getParticipants() {
+		String[] parts = taParticipants.getText().split(",");
+		int[] toBeReturned = new int[parts.length];
+		int i = 0;
+		for (String s : parts) {
+			toBeReturned[i++] = Integer.parseInt(s);
+		}
+		return toBeReturned;
+	}
+    
     //set mouselistener
     MouseListener mouseEvent = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
@@ -327,7 +342,7 @@ public class EventPanel extends JPanel implements ActionListener {
     public void displayEvent(Event event) {
         tfDescription.setText(event.getDescription());
         jdcDate.setDate(event.getDate());
-        taParticipants.setText(event.getParticipants(null).toString());
+//        taParticipants.setText(event.getParticipants(null).toString());
 
     }
 
