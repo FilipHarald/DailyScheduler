@@ -49,6 +49,7 @@ public class ServerController {
 			dbc.saveEntity(obj);
 			for(int recipient : ((Message) obj).getRecipients()){
 				server.sendObject(recipient, obj);
+				dbc.saveEntity(obj);
 			}
 		}
 	}

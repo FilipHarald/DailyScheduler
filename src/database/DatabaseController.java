@@ -154,6 +154,7 @@ public class DatabaseController {
 				prepStatement = connection
 						.prepareStatement("INSERT INTO Team (Name) values (?)");
 				prepStatement.setString(1, team.getName());
+				insertToTable(prepStatement);
 			} else {
 				prepStatement = connection.prepareStatement(String.format(
 						"UPDATE Team set(Name) values (?) WHERE TeamID = %s",
@@ -161,7 +162,16 @@ public class DatabaseController {
 				prepStatement.setString(1, team.getName());
 				updateToTable(prepStatement);
 			}
+		} else if (obj instanceof Message){
+			Message msg = (Message) obj;
+			prepStatement = connection
+					.prepareStatement("INSERT INTO Message (Title, Text, Author) values (?,?,?)");
+			prepStatement.setString(1, msg.getTitle());
+			prepStatement.setString(2, msg.getMessage());
+			prepStatement.setInt(3, msg.getAuthorId());
+			insertToTable(prepStatement);
 		}
+		
 	}
 
 	/**
