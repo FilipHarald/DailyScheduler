@@ -6,74 +6,85 @@ import java.util.*;
 /**
  * This class represents an event with a certain (start) date and time and
  * description.
- * 
+ *
  * @author Filip
  *
  */
 public class Event implements Serializable {
 
-	private String description;
-	private Date date;
-	private LinkedList<String> participants;
-	private int Id;
+    private String description;
+    private Date date;
+    private ArrayList<Integer> participants;
+    private int Id;
+    static final long serialVersionUID = 4141671890272788617L;
 
-	public Event(String description, Date date, LinkedList<String> participants, int Id) {
-		this.description = description;
-		this.date = date;
-		this.participants = participants;
-		this.Id = Id;
-	}
+    public Event(String description, Date date, int[] participants, int Id) {
+        this.description = description;
+        this.date = date;
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        if (participants != null) {
+            for (int p : participants) {
+                temp.add(p);
+            }
+        }
+        this.participants = temp;
+        this.Id = Id;
+    }
 
-	/**
-	 * @return the ID of the event
-	 */
-	public int getId() {
-		return Id;
-	}
+    /**
+     * @return the ID of the event
+     */
+    public int getId() {
+        return Id;
+    }
 
-	/**
-	 * @return the description of the event
-	 */
-	public String getDescription() {
-		return description;
-	}
+    public void setId(int Id) {
+        this.Id = Id;
+    }
 
-	/**
-	 * @param description
-	 *            the description that the event should change to
-	 */
-	public synchronized void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @return the description of the event
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * @return the date of the event
-	 */
-	public Date getDate() {
-		return date;
-	}
+    /**
+     * @param description the description that the event should change to
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/**
-	 * @param date
-	 *            the date that the event should change to
-	 */
-	public synchronized void setDate(Date date) {
-		this.date = date;
-	}
-        
-        //gets the participants from the list
-	public LinkedList<String> getParticipants(LinkedList<String> participants) {
-		return participants;
+    /**
+     * @return the date of the event
+     */
+    public Date getDate() {
+        return date;
+    }
 
-	}
+    /**
+     * @param date the date that the event should change to
+     */
+    public synchronized void setDate(Date date) {
+        this.date = date;
+    }
 
-        //adds participants to the list
-	public void setParticipants(LinkedList<String> participants) {
-		this.participants = participants;
-	}
-	
-	public String toString(){
-		return description;
-	}
+    //gets the participants from the list
+    public ArrayList getParticipants() {
+        return participants;
+
+    }
+
+    //adds participants to the list
+    public void setParticipants(int[] participants2) {
+        for (Integer p : participants) {
+            this.participants.add(p);
+        }
+    }
+
+    public String toString() {
+        return description;
+    }
 
 }
