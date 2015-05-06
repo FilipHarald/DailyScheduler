@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -18,6 +19,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private ClientController cc;
 	private TaskController taskC;
 	private Task task;
+	
+	private String[] subTask;
+	private int taskId;
 	
 	JFrame newTaskFrame = new JFrame("New Task");
 	JFrame editTaskFrame = new JFrame("Edit Task");
@@ -284,7 +288,7 @@ public class TaskPanel extends JPanel implements ActionListener {
                 clearFields();
                 titleField.setText(inCompletedTask);
                 editTask();
-                
+                taskC.sendEditTask(getDescription(), subTask, getDate());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Please select a task");
             }
@@ -301,16 +305,26 @@ public class TaskPanel extends JPanel implements ActionListener {
 			
     	} else if (e.getSource() == btnDeleteTask){
     		deleteTask();
+    		Object obj = null;
+			try {
+				taskC.deleteTask(obj);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
     	}
     	if (e.getSource() == btnAddSubTask) {
     		addSubTask();
     	}
     	if (e.getSource() == saveTask){
-    		cc.sendObject(task);
+    		taskC.sendTask(getDescription(), subTask, getDate(), taskId);
     	}
     	if (e.getSource() == saveSubTask){
     		
     	}
+    }
+    
+    public Date getDate (){
+    	return getDate();
     }
 
     public String getTitle(){
