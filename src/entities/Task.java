@@ -21,41 +21,41 @@ public class Task implements Serializable {
 	private int Id;
 	private String title;
 
-
-	public Task(int authorId, String description, String[] subTasks, Date date, int Id) {
+	public Task(int authorId, String description, String[] subTasks, Date date,
+			int Id) {
 		this.authorId = authorId;
 		this.description = description;
 		this.title = title;
 		LinkedList<SubTask> temp = new LinkedList<SubTask>();
-		if(subTasks != null){
+		if (subTasks != null) {
 			for (String str : subTasks) {
 				temp.add(new SubTask(str));
-			}			
+			}
 		}
 		this.subTasks = temp;
 		this.date = date;
 		this.Id = Id;
 	}
-	
-	public void setTitle(String title){
+
+	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public String getTitle(){
+
+	public String getTitle() {
 		return title;
-		
+
 	}
-	
-	public void setAuthorId (int authorId){
+
+	public void setAuthorId(int authorId) {
 		this.authorId = authorId;
 	}
-	
+
 	public int getId() {
 		return Id;
 	}
-	
-	public void setId (int Id){
-		this.Id = Id; 
+
+	public void setId(int Id) {
+		this.Id = Id;
 	}
 
 	/**
@@ -66,7 +66,8 @@ public class Task implements Serializable {
 	}
 
 	/**
-	 * @param description the description that the task should change to
+	 * @param description
+	 *            the description that the task should change to
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -74,7 +75,9 @@ public class Task implements Serializable {
 
 	/**
 	 * Adds a new sub task with the desired description.
-	 * @param description the description of the new sub task
+	 * 
+	 * @param description
+	 *            the description of the new sub task
 	 */
 	public void addSubTask(String description) {
 		subTasks.add(new SubTask(description));
@@ -82,37 +85,46 @@ public class Task implements Serializable {
 
 	/**
 	 * Removes a sub task with the specified index.
-	 * @param index the index of the sub task
+	 * 
+	 * @param index
+	 *            the index of the sub task
 	 */
 	public void removeSubTask(int index) {
 		subTasks.remove(index);
 	}
-	
+
 	/**
-	 * @param index the index of the sub task
-	 * @param userId the user ID which has completed the sub task
+	 * @param index
+	 *            the index of the sub task
+	 * @param userId
+	 *            the user ID which has completed the sub task
 	 */
-	public void completeSubTask(int index, int userId){
+	public void completeSubTask(int index, int userId) {
 		subTasks.get(index).setCompletedBy(userId);
 	}
-	
+
 	/**
-	 * @param index the index of the subtask
+	 * @param index
+	 *            the index of the subtask
 	 */
-	public void unCompleteSubTask(int index){
+	public void unCompleteSubTask(int index) {
 		subTasks.get(index).setCompletedBy(0);
 	}
-	
+
 	/**
-	 * @param index the index of the sub task
-	 * @param description the new description of the sub task
+	 * @param index
+	 *            the index of the sub task
+	 * @param description
+	 *            the new description of the sub task
 	 */
-	public void setSubTaskDescription(int index, String description){
+	public void setSubTaskDescription(int index, String description) {
 		subTasks.get(index).setDescription(description);
 	}
-	
+
 	/**
-	 * Returns a list of string representations of all the task objects sub tasks.
+	 * Returns a list of string representations of all the task objects sub
+	 * tasks.
+	 * 
 	 * @return a list of string representation of the sub tasks
 	 */
 	public String[] getSubtasks() {
@@ -122,17 +134,18 @@ public class Task implements Serializable {
 			temp[i++] = st.toString();
 		}
 		return temp;
-	} 
-	
-	public boolean isComplete(){
+	}
+
+	public boolean isComplete() {
 		boolean taskIsComplete = true;
-		for(SubTask st : subTasks){
-			if(st.getCompletedBy() == 0){
+		for (SubTask st : subTasks) {
+			if (st.getCompletedBy() == 0) {
 				taskIsComplete = false;
 			}
 		}
 		return taskIsComplete;
 	}
+
 	/**
 	 * @return the date of the task
 	 */
@@ -141,7 +154,8 @@ public class Task implements Serializable {
 	}
 
 	/**
-	 * @param date the date that the task will change to
+	 * @param date
+	 *            the date that the task will change to
 	 */
 	public void setDate(Date date) {
 		this.date = date;
@@ -153,11 +167,10 @@ public class Task implements Serializable {
 	public int getAuthor() {
 		return authorId;
 	}
-	
-	
 
 	/**
 	 * This class represents the sub tasks of a task.
+	 * 
 	 * @author Filip
 	 *
 	 */
@@ -179,7 +192,8 @@ public class Task implements Serializable {
 		}
 
 		/**
-		 * @param description the description that the task will change to
+		 * @param description
+		 *            the description that the task will change to
 		 */
 		public void setDescription(String description) {
 			this.description = description;
@@ -193,7 +207,8 @@ public class Task implements Serializable {
 		}
 
 		/**
-		 * @param completedByUserId the ID of the user which has completed the task
+		 * @param completedByUserId
+		 *            the ID of the user which has completed the task
 		 */
 		public void setCompletedBy(int completedByUserId) {
 			this.completedByUserId = completedByUserId;
@@ -205,19 +220,17 @@ public class Task implements Serializable {
 		}
 	}
 
-
 	public void setSubtasks(String[] subtasks) {
-		
-		
+
 	}
 
 	public int getTeamId() {
 		return teamId;
 	}
-	
-	public String toString (){
+
+	public String toString() {
 		return description;
-		
+
 	}
 
 }

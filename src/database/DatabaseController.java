@@ -162,7 +162,7 @@ public class DatabaseController {
 				prepStatement.setString(1, team.getName());
 				updateToTable(prepStatement);
 			}
-		} else if (obj instanceof Message){
+		} else if (obj instanceof Message) {
 			Message msg = (Message) obj;
 			prepStatement = connection
 					.prepareStatement("INSERT INTO Message (Title, Text, Author) values (?,?,?)");
@@ -171,7 +171,7 @@ public class DatabaseController {
 			prepStatement.setInt(3, msg.getAuthorId());
 			insertToTable(prepStatement);
 		}
-		
+
 	}
 
 	/**
@@ -302,8 +302,8 @@ public class DatabaseController {
 
 	private Event getEvent(int entityType, ResultSet resultSet)
 			throws SQLException {
-		return new Event(resultSet.getString(2), resultSet.getDate(3),
-				null, resultSet.getInt(1));
+		return new Event(resultSet.getString(2), resultSet.getDate(3), null,
+				resultSet.getInt(1));
 	}
 
 	public Object getEntity(String entityType, int entityId)
@@ -342,7 +342,8 @@ public class DatabaseController {
 		ResultSet resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			updater.addMessage(new Message(resultSet.getString(4), resultSet
-					.getString(5), null, resultSet.getInt(3), resultSet.getInt(6)));
+					.getString(5), null, resultSet.getInt(3), resultSet
+					.getInt(6)));
 		}
 
 		statement = (Statement) connection.createStatement();
@@ -361,26 +362,28 @@ public class DatabaseController {
 		resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			Statement stmt = (Statement) connection.createStatement();
-			String query = "select count(*) from Subtask where Task = " + resultSet.getInt(1);
+			String query = "select count(*) from Subtask where Task = "
+					+ resultSet.getInt(1);
 			stmt.executeQuery(query);
 			ResultSet rs = stmt.getResultSet();
 			rs.next();
 			String[] subTasks = new String[rs.getInt(1)];
 			System.out.println(rs.getInt(1));
-			
+
 			stmt = (Statement) connection.createStatement();
 			query = "select * from Subtask where Task = " + resultSet.getInt(1);
 			stmt.executeQuery(query);
 			rs = stmt.getResultSet();
 			int counter = 0;
-			while(rs.next()){
+			while (rs.next()) {
 				subTasks[counter++] = rs.getString(2);
 			}
-			Task task =new Task(resultSet.getInt(4), resultSet.getString(2), subTasks, resultSet.getDate(3), resultSet.getInt(1));
-			
+			Task task = new Task(resultSet.getInt(4), resultSet.getString(2),
+					subTasks, resultSet.getDate(3), resultSet.getInt(1));
+
 			rs.beforeFirst();
 			counter = 0;
-			while(rs.next()){
+			while (rs.next()) {
 				task.completeSubTask(counter++, rs.getInt(3));
 			}
 			updater.addTask(task);

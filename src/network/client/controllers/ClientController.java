@@ -53,9 +53,10 @@ public class ClientController {
 		if (client.validateUser(userId, password) == true) {
 			loginWindow.close();
 			ec = new EventController(this);
-			tc = new TaskController(this); 
+			tc = new TaskController(this);
 			mc = new MessageController(this);
-			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
+			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(),
+					mc.getPanel());
 			this.userId = userId;
 			client.startListening();
 		} else {
@@ -73,20 +74,20 @@ public class ClientController {
 	}
 
 	public void update(Updater updater) {
-        tc.updatePanel(updater.getTasks());
-        mc.updatePanel(updater.getMessages());
-        ec.updatePanel(updater.getEvents());
-    }
-	public void sendObject(Object obj){
+		tc.updatePanel(updater.getTasks());
+		mc.updatePanel(updater.getMessages());
+		ec.updatePanel(updater.getEvents());
+	}
+
+	public void sendObject(Object obj) {
 		client.send(obj);
 	}
-	
 
 	public void newMessageReceived(Message m) {
 		gui.displayMessage(m);
 	}
-	
-	public int getUserId(){
+
+	public int getUserId() {
 		return userId;
 	}
 }
