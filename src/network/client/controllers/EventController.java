@@ -24,17 +24,11 @@ public class EventController {
     private ClientController cc;
     private Updater up;
 
-<<<<<<< HEAD
+
     public EventController(ClientController clientController) {
     	eventPanel = new EventPanel();
     	cc = clientController;
-=======
-    public EventController(ClientController cc) {
-        eventPanel = new EventPanel(this);
-        this.cc = cc;
-    	
->>>>>>> 5ed3e99ed1da886bf81c7bbe8e91c7ad7a15b922
-    }
+}
 
 
     /**
