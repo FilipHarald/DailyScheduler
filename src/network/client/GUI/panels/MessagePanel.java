@@ -22,7 +22,7 @@ import network.client.controllers.MessageController;
  * @author Fredrik N�rell
  *
  */
-public class MessagePanel extends JPanel implements ActionListener{
+public class MessagePanel extends JPanel implements ActionListener {
 
 	private MessageController mc;
 
@@ -90,7 +90,7 @@ public class MessagePanel extends JPanel implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==newMessageButton){
+		if (e.getSource() == newMessageButton) {
 			JFrame newMessageFrame = new JFrame("New Message");
 			newMessageFrame.setLayout(null);
 			newMessageFrame.setPreferredSize(new Dimension(500, 500));
@@ -98,16 +98,15 @@ public class MessagePanel extends JPanel implements ActionListener{
 			newMessagePanel.setSize(500, 500);
 			newMessagePanel.setLayout(null);
 
+			recipientLabel.setBounds(100, 50, 120, 20);
+			recipientField.setBounds(200, 50, 120, 20);
 
-			recipientLabel.setBounds(100,50,120,20);
-			recipientField.setBounds(200,50,120,20);
+			titleLabel.setBounds(100, 70, 120, 20);
+			titleField.setBounds(200, 70, 120, 20);
 
-			titleLabel.setBounds(100,70,120,20);
-			titleField.setBounds(200,70,120,20);
+			messageArea.setBounds(100, 100, 280, 300);
 
-			messageArea.setBounds(100,100,280,300);
-
-			sendNewMessage.setBounds(100,420,80,25);
+			sendNewMessage.setBounds(100, 420, 80, 25);
 
 			newMessagePanel.add(titleLabel);
 			newMessagePanel.add(recipientLabel);
@@ -116,106 +115,98 @@ public class MessagePanel extends JPanel implements ActionListener{
 			newMessagePanel.add(messageArea);
 			newMessagePanel.add(sendNewMessage);
 
-
-
 			newMessageFrame.add(newMessagePanel);
 			newMessageFrame.pack();
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
-			newMessageFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			
-			//Kod för att öppna ett window för att säkerställa att man ska stänga fönstert, behöver sättas på rätt
-			//plats. Leta även upp hur man ska fixa så att x-knappen i JFrame kan modifieras.
-//			int n =JOptionPane.showConfirmDialog(this,("Do you wish to exit without saving?"), 
-//					"Confirm exit", JOptionPane.YES_NO_OPTION);
-//			if(n==JOptionPane.YES_OPTION){
-//
-//			}else{
-//				System.out.println("Chose not to save");
-//			}
-		} else if(e.getSource()==editMessageButton){
-				JFrame editMessageFrame = new JFrame("Edit Message");
-				editMessageFrame.setLayout(null);
-				editMessageFrame.setPreferredSize(new Dimension(500, 500));
+			newMessageFrame
+					.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-				editMessagePanel.setSize(500, 500);
-				editMessagePanel.setLayout(null);
+			// Kod för att öppna ett window för att säkerställa att man ska
+			// stänga fönstert, behöver sättas på rätt
+			// plats. Leta även upp hur man ska fixa så att x-knappen i JFrame
+			// kan modifieras.
+			// int n
+			// =JOptionPane.showConfirmDialog(this,("Do you wish to exit without saving?"),
+			// "Confirm exit", JOptionPane.YES_NO_OPTION);
+			// if(n==JOptionPane.YES_OPTION){
+			//
+			// }else{
+			// System.out.println("Chose not to save");
+			// }
+		} else if (e.getSource() == editMessageButton) {
+			JFrame editMessageFrame = new JFrame("Edit Message");
+			editMessageFrame.setLayout(null);
+			editMessageFrame.setPreferredSize(new Dimension(500, 500));
 
-				recipientLabel.setBounds(100,50,120,20);
-				recipientField.setBounds(200,50,120,20);
+			editMessagePanel.setSize(500, 500);
+			editMessagePanel.setLayout(null);
 
-				titleLabel.setBounds(100,70,120,20);
-				titleField.setBounds(200,70,120,20);
+			recipientLabel.setBounds(100, 50, 120, 20);
+			recipientField.setBounds(200, 50, 120, 20);
 
-				messageArea.setBounds(100,100,280,300);
+			titleLabel.setBounds(100, 70, 120, 20);
+			titleField.setBounds(200, 70, 120, 20);
 
-				editMessage.setBounds(100,420,80,25);
+			messageArea.setBounds(100, 100, 280, 300);
 
-				//Lägg till kod för att hämta information från gamla meddelanden, String -> getText osv
-				//för att editera dem.
+			editMessage.setBounds(100, 420, 80, 25);
 
-				editMessagePanel.add(titleLabel);
-				editMessagePanel.add(recipientLabel);
-				editMessagePanel.add(titleField);
-				editMessagePanel.add(recipientField);
-				editMessagePanel.add(messageArea);
-				editMessagePanel.add(editMessage);
+			// Lägg till kod för att hämta information från gamla meddelanden,
+			// String -> getText osv
+			// för att editera dem.
 
+			editMessagePanel.add(titleLabel);
+			editMessagePanel.add(recipientLabel);
+			editMessagePanel.add(titleField);
+			editMessagePanel.add(recipientField);
+			editMessagePanel.add(messageArea);
+			editMessagePanel.add(editMessage);
 
+			editMessageFrame.add(editMessagePanel);
+			editMessageFrame.pack();
+			editMessageFrame.setLocationRelativeTo(null);
+			editMessageFrame.setVisible(true);
 
-				editMessageFrame.add(editMessagePanel);
-				editMessageFrame.pack();
-				editMessageFrame.setLocationRelativeTo(null);
-				editMessageFrame.setVisible(true);
+		} else if (e.getSource() == deleteMessageButton) {
+			int n = JOptionPane.showConfirmDialog(this,
+					"Are you sure you wish to delete this message?",
+					"Deleting a message", JOptionPane.YES_NO_OPTION);
+			if (n == JOptionPane.YES_OPTION) {
 
-			}else if(e.getSource()==deleteMessageButton){
-					int n = JOptionPane.showConfirmDialog(
-							this,
-							"Are you sure you wish to delete this message?",
-							"Deleting a message",
-							JOptionPane.YES_NO_OPTION);
-					if(n == JOptionPane.YES_OPTION){
-						
-					}else{
-						System.out.println("chose option no!");
-					}
-				} else if (e.getSource()==sendNewMessage){
+			} else {
+				System.out.println("chose option no!");
+			}
+		} else if (e.getSource() == sendNewMessage) {
 
-					int n = JOptionPane.showConfirmDialog(
-							this,
-							("Send to " + getRecipients()),
-							"Confirm send Message",
-							JOptionPane.YES_NO_OPTION);
-					if(n == JOptionPane.YES_OPTION){
-						mc.sendMessage(getTitle(), getMessage(), getRecipients());
-					}
-					else{
-						System.out.println("chose option no!");
-					}
-				}else if(e.getSource()==confirmSendButtonYes){
+			int n = JOptionPane.showConfirmDialog(this,
+					("Send to " + getRecipients()), "Confirm send Message",
+					JOptionPane.YES_NO_OPTION);
+			if (n == JOptionPane.YES_OPTION) {
+				mc.sendMessage(getTitle(), getMessage(), getRecipients());
+			} else {
+				System.out.println("chose option no!");
+			}
+		} else if (e.getSource() == confirmSendButtonYes) {
 
-				}
+		}
 
-					//Alternative flow Send New Message 
-					// typ if x is pressed JOptionPane Wanna exit?
+		// Alternative flow Send New Message
+		// typ if x is pressed JOptionPane Wanna exit?
 
+		// Alt Edit Message 1
+		else if (e.getSource() == editMessage) {
+			int n = JOptionPane.showConfirmDialog(this,
+					("Do you wish to cancel the editing of the message X?"),
+					"Confirm send Message", JOptionPane.YES_NO_OPTION);
+			if (n == JOptionPane.YES_OPTION) {
+			} else {
+				System.out.println("chose option no!");
+			}
+		} else if (e.getSource() == confirmSendButtonYes) {
 
-				//Alt Edit Message 1
-				else if (e.getSource() == editMessage){
-					int n = JOptionPane.showConfirmDialog(
-							this,
-							("Do you wish to cancel the editing of the message X?"),
-							"Confirm send Message",
-							JOptionPane.YES_NO_OPTION);
-					if(n == JOptionPane.YES_OPTION){
-					}else{
-						System.out.println("chose option no!");
-					}
-				}else if(e.getSource()==confirmSendButtonYes){
-
-					} 
-				}
-
+		}
+	}
 
 	// get title from textfield
 	public String getTitle() {
@@ -232,7 +223,7 @@ public class MessagePanel extends JPanel implements ActionListener{
 		String[] temp = recipientField.getText().split(",");
 		int[] toBeReturned = new int[temp.length];
 		int i = 0;
-		for(String s : temp){
+		for (String s : temp) {
 			toBeReturned[i++] = Integer.parseInt(s);
 		}
 		return toBeReturned;
