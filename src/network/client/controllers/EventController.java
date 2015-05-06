@@ -26,7 +26,7 @@ public class EventController {
 
 
     public EventController(ClientController clientController) {
-    	eventPanel = new EventPanel();
+    	eventPanel = new EventPanel(this);
     	cc = clientController;
 }
 
