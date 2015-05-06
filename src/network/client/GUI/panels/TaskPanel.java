@@ -11,6 +11,8 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
+import com.toedter.calendar.JDateChooser;
+
 import network.client.controllers.ClientController;
 import network.client.controllers.TaskController;
 import entities.Task;
@@ -22,6 +24,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 	
 	private String[] subTask;
 	private int taskId;
+	
+	private JDateChooser jdcDate = new JDateChooser();
 	
 	JFrame newTaskFrame = new JFrame("New Task");
 	JFrame editTaskFrame = new JFrame("Edit Task");
@@ -64,6 +68,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	private JButton btnCancel = new JButton ("Cancel");
 	
+	 private JLabel lblDate = new JLabel("Date");
+	 private JTextField tfDate = new JTextField(20);
 
 	public TaskPanel(){
 		super();
@@ -76,6 +82,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btnEditTask.addActionListener(this);
 		btnDeleteTask.addActionListener(this);
 		btnAddSubTask.addActionListener(this);
+		saveTask.addActionListener(this);
+		saveSubTask.addActionListener(this);
         listIncompletedTask.addMouseListener(mouseEventIncompletedTask);
         listCompletedTask.addMouseListener(mouseEventCompletedTask);
                 
@@ -164,8 +172,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		newTaskPanel.setSize(500, 500);
 		newTaskPanel.setLayout(null);
 		
-		titleLabel.setBounds(100,70,120,20);
-		titleField.setBounds(200,70,120,20);
+		titleLabel.setBounds(100,60,120,20);
+		titleField.setBounds(200,60,120,20);
 		
 		subTaskScroll.setBounds(100, 100, 300, 200);
 		
@@ -173,12 +181,17 @@ public class TaskPanel extends JPanel implements ActionListener {
 		btnAddSubTask.setBounds(100, 420, 120, 25);
 		btnCancel.setBounds(300, 420, 80, 25);
 		
+		lblDate.setBounds(100, 80, 120, 20);
+	    jdcDate.setBounds(200, 80, 120, 20);
+		
 		newTaskPanel.add(titleLabel);
 		newTaskPanel.add(titleField);
 		newTaskPanel.add(subTaskScroll);
 		newTaskPanel.add(saveTask);
 		newTaskPanel.add(btnAddSubTask);
 		newTaskPanel.add(btnCancel);
+		newTaskPanel.add(lblDate);
+		newTaskPanel.add(jdcDate);
 		
 		newTaskFrame.add(newTaskPanel);
 		newTaskFrame.pack();
@@ -274,11 +287,6 @@ public class TaskPanel extends JPanel implements ActionListener {
     	if (e.getSource() == btnCreateNewTask) {
     		createNewTask();
     		clearFields();
-//    		if (isEmpty() == true){
-//    			JOptionPane.showMessageDialog(null, "Title field is empty");
-//    		}else {
-//    			taskC.createTask();
-//    		}
 			
     	} else if (e.getSource() == btnEditTask){
             try{
@@ -288,7 +296,7 @@ public class TaskPanel extends JPanel implements ActionListener {
                 clearFields();
                 titleField.setText(inCompletedTask);
                 editTask();
-                taskC.sendEditTask(getDescription(), subTask, getDate());
+                taskC.sendEditTask(taskC.getDescription(), subTask, taskC.getDate());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Please select a task");
             }
@@ -316,24 +324,25 @@ public class TaskPanel extends JPanel implements ActionListener {
     		addSubTask();
     	}
     	if (e.getSource() == saveTask){
-    		taskC.sendTask(getDescription(), subTask, getDate(), taskId);
+    		taskC.sendTask(taskC.getTitle(), subTask, taskC.getDate(), taskC.getId());
+    		JOptionPane.showMessageDialog(null, "Saved to database");
     	}
     	if (e.getSource() == saveSubTask){
-    		
+    		taskC.addSubTask(getDescription());
     	}
     }
-    
-    public Date getDate (){
-    	return getDate();
-    }
 
-    public String getTitle(){
+//    private Date getDate() {
+//		return getDate();
+//	}
+
+	public String getTitle(){
     	return titleField.getText();
     }
     
     //get description from textarea
     public String getDescription() {
-        return textDescription.getText();
+        return descriptionArea.getText();
     }
     
     public String getSubTasks(){

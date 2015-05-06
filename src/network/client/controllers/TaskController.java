@@ -177,4 +177,12 @@ public class TaskController {
     	return taskPanel;
     }
     
+    public String getDescription(){
+    	return task.getDescription();
+    }
+    
+    public String getTitle(){
+    	return task.getTitle();
+    }
+    
 }

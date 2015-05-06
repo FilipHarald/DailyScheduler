@@ -37,6 +37,14 @@ public class Task implements Serializable {
 		this.Id = Id;
 	}
 	
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
 	public void setAuthorId (int authorId){
 		this.authorId = authorId;
 	}
