@@ -297,7 +297,7 @@ public class DatabaseController {
 	private Message getMessage(int entityId, ResultSet resultSet)
 			throws SQLException {
 		return new Message(resultSet.getString(2), resultSet.getString(3),
-				null, resultSet.getInt(1));
+				null, resultSet.getInt(1), resultSet.getInt(4));
 	}
 
 	private Event getEvent(int entityType, ResultSet resultSet)
@@ -342,7 +342,7 @@ public class DatabaseController {
 		ResultSet resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			updater.addMessage(new Message(resultSet.getString(4), resultSet
-					.getString(5), null, resultSet.getInt(3)));
+					.getString(5), null, resultSet.getInt(3), resultSet.getInt(6)));
 		}
 
 		statement = (Statement) connection.createStatement();

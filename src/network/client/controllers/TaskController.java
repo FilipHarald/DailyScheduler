@@ -28,11 +28,14 @@ public class TaskController {
     private TaskPanel taskPanel;
     private Updater up;
 
-    public TaskController() {
-        taskPanel = new TaskPanel();
-    }
 
-    /**
+
+    public TaskController(ClientController clientController) {
+    	taskPanel = new TaskPanel(this);
+		cc = clientController;
+	}
+
+	/**
      * creates a new task and saves it to the database 
      * @param authorId the id of the user who authored the task
      * @param description a description of what the task is about
@@ -76,9 +79,9 @@ public class TaskController {
 //    	}
 //    }
     
-    public void sendTask (String description, String [] subTasks, Date date, int taskId){
-    	Task task = new Task(cc.getUserId(), description, subTasks, date, taskId);
-    	cc.sendObject(task);
+    public void sendTask (String description, String [] subTasks, Date date){
+    	Task temptask = new Task(cc.getUserId(), description, subTasks, date, 0);
+    	cc.sendObject(temptask);
     }
     
     public void sendEditTask (String description, String [] subTasks, Date date){

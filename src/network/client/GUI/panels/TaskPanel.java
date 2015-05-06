@@ -71,8 +71,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 	 private JLabel lblDate = new JLabel("Date");
 	 private JTextField tfDate = new JTextField(20);
 
-	public TaskPanel(){
+	public TaskPanel(TaskController taskController){
 		super();
+		taskC = taskController;
 		setLayout (new BorderLayout());
 		setBorder(BorderFactory.createTitledBorder("Task view"));
 		AddTasks();
@@ -301,10 +302,10 @@ public class TaskPanel extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please select a task");
             }
             try {
-            	String completedTaskk = (String) listCompletedTask.getSelectedValue().toString();
+            	String completedTask = (String) listCompletedTask.getSelectedValue().toString();
             	setLabels();
             	clearFields();
-            	titleField.setText(completedTaskk);
+            	titleField.setText(completedTask);
             	editTask();
             } catch (Exception ex){
             	JOptionPane.showMessageDialog(null, "Please select a task");
@@ -324,17 +325,18 @@ public class TaskPanel extends JPanel implements ActionListener {
     		addSubTask();
     	}
     	if (e.getSource() == saveTask){
-    		taskC.sendTask(taskC.getTitle(), subTask, taskC.getDate(), taskC.getId());
+    		taskC.sendTask(getTitle(), subTask, getDate());
     		JOptionPane.showMessageDialog(null, "Saved to database");
     	}
     	if (e.getSource() == saveSubTask){
-    		taskC.addSubTask(getDescription());
+    		taskC.addSubTask(taskC.getDescription());
     	}
     }
 
-//    private Date getDate() {
-//		return getDate();
-//	}
+
+	private Date getDate() {
+		return jdcDate.getDate();
+	}
 
 	public String getTitle(){
     	return titleField.getText();
@@ -347,7 +349,6 @@ public class TaskPanel extends JPanel implements ActionListener {
     
     public String getSubTasks(){
 		return showSubTasks.getText();
-    	
     }
     
     

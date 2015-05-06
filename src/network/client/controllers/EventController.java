@@ -24,8 +24,9 @@ public class EventController {
     private ClientController cc;
     private Updater up;
 
-    public EventController() {
+    public EventController(ClientController clientController) {
     	eventPanel = new EventPanel();
+    	cc = clientController;
     }
 
     /**

@@ -52,8 +52,8 @@ public class ClientController {
 	public void login(int userId, char[] password) {
 		if (client.validateUser(userId, password) == true) {
 			loginWindow.close();
-			ec = new EventController();
-			tc = new TaskController(); 
+			ec = new EventController(this);
+			tc = new TaskController(this); 
 			mc = new MessageController(this);
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(), mc.getPanel());
 			this.userId = userId;

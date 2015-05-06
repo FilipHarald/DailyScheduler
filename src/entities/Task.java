@@ -43,6 +43,7 @@ public class Task implements Serializable {
 	
 	public String getTitle(){
 		return title;
+		
 	}
 	
 	public void setAuthorId (int authorId){
