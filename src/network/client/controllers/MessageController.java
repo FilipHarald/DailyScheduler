@@ -25,7 +25,7 @@ public class MessageController {
         private Updater up;
 
 	public MessageController(ClientController cc) {
-		messagePanel = new MessagePanel();
+		messagePanel = new MessagePanel(this);
 		this.cc = cc;
 	}
 	

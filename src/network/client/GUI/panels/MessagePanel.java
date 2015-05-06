@@ -61,8 +61,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 	/**
 	 * Constructor
 	 */
-	public MessagePanel() {
+	public MessagePanel(MessageController mc) {
 		super();
+                this.mc = mc;
 		setBorder(BorderFactory.createTitledBorder("Message view"));
 		buttonsPanel.setLayout(new BorderLayout());
 		buttonsPanel.add(newMessageButton, BorderLayout.NORTH);
