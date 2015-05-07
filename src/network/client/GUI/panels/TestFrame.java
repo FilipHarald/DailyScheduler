@@ -11,10 +11,11 @@ public class TestFrame {
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-//		frame.add(new TaskPanel(), BorderLayout.CENTER);
+//		frame.add(new TaskPanel(null));
 //                frame.add(new CalendarPanel(),BorderLayout.SOUTH);
-                frame.add(new MessagePanel(),BorderLayout.SOUTH);
-		
+//                frame.add(new MessagePanel(),BorderLayout.SOUTH);
+		frame.add(new UserAndTeamPanel(null));
+//		frame.add(new EventPanel(null));
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		

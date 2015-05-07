@@ -18,8 +18,8 @@ public class UserAndTeamPanel extends JPanel {
 	private UserAndTeamController uatC;
 	private TeamPanel teamPanel;
 	private UserPanel userPanel;
-	private JButton saveTeam;
-	private JButton saveUser;
+	private JButton saveTeamButton;
+	private JButton saveUserButton;
 
 	public UserAndTeamPanel(UserAndTeamController userAndTeamController) {
 		super();
@@ -34,9 +34,9 @@ public class UserAndTeamPanel extends JPanel {
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Object theButton = e.getSource();
-			if(theButton == saveTeam){
+			if(theButton == saveTeamButton){
 				teamPanel.sendTeam();
-			}else if(theButton == saveUser){
+			}else if(theButton == saveUserButton){
 				userPanel.sendUser();
 			}
 		}
@@ -47,11 +47,21 @@ public class UserAndTeamPanel extends JPanel {
 		private JTextField teamNameField;
 		
 		public TeamPanel(ButtonListener buttonListener){
+			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+			setBorder(BorderFactory.createTitledBorder("Team"));
 			add(new JLabel("If you wish to create a new team enter 0 as ID"));
-			add((teamIdField = new JTextField("Enter team ID")));
-			add((teamNameField = new JTextField("Enter team name")));
-			saveTeam = new JButton("Save team");
-			saveTeam.addActionListener(buttonListener);
+			
+			add(new JLabel("Enter team ID:"));
+			add((teamIdField = new JTextField("", 10)));
+			teamIdField.setMaximumSize(teamIdField.getPreferredSize());
+			
+			add(new JLabel("Enter team name:"));
+			add((teamNameField = new JTextField("", 40)));
+			teamNameField.setMaximumSize(teamNameField.getPreferredSize());
+			
+			saveTeamButton = new JButton("Save team");
+			saveTeamButton.addActionListener(buttonListener);
+			add(saveTeamButton);
 		}
 
 		public void sendTeam() {
@@ -61,20 +71,30 @@ public class UserAndTeamPanel extends JPanel {
 	}
 
 	private class UserPanel extends JPanel {
-		private JTextField usernameField;
+		private JTextField nameField;
 		private JCheckBox isAdmin;
 		private JPasswordField passwordField;
 		
 		public UserPanel(ButtonListener buttonListener) {
-			add((usernameField = new JTextField("Enter username")));
+			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+			setBorder(BorderFactory.createTitledBorder("User"));
+			
+			add(new JLabel("Enter name:"));
+			add((nameField = new JTextField("", 40)));
+			nameField.setMaximumSize(nameField.getPreferredSize());
+			
+			add(new JLabel("Enter desired password:"));
+			add((passwordField = new JPasswordField("", 40)));
+			passwordField.setMaximumSize(passwordField.getPreferredSize());
+			
 			add((isAdmin = new JCheckBox("The user will have admin rights")));
-			add((passwordField = new JPasswordField("Enter password")));
-			saveUser = new JButton("Create user");
-			saveUser.addActionListener(buttonListener);
+			saveUserButton = new JButton("Create user");
+			saveUserButton.addActionListener(buttonListener);
+			add(saveUserButton);
 		}
 
 		public void sendUser() {
-			uatC.sendUser(usernameField.getText(), isAdmin.isSelected(), passwordField.getText(), 0);
+			uatC.sendUser(nameField.getText(), isAdmin.isSelected(), passwordField.getText(), 0);
 		}
 	}
 }
