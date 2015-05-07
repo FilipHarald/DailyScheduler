@@ -117,9 +117,9 @@ public class DatabaseController {
                 java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
                 prepStatement = connection
                         .prepareStatement("INSERT INTO Task (Description, Author, Date) values (?,?,?)");
-                prepStatement.setDate(1, date);
+                prepStatement.setDate(3, date);
                 prepStatement.setInt(2, task.getAuthor());
-                prepStatement.setString(3, task.getDescription());
+                prepStatement.setString(1, task.getDescription());
                 insertToTable(prepStatement);
             } else {
                 java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
@@ -226,7 +226,6 @@ public class DatabaseController {
         try {
             statement.executeUpdate();
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             System.out
                     .println("Something went wrong trying to insert the entity into the database");
