@@ -58,13 +58,13 @@ public class Client {
 	 * @param password
 	 * @return
 	 */
-	public boolean validateUser(int userName, char[] password) {
-		boolean validUser = false;
+	public Object validateUser(int userName, char[] password) {
+		Object validUser = false;
 		try {
 			oos.writeObject(new UsernameAndPwdPair(userName, password));
 			oos.flush();
-			validUser = ois.readBoolean();
-		} catch (IOException e) {
+			validUser = ois.readObject();
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return validUser;

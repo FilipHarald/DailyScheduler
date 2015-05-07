@@ -28,6 +28,7 @@ public class ClientController {
 	private TaskController tc;
 	private MessageController mc;
 	private int userId;
+	private boolean isAdmin;
 
 	// constructor sets ip and port
 	public ClientController(String serverIp, int port) {
@@ -50,7 +51,8 @@ public class ClientController {
 	 *            the password for the username ("1234")
 	 */
 	public void login(int userId, char[] password) {
-		if (client.validateUser(userId, password) == true) {
+		User usr = (User) client.validateUser(userId, password);
+		if (usr != null) {
 			loginWindow.close();
 			ec = new EventController(this);
 			tc = new TaskController(this);
@@ -58,6 +60,7 @@ public class ClientController {
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(),
 					mc.getPanel());
 			this.userId = userId;
+			this.isAdmin = usr.isAdmin();
 			client.startListening();
 		} else {
 			System.out.println("Fail!");
