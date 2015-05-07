@@ -27,8 +27,8 @@ public class UserAndTeamPanel extends JPanel {
 		setLayout(new GridLayout(0,2));
 		setBorder(BorderFactory.createTitledBorder("User- and team view"));
 		ButtonListener buttonListener = new ButtonListener();
-		add(new TeamPanel(buttonListener));
-		add(new UserPanel(buttonListener));
+		add(teamPanel = new TeamPanel(buttonListener));
+		add(userPanel = new UserPanel(buttonListener));
 	}
 	
 	private class ButtonListener implements ActionListener{
