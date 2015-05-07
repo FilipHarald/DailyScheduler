@@ -10,6 +10,7 @@ import miscellaneous.UsernameAndPwdPair;
 import com.mysql.jdbc.Statement;
 
 import entities.*;
+import entities.Event;
 
 /**
  *
