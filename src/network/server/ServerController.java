@@ -25,13 +25,13 @@ public class ServerController {
 	}
 	
 	
-	public boolean authenticateUser(UsernameAndPwdPair unP){
+	public User authenticateUser(UsernameAndPwdPair unP){
 		try {
 			return dbc.authenticateUser(unP);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 	public Updater getUpdater(int userId) {

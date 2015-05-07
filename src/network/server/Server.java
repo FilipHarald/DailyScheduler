@@ -127,10 +127,10 @@ public class Server implements Runnable {
 				UsernameAndPwdPair unP;
 				while (true) {
 					unP = (UsernameAndPwdPair) ois.readObject();
-					boolean validUser = sCont.authenticateUser(unP);
-					oos.writeBoolean(validUser);
+					Object usr = sCont.authenticateUser(unP);
+					oos.writeObject(usr);
 					oos.flush();
-					if (validUser) {
+					if (usr != null) {
 						userId = unP.getUserId();
 						clientHandlerMap.put(userId, this);
 						System.out.println("User is valid while-loop starting");

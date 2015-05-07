@@ -72,7 +72,8 @@ public class DatabaseController {
 	 * @return returns true if the combination exists.
 	 * @throws SQLException
 	 */
-	public boolean authenticateUser(UsernameAndPwdPair unP) throws SQLException {
+	public User authenticateUser(UsernameAndPwdPair unP) throws SQLException {
+		User usr = null;
 		String query = String.format("SELECT * FROM User WHERE UserID = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserId(), unP.getPassword());
@@ -80,8 +81,10 @@ public class DatabaseController {
 				java.sql.ResultSet.CONCUR_READ_ONLY,
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		ResultSet resultSet = statement.executeQuery(query);
-		return resultSet.isBeforeFirst();
-
+		if(resultSet.isBeforeFirst()){
+			usr = (User) getEntity("User", unP.getUserId());
+		}
+		return usr;
 	}
 
 	/**
