@@ -164,7 +164,7 @@ public class DatabaseController {
                         .prepareStatement("INSERT INTO Event (Text, Date, User) values (?,?,?)");
                 prepStatement.setString(1, event.getDescription());
                 prepStatement.setDate(2, date);
-                prepStatement.setInt(3, 1);
+                prepStatement.setInt(3, event.getAuthorID());
                 insertToTable(prepStatement);
             } else {
                 prepStatement = connection
@@ -172,7 +172,7 @@ public class DatabaseController {
                                 .format("UPDATE Event set(Text, Date, User) values (?,?,?) WHERE EventID = %s", event.getId()));
                 prepStatement.setString(1, event.getDescription());
                 prepStatement.setDate(2, date);
-                prepStatement.setInt(3, event.getId());
+                prepStatement.setInt(3, event.getAuthorID());
                 updateToTable(prepStatement);
             }
         }
@@ -205,9 +205,10 @@ public class DatabaseController {
             // ------------TASK-----------
         } else if (obj instanceof Task) {
             Task task = (Task) obj;
+            java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
             prepStatement = connection.prepareStatement(String.format(
                     "DELETE FROM Task WHERE TaskID = %s", task.getId()));
-            prepStatement.setDate(1, (Date) task.getDate());
+            prepStatement.setDate(1, date);
             prepStatement.setInt(2, task.getAuthor());
             prepStatement.setString(3, task.getDescription());
             deleteFromTable(prepStatement);
@@ -219,7 +220,17 @@ public class DatabaseController {
             prepStatement.setString(1, team.getName());
             deleteFromTable(prepStatement);
         }
-
+        // ------------TEAM-----------
+        else if (obj instanceof Event) {
+            Event event = (Event) obj;
+            java.sql.Date date = convertFromJavaDateToSQLDate(event.getDate());
+            prepStatement = connection.prepareStatement(String.format(
+                    "DELETE FROM Team WHERE EventID = %s", event.getId()));
+            prepStatement.setString(1, event.getDescription());
+            prepStatement.setDate(2, date);
+            prepStatement.setInt(3, event.getAuthorID());
+            deleteFromTable(prepStatement);
+        }
     }
 
     private void insertToTable(PreparedStatement statement) {
