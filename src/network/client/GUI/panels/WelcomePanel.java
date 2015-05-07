@@ -10,6 +10,6 @@ public class WelcomePanel extends JPanel  {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Welcome"));
 		setPreferredSize(new Dimension(400, 400));
-		add(new JLabel("Welcome"));
+		add(new JLabel("You are very much welcome to this first panel"));
 	}
 }

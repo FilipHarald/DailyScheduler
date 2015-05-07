@@ -27,6 +27,7 @@ public class ClientController {
 	private EventController ec;
 	private TaskController tc;
 	private MessageController mc;
+	private UserAndTeamController uatc;
 	private int userId;
 	private boolean isAdmin;
 
@@ -57,8 +58,9 @@ public class ClientController {
 			ec = new EventController(this);
 			tc = new TaskController(this);
 			mc = new MessageController(this);
+			uatc = new UserAndTeamController(this);
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(),
-					mc.getPanel());
+					mc.getPanel(), uatc.getPanel());
 			this.userId = userId;
 			this.isAdmin = usr.isAdmin();
 			client.startListening();

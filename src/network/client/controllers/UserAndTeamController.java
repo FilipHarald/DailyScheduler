@@ -31,4 +31,8 @@ public class UserAndTeamController {
 	public void addUserToTeam(int teamId, int userId){
 		
 	}
+
+	public UserAndTeamPanel getPanel() {
+		return uatPanel;
+	}
 }

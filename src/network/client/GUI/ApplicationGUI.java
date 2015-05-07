@@ -21,7 +21,7 @@ public class ApplicationGUI extends JFrame {
 	private Container contentPane;
 
 	public ApplicationGUI(String userName, ClientController clientController,
-			EventPanel eP, TaskPanel tP, MessagePanel mP) {
+			EventPanel eP, TaskPanel tP, MessagePanel mP, UserAndTeamPanel uatP) {
 		super("DailyScheduler - " + userName);
 		contentPane = getContentPane();
 		this.clientController = clientController;
@@ -29,11 +29,11 @@ public class ApplicationGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
-		contentPane.add(setComponents(eP, tP, mP), BorderLayout.SOUTH);
+		contentPane.add(setComponents(eP, tP, mP, uatP), BorderLayout.SOUTH);
 
 	}
 
-	public JPanel setComponents(EventPanel eP, TaskPanel tP, MessagePanel mP) {
+	public JPanel setComponents(EventPanel eP, TaskPanel tP, MessagePanel mP, UserAndTeamPanel uatP) {
 		JPanel pnlButtons = new JPanel();
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -41,6 +41,7 @@ public class ApplicationGUI extends JFrame {
 		tabbedPane.add("Messages", mP);
 		tabbedPane.add("Tasks", tP);
 		tabbedPane.add("Event", eP);
+		tabbedPane.add("User and team", uatP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		JButton logOutButton = new JButton("Log out");
