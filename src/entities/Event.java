@@ -13,21 +13,23 @@ import java.util.*;
 public class Event implements Serializable {
 
     private String description;
+    private int authorID;
     private Date date;
     private ArrayList<Integer> participants;
     private int Id;
     static final long serialVersionUID = 4141671890272788617L;
 
-    public Event(String description, Date date, int[] participants, int Id) {
+    public Event(String description, int authorID, Date date, int Id) {
         this.description = description;
+        this.authorID = authorID;
         this.date = date;
-        ArrayList<Integer> temp = new ArrayList<Integer>();
-        if (participants != null) {
-            for (int p : participants) {
-                temp.add(p);
-            }
-        }
-        this.participants = temp;
+//        ArrayList<Integer> temp = new ArrayList<Integer>();
+//        if (participants != null) {
+//            for (int p : participants) {
+//                temp.add(p);
+//            }
+//        }
+//        this.participants = temp;
         this.Id = Id;
     }
 
@@ -40,6 +42,14 @@ public class Event implements Serializable {
 
     public void setId(int Id) {
         this.Id = Id;
+    }
+    
+    public int getAuthorID(){
+        return authorID;
+    }
+    
+    public void setAuthorID(){
+        this.authorID = authorID;
     }
 
     /**
@@ -77,7 +87,7 @@ public class Event implements Serializable {
     }
 
     //adds participants to the list
-    public void setParticipants(int[] participants2) {
+    public void setParticipants(int[] participants) {
         for (Integer p : participants) {
             this.participants.add(p);
         }

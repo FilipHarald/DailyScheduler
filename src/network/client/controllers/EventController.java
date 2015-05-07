@@ -29,27 +29,6 @@ public class EventController {
     	eventPanel = new EventPanel(this);
     	cc = clientController;
 }
-
-
-    /**
-     * creates a new event and adds it to the database
-     * @param description a description of what the event is about
-     * @param date the date of 
-     * @param Id the id for the event
-     */
-
-    //create new event 
-    public Event createEvent() {
-       event.setDescription((eventPanel.getDescription()));
-       event.setDate(eventPanel.getDate());
-       event.setParticipants(eventPanel.getParticipants());
-       event.setId(event.getId());
-        
-        up.addEvent(event);
-	return event;
-    }
-    
-    
     
     //displays the list of events
     public LinkedList<Event> displayEventList(LinkedList<Event> events){
@@ -82,10 +61,10 @@ public class EventController {
         return event;
     }
     
-    public void sendEvent(String description, Date date,int [] participants) {
+    public void sendEvent(String description, Date date) {
 //        Event tmpEvent = new Event(description, date, participants, event.getId());
-        cc.sendObject(new Event(description, date, participants, 0));
-        System.out.println(cc);
+        cc.sendObject(new Event(description, cc.getUserId(), date, 0));
+        System.out.println("3" + cc);
     }
 
     /**

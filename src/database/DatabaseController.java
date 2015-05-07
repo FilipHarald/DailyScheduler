@@ -35,7 +35,7 @@ public class DatabaseController {
      * @throws ClassNotFoundException
      */
     public void connectToMySql() throws ClassNotFoundException {
-        String host = "jdbc:mysql://localhost/DailyScheduler";
+        String host = "jdbc:mysql://localhost/test";
         String username = "root", password = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -164,7 +164,7 @@ public class DatabaseController {
                         .prepareStatement("INSERT INTO Event (Text, Date, User) values (?,?,?)");
                 prepStatement.setString(1, event.getDescription());
                 prepStatement.setDate(2, date);
-                prepStatement.setInt(3, event.getId());
+                prepStatement.setInt(3, 1);
                 insertToTable(prepStatement);
             } else {
                 prepStatement = connection
@@ -304,7 +304,7 @@ public class DatabaseController {
 
     private Event getEvent(int entityType, ResultSet resultSet)
             throws SQLException {
-        return new Event(resultSet.getString(2), resultSet.getDate(3), null,
+        return new Event(resultSet.getString(2), resultSet.getInt(4), resultSet.getDate(3), 
                 resultSet.getInt(1));
     }
 
@@ -354,8 +354,8 @@ public class DatabaseController {
         statement.executeQuery(sqlQuery);
         resultSet = statement.getResultSet();
         while (resultSet.next()) {
-            updater.addEvent(new Event(resultSet.getString(2), resultSet
-                    .getDate(3), null, resultSet.getInt(1)));
+            updater.addEvent(new Event(resultSet.getString(2), resultSet.getInt(4), resultSet
+                    .getDate(3),  resultSet.getInt(1)));
         }
 
         statement = (Statement) connection.createStatement();

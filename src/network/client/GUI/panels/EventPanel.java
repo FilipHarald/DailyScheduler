@@ -217,10 +217,10 @@ public class EventPanel extends JPanel implements ActionListener {
 
         }
 
-        if (taParticipants.getText().trim().isEmpty()) {
-            lblParticipants.setText("Participants *");
-            isEmpty = true;
-        }
+//        if (taParticipants.getText().trim().isEmpty()) {
+//            lblParticipants.setText("Participants *");
+//            isEmpty = true;
+//        }
 
         return isEmpty;
 
@@ -295,8 +295,8 @@ public class EventPanel extends JPanel implements ActionListener {
             } else if (isEmpty() == false){
 //                ec.createEvent();
                 System.out.println("1" + ec);
-                ec.sendEvent(getDescription(), getDate(), getParticipants());
-                System.out.println(ec);
+                ec.sendEvent(getDescription(), getDate());
+                System.out.println("2" +ec);
                 
                 //TODO: save event to database
                 frmNewEvent.dispose();
@@ -342,7 +342,7 @@ public class EventPanel extends JPanel implements ActionListener {
     public void displayEvent(Event event) {
         tfDescription.setText(event.getDescription());
         jdcDate.setDate(event.getDate());
-//        taParticipants.setText(event.getParticipants(null).toString());
+//        taParticipants.setText(event.getParticipants());
 
     }
 
