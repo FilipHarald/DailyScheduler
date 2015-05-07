@@ -35,7 +35,7 @@ public class DatabaseController {
      * @throws ClassNotFoundException
      */
     public void connectToMySql() throws ClassNotFoundException {
-        String host = "jdbc:mysql://localhost/test";
+        String host = "jdbc:mysql://localhost/DailyScheduler";
         String username = "root", password = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
