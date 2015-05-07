@@ -30,14 +30,12 @@ import miscellaneous.UsernameAndPwdPair;
 import com.mysql.jdbc.Statement;
 
 import entities.*;
-
 /**
  * 
  * @author Henrik & Filip
  *
  */
 public class DatabaseController {
-
 	private static Connection connection;
 
 	public DatabaseController() {
@@ -134,6 +132,8 @@ public class DatabaseController {
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
 			if (task.getId() == 0) {
+				java.util.Date date = null;
+				convertFromJavaDateToSQLDate(date);
 				prepStatement = connection
 						.prepareStatement("INSERT INTO Task (Description, Author, Date) values (?,?,?)");
 				prepStatement.setDate(1, (Date) task.getDate());
@@ -393,4 +393,13 @@ public class DatabaseController {
 		}
 		return updater;
 	}
+	
+	public static java.sql.Date convertFromJavaDateToSQLDate(
+            java.util.Date javaDate) {
+        java.sql.Date sqlDate = null;
+        if (javaDate != null) {
+            sqlDate = new Date(javaDate.getTime());
+        }
+        return sqlDate;
+    }
 }
