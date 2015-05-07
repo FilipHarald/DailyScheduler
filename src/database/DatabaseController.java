@@ -121,11 +121,12 @@ public class DatabaseController {
                 prepStatement.setString(3, task.getDescription());
                 insertToTable(prepStatement);
             } else {
+                java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
                 prepStatement = connection
                         .prepareStatement(String
                                 .format("UPDTAE Task set(Description, Author, Date) values (?,?,?) WHERE TaskID = %s",
                                         task.getId()));
-                prepStatement.setDate(1, (Date) task.getDate());
+                prepStatement.setDate(1, date);
                 prepStatement.setInt(2, task.getAuthor());
                 prepStatement.setString(3, task.getDescription());
                 updateToTable(prepStatement);
@@ -156,11 +157,12 @@ public class DatabaseController {
         } // ------------Event---------------
         else if (obj instanceof Event) {
             Event event = (Event) obj;
+            java.sql.Date date = convertFromJavaDateToSQLDate(event.getDate());
             if (event.getId() == 0) {
                 prepStatement = connection
                         .prepareStatement("INSERT INTO Event (Text, Date, User) values (?,?,?)");
                 prepStatement.setString(1, event.getDescription());
-                prepStatement.setDate(2, event.getDate());
+                prepStatement.setDate(2, date);
                 prepStatement.setInt(3, event.getId());
                 insertToTable(prepStatement);
             } else {
@@ -168,7 +170,7 @@ public class DatabaseController {
                         .prepareStatement(String
                                 .format("UPDATE Event set(Text, Date, User) values (?,?,?) WHERE EventID = %s", event.getId()));
                 prepStatement.setString(1, event.getDescription());
-                prepStatement.setDate(2, event.getDate());
+                prepStatement.setDate(2, date);
                 prepStatement.setInt(3, event.getId());
                 updateToTable(prepStatement);
             }
