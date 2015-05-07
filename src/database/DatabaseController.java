@@ -113,11 +113,10 @@ public class DatabaseController {
         } else if (obj instanceof Task) {
             Task task = (Task) obj;
             if (task.getId() == 0) {
-                java.util.Date date = null;
-                convertFromJavaDateToSQLDate(date);
+                java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
                 prepStatement = connection
                         .prepareStatement("INSERT INTO Task (Description, Author, Date) values (?,?,?)");
-                prepStatement.setDate(1, (Date) task.getDate());
+                prepStatement.setDate(1, date);
                 prepStatement.setInt(2, task.getAuthor());
                 prepStatement.setString(3, task.getDescription());
                 insertToTable(prepStatement);
