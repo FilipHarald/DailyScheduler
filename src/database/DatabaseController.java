@@ -53,8 +53,8 @@ public class DatabaseController {
 	 * @return returns true if the combination exists.
 	 * @throws SQLException
 	 */
-	public Integer authenticateUser(UsernameAndPwdPair unP) throws SQLException {
-		Integer usr = null;
+	public User authenticateUser(UsernameAndPwdPair unP) throws SQLException {
+		User usr = null;
 		String query = String.format("SELECT * FROM User WHERE UserID = " + '"'
 				+ "%s" + '"' + " and Password = " + '"' + "%s" + '"',
 				unP.getUserId(), unP.getPassword());
@@ -63,7 +63,7 @@ public class DatabaseController {
 				java.sql.ResultSet.TYPE_FORWARD_ONLY);
 		ResultSet resultSet = statement.executeQuery(query);
 		if (resultSet.isBeforeFirst()) {
-			usr = (Integer) getEntity("User", unP.getUserId());
+			usr = (User) getEntity("User", unP.getUserId());
 		}
 		return usr;
 	}
@@ -80,8 +80,8 @@ public class DatabaseController {
 	public void saveEntity(Object obj) throws SQLException {
 		PreparedStatement prepStatement;
 		// ------------USER-----------
-		if (obj instanceof Integer) {
-			Integer user = (Integer) obj;
+		if (obj instanceof User) {
+			User user = (User) obj;
 			if (user.getId() == 0) {
 				prepStatement = connection
 						.prepareStatement("INSERT INTO User (Name, Password) values (?, ?)");
@@ -194,8 +194,8 @@ public class DatabaseController {
 	public void deleteEntity(Object obj) throws SQLException {
 		PreparedStatement prepStatement;
 		// ------------USER-----------
-		if (obj instanceof Integer) {
-			Integer user = (Integer) obj;
+		if (obj instanceof User) {
+			User user = (User) obj;
 			prepStatement = connection.prepareStatement(String.format(
 					"DELETE FROM User WHERE UserID = %s", user.getId()));
 			prepStatement.setString(1, user.getName());
@@ -274,14 +274,14 @@ public class DatabaseController {
 	 *         attributes specific for entityId
 	 * @throws SQLException
 	 */
-	private Integer getUser(int entityId, ResultSet resultSet) throws SQLException {
+	private User getUser(int entityId, ResultSet resultSet) throws SQLException {
 
-		Integer user = null;
+		User user = null;
 		Statement stmtUser = (Statement) connection.createStatement();
 		String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
 		stmtUser.executeQuery(adminQuery);
 		boolean isAdmin = stmtUser.getResultSet().isBeforeFirst();
-		user = new Integer(resultSet.getString(2), isAdmin,
+		user = new User(resultSet.getString(2), isAdmin,
 				resultSet.getString(3), resultSet.getInt(1));
 		return user;
 	}
