@@ -257,7 +257,6 @@ public class DatabaseController {
         try {
             statement.executeUpdate();
             statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
