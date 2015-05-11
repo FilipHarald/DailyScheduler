@@ -49,11 +49,10 @@ public class ServerController {
 			for(int recipient : ((Message) obj).getRecipients()){
 				server.sendObject(recipient, obj);
 			}
+		}else if(obj instanceof DeleteMe) {
+			dbc.deleteEntity(((DeleteMe)obj).getObject());
+		}else{			
+			dbc.saveEntity(obj);
 		}
-		dbc.saveEntity(obj);
-	}
-        
-        public void objectReciviedDelete(Object obj) throws SQLException {
-		dbc.deleteEntity(obj);
 	}
 }

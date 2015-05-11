@@ -143,7 +143,6 @@ public class Server implements Runnable {
 								// re-do the loop and update the client
 							} else {
 								sCont.objectRecivied(obj);
-                                                                sCont.objectReciviedDelete(obj);
 							}
 						}
 					}

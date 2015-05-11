@@ -198,19 +198,15 @@ public class DatabaseController {
 			User user = (User) obj;
 			prepStatement = connection.prepareStatement(String.format(
 					"DELETE FROM User WHERE UserID = %s", user.getId()));
-			prepStatement.setString(1, user.getName());
-			prepStatement.setString(2, user.getPassword());
 			deleteFromTable(prepStatement);
 			if (user.isAdmin()) {
 				prepStatement = connection.prepareStatement(String.format(
 						"DELETE FROM Admin WHERE UserID = %s", user.getId()));
-				prepStatement.setBoolean(1, true);
 				deleteFromTable(prepStatement);
 			}
 			// ------------TASK-----------
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
-    			java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
     			prepStatement = connection.prepareStatement(String.format(
     					"DELETE FROM Task WHERE TaskID = %s", task.getId()));
     			deleteFromTable(prepStatement);
@@ -219,13 +215,11 @@ public class DatabaseController {
 			Team team = (Team) obj;
 			prepStatement = connection.prepareStatement(String.format(
 					"DELETE FROM Team WHERE TeamID = %s", team.getId()));
-			prepStatement.setString(1, team.getName());
 			deleteFromTable(prepStatement);
 		}
 		// ------------TEAM-----------
 		else if (obj instanceof Event) {
 			Event event = (Event) obj;
-			java.sql.Date date = convertFromJavaDateToSQLDate(event.getDate());
 			prepStatement = connection.prepareStatement(String.format(
 					"DELETE FROM Event WHERE EventID = %s", event.getId()));
 			deleteFromTable(prepStatement);
