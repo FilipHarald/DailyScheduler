@@ -18,8 +18,9 @@ public class UserAndTeamPanel extends JPanel {
 	private UserAndTeamController uatC;
 	private TeamPanel teamPanel;
 	private UserPanel userPanel;
-	private JButton saveTeamButton;
+	private JButton createTeamButton;
 	private JButton saveUserButton;
+	private JButton addUserButton;
 
 	public UserAndTeamPanel(UserAndTeamController userAndTeamController) {
 		super();
@@ -34,10 +35,12 @@ public class UserAndTeamPanel extends JPanel {
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Object theButton = e.getSource();
-			if(theButton == saveTeamButton){
+			if(theButton == createTeamButton){
 				teamPanel.sendTeam();
 			}else if(theButton == saveUserButton){
 				userPanel.sendUser();
+			}else if (theButton == addUserButton){
+				teamPanel.addUser();
 			}
 		}
 	}
@@ -45,23 +48,48 @@ public class UserAndTeamPanel extends JPanel {
 	private class TeamPanel extends JPanel {
 		private JTextField teamIdField;
 		private JTextField teamNameField;
+		private JTextField userIdField;
+		private JTextField teamIdForUserField;
 		
 		public TeamPanel(ButtonListener buttonListener){
-			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 			setBorder(BorderFactory.createTitledBorder("Team"));
-			add(new JLabel("If you wish to create a new team enter 0 as ID"));
 			
-			add(new JLabel("Enter team ID:"));
-			add((teamIdField = new JTextField("", 10)));
+			JPanel addTeamPanel = new JPanel();
+			addTeamPanel.setLayout(new BoxLayout(addTeamPanel, BoxLayout.PAGE_AXIS));
+			addTeamPanel.setBorder(BorderFactory.createTitledBorder("Create new team"));
+			addTeamPanel.add(new JLabel("If you wish to create a new team enter 0 as ID"));
+			addTeamPanel.add(new JLabel("Enter team ID:"));
+			addTeamPanel.add((teamIdField = new JTextField("", 10)));
 			teamIdField.setMaximumSize(teamIdField.getPreferredSize());
-			
-			add(new JLabel("Enter team name:"));
-			add((teamNameField = new JTextField("", 40)));
+			addTeamPanel.add(new JLabel("Enter team name:"));
+			addTeamPanel.add((teamNameField = new JTextField("", 40)));
 			teamNameField.setMaximumSize(teamNameField.getPreferredSize());
 			
-			saveTeamButton = new JButton("Save team");
-			saveTeamButton.addActionListener(buttonListener);
-			add(saveTeamButton);
+			createTeamButton = new JButton("Create team");
+			createTeamButton.addActionListener(buttonListener);
+			addTeamPanel.add(createTeamButton);
+			
+			JPanel addToTeamPanel = new JPanel();
+			addToTeamPanel.setLayout(new BoxLayout(addToTeamPanel, BoxLayout.PAGE_AXIS));
+			addToTeamPanel.setBorder(BorderFactory.createTitledBorder("Add user to a team"));
+			addToTeamPanel.add(new JLabel("Enter user ID:"));
+			addToTeamPanel.add((userIdField = new JTextField("", 10)));
+			userIdField.setMaximumSize(userIdField.getPreferredSize());
+			addToTeamPanel.add(new JLabel("Enter team ID to which the user will be added"));
+			addToTeamPanel.add((teamIdForUserField = new JTextField("", 10)));
+			teamIdForUserField.setMaximumSize(teamIdForUserField.getPreferredSize());
+			
+			addUserButton = new JButton("Add user");
+			addUserButton.addActionListener(buttonListener);
+			addToTeamPanel.add(addUserButton);
+			
+			setLayout(new GridLayout(2,0));
+			add(addTeamPanel);
+			add(addToTeamPanel);
+		}
+
+		public void addUser() {
+			
 		}
 
 		public void sendTeam() {

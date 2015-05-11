@@ -51,7 +51,7 @@ public class Team implements Serializable{
 	/**
 	 * @return an array of the managers in the team
 	 */
-	public synchronized User[] getManagers() {
+	public User[] getManagers() {
 		return managers.toArray(new User[0]);
 	}
 
@@ -65,7 +65,7 @@ public class Team implements Serializable{
 	/**
 	 * @return an array of all the members in the team
 	 */
-	public synchronized User[] getTeam(){
+	public User[] getTeam(){
 		User[] temp = new User[teamSize];
 		int counter = 0;
 		for(User member : members){
@@ -77,12 +77,12 @@ public class Team implements Serializable{
 		return temp;
 	}
 	
-	public synchronized boolean addMember(User member){
+	public boolean addMember(User member){
 		teamSize++;
 		return members.add(member);
 	}
 	
-	public synchronized boolean addManager(User manager){
+	public boolean addManager(User manager){
 		teamSize++;
 		return managers.add(manager);
 	}
@@ -95,12 +95,12 @@ public class Team implements Serializable{
 		return managers.contains(manager);
 	}
 
-	public synchronized boolean removeManager(User manager) {
+	public boolean removeManager(User manager) {
 		teamSize--;
 		return managers.remove(manager);
 	}
 
-	public synchronized boolean removeMember(User member) {
+	public boolean removeMember(User member) {
 		teamSize--;
 		return managers.remove(member);
 	}
