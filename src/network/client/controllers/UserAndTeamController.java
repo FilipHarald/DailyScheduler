@@ -28,9 +28,13 @@ public class UserAndTeamController {
 	public void sendTeam(int Id, String name){
 		cc.sendObject(new Team(Id, name));
 	}
-	public void addUserToTeam(int teamId, int userId){
+	public void addUserToTeam(int teamId, int userId, boolean isManager){
 		Team team = new Team(teamId, null);
-		team.addMember(new Integer(userId));
+		if(isManager){
+			team.addManager(new Integer(userId));
+		}else{			
+			team.addMember(new Integer(userId));
+		}
 		cc.sendObject(team);
 	}
 

@@ -50,6 +50,7 @@ public class UserAndTeamPanel extends JPanel {
 		private JTextField teamNameField;
 		private JTextField userIdField;
 		private JTextField teamIdForUserField;
+		private JCheckBox isManager;
 		
 		public TeamPanel(ButtonListener buttonListener){
 			setBorder(BorderFactory.createTitledBorder("Team"));
@@ -79,6 +80,8 @@ public class UserAndTeamPanel extends JPanel {
 			addToTeamPanel.add((teamIdForUserField = new JTextField("", 10)));
 			teamIdForUserField.setMaximumSize(teamIdForUserField.getPreferredSize());
 			
+			addToTeamPanel.add((isManager = new JCheckBox("The user is going to be manager for this team")));
+			
 			addUserButton = new JButton("Add user");
 			addUserButton.addActionListener(buttonListener);
 			addToTeamPanel.add(addUserButton);
@@ -89,7 +92,7 @@ public class UserAndTeamPanel extends JPanel {
 		}
 
 		public void addUser() {
-			uatC.addUserToTeam(new Integer(teamIdForUserField.getText()),new Integer(userIdField.getText()));
+			uatC.addUserToTeam(new Integer(teamIdForUserField.getText()),new Integer(userIdField.getText()), isManager.isSelected());
 		}
 
 		public void sendTeam() {
