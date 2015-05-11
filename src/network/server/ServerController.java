@@ -52,4 +52,8 @@ public class ServerController {
 		}
 		dbc.saveEntity(obj);
 	}
+        
+        public void objectReciviedDelete(Object obj) throws SQLException {
+		dbc.deleteEntity(obj);
+	}
 }

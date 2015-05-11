@@ -137,11 +137,13 @@ public class Server implements Runnable {
 						while (true) {
 							oos.writeObject(sCont.getUpdater(userId));
 							Object obj = ois.readObject();
+                                                        System.out.println("6" + obj);
 							if (obj.equals("update")) {
 								// no code needed, this is just intended to
 								// re-do the loop and update the client
 							} else {
 								sCont.objectRecivied(obj);
+                                                                sCont.objectReciviedDelete(obj);
 							}
 						}
 					}

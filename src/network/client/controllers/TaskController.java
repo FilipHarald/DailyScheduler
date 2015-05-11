@@ -138,7 +138,7 @@ public class TaskController {
 	 * @throws SQLException
 	 */
 	public void deleteTask(Object obj) throws SQLException {
-		cc.sendObject(obj);
+		cc.sendObjectToDelete(obj);
 	}
 
 	/**

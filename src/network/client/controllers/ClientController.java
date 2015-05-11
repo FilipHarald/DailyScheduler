@@ -87,7 +87,11 @@ public class ClientController {
 	public void sendObject(Object obj) {
 		client.send(obj);
 	}
-
+        
+        public void sendObjectToDelete(Object obj) {
+		client.sendToDelete(obj);
+	}
+        
 	public void newMessageReceived(Message m) {
 		gui.displayMessage(m);
 	}

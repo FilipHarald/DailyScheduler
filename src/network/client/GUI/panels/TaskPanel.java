@@ -238,27 +238,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 			}
 			 
 		 }
-		// deleteTaskPanel.setSize(500, 500);
-		// deleteTaskPanel.setLayout(null);
-		//
-		// titleLabel.setBounds(100,70,120,20);
-		// titleField.setBounds(200,70,120,20);
-		//
-		// descriptionArea.setBounds(100,100,280,300);
-		//
-		// deleteTask.setBounds(100,420,120,30);
-		// btnCancel.setBounds(300, 420, 80, 25);
-		//
-		// deleteTaskPanel.add(titleLabel);
-		// deleteTaskPanel.add(titleField);
-		// deleteTaskPanel.add(descriptionArea);
-		// deleteTaskPanel.add(deleteTask);
-		// deleteTaskPanel.add(btnCancel);
-		//
-		// deleteTaskFrame.add(deleteTaskPanel);
-		// deleteTaskFrame.pack();
-		// deleteTaskFrame.setLocationRelativeTo(null);
-		// deleteTaskFrame.setVisible(true);
+		
 	}
 
 	public void addSubTask() {
@@ -335,6 +315,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		}
 		if (e.getSource() == saveTask) {
 			taskC.sendTask(getTitle(), subTask, getDate());
+                        isEmpty();
+                        newTaskFrame.dispose();
 			JOptionPane.showMessageDialog(null, "Saved to database");
 		}
 		if (e.getSource() == saveSubTask) {
