@@ -47,13 +47,11 @@ public class EventPanel extends JPanel implements ActionListener {
 
     private JLabel lblDescription = new JLabel("Title");
     private JLabel lblDate = new JLabel("Date");
-    private JLabel lblParticipants = new JLabel("Participants");
     private JLabel lblSearch = new JLabel("Type the eventID you wish to search for");
 
     private JTextField tfDescription = new JTextField(15);
     private JTextField tfDate = new JTextField(15);
-    private JTextArea taParticipants = new JTextArea();
-
+    
     private JPanel pnlButton = new JPanel();
     private JPanel pnlNewEvent = new JPanel();
     private JPanel pnlEditEvent = new JPanel();
@@ -65,7 +63,7 @@ public class EventPanel extends JPanel implements ActionListener {
     public EventPanel(EventController ec) {
         super();
         this.ec = ec;
-        setBorder(BorderFactory.createTitledBorder("Calendar view"));
+        setBorder(BorderFactory.createTitledBorder("Event view"));
 
         pnlButton.setLayout(new BorderLayout());
         pnlButton.add(btnAddEvent, BorderLayout.NORTH);
@@ -93,29 +91,24 @@ public class EventPanel extends JPanel implements ActionListener {
     //render frame for new event
     private void renderNewEvent() {
         frmNewEvent.setLayout(null);
-        frmNewEvent.setMinimumSize(new Dimension(550, 350));
+        frmNewEvent.setMinimumSize(new Dimension(450, 250));
 
-        pnlNewEvent.setSize(550, 350);
+        pnlNewEvent.setSize(450, 250);
         pnlNewEvent.setLayout(null);
 
-        lblDescription.setBounds(70, 50, 80, 20);
-        tfDescription.setBounds(170, 50, 180, 20);
+        lblDescription.setBounds(80, 50, 80, 20);
+        tfDescription.setBounds(140, 50, 220, 20);
 
-        lblDate.setBounds(70, 80, 80, 20);
-        jdcDate.setBounds(170, 80, 180, 20);
+        lblDate.setBounds(80, 80, 80, 20);
+        jdcDate.setBounds(140, 80, 220, 20);
 
-        lblParticipants.setBounds(70, 80, 80, 100);
-        taParticipants.setBounds(170, 120, 280, 100);
-
-        btnSaveEvent.setBounds(175, 250, 100, 25);
+        btnSaveEvent.setBounds(140, 150, 100, 25);
 
         pnlNewEvent.add(lblDescription);
         pnlNewEvent.add(tfDescription);
         pnlNewEvent.add(lblDate);
         pnlNewEvent.add(jdcDate);
 
-        pnlNewEvent.add(lblParticipants);
-        pnlNewEvent.add(taParticipants);
         pnlNewEvent.add(btnSaveEvent);
 
         frmNewEvent.add(pnlNewEvent);
@@ -128,30 +121,25 @@ public class EventPanel extends JPanel implements ActionListener {
     //render frame for edit event
     private void renderEditEvent() {
         frmEditEvent.setLayout(null);
-        frmEditEvent.setMinimumSize(new Dimension(550, 350));
+        frmEditEvent.setMinimumSize(new Dimension(450, 250));
 
-        pnlEditEvent.setSize(550, 350);
+        pnlEditEvent.setSize(450, 250);
         pnlEditEvent.setLayout(null);
 
-        lblDescription.setBounds(70, 50, 80, 20);
-        tfDescription.setBounds(170, 50, 180, 20);
+        lblDescription.setBounds(80, 50, 80, 20);
+        tfDescription.setBounds(140, 50, 220, 20);
 
-        lblDate.setBounds(70, 80, 80, 20);
-        jdcDate.setBounds(170, 80, 180, 20);
+        lblDate.setBounds(80, 80, 80, 20);
+        jdcDate.setBounds(140, 80, 220, 20);
 
-        lblParticipants.setBounds(70, 80, 80, 100);
-        taParticipants.setBounds(170, 120, 280, 100);
-
-        btnSaveEvent.setBounds(175, 250, 100, 25);
-        btnDeleteEvent.setBounds(340, 250, 100, 25);
+        btnSaveEvent.setBounds(140, 150, 100, 25);
+        btnDeleteEvent.setBounds(262, 150, 100, 25);
 
         pnlEditEvent.add(lblDescription);
         pnlEditEvent.add(tfDescription);
         pnlEditEvent.add(lblDate);
         pnlEditEvent.add(jdcDate);
 
-        pnlEditEvent.add(lblParticipants);
-        pnlEditEvent.add(taParticipants);
         pnlEditEvent.add(btnSaveEvent);
         pnlEditEvent.add(btnDeleteEvent);
 
@@ -190,7 +178,6 @@ public class EventPanel extends JPanel implements ActionListener {
     private void clearFields() {
         tfDescription.setText(null);
         jdcDate.setDate(null);
-        taParticipants.setText(null);
 
     }
 
@@ -198,7 +185,6 @@ public class EventPanel extends JPanel implements ActionListener {
     private void setLabels() {
         lblDescription.setText("Title");
         lblDate.setText("Date");
-        lblParticipants.setText("Participants");
 
     }
 
@@ -217,11 +203,6 @@ public class EventPanel extends JPanel implements ActionListener {
 
         }
 
-//        if (taParticipants.getText().trim().isEmpty()) {
-//            lblParticipants.setText("Participants *");
-//            isEmpty = true;
-//        }
-
         return isEmpty;
 
     }
@@ -235,13 +216,6 @@ public class EventPanel extends JPanel implements ActionListener {
     public Date getDate() {
         return jdcDate.getDate();
     }
-    
-    
-
-    //get participants from textarea
-//    public String getParticipants() {
-//        return taParticipants.getText();
-//    }
 
     //set actions to buttons
     public void actionPerformed(ActionEvent e) {
@@ -306,20 +280,6 @@ public class EventPanel extends JPanel implements ActionListener {
         }
 
     }
-
-    /**
-     *
-     * @return
-     */
-    public int[] getParticipants() {
-		String[] parts = taParticipants.getText().split(",");
-		int[] toBeReturned = new int[parts.length];
-		int i = 0;
-		for (String s : parts) {
-			toBeReturned[i++] = Integer.parseInt(s);
-		}
-		return toBeReturned;
-	}
     
     //set mouselistener
     MouseListener mouseEvent = new MouseAdapter() {
@@ -342,7 +302,6 @@ public class EventPanel extends JPanel implements ActionListener {
     public void displayEvent(Event event) {
         tfDescription.setText(event.getDescription());
         jdcDate.setDate(event.getDate());
-//        taParticipants.setText(event.getParticipants());
 
     }
 

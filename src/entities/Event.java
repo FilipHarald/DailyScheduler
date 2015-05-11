@@ -15,7 +15,6 @@ public class Event implements Serializable {
     private String description;
     private int authorID;
     private Date date;
-    private ArrayList<Integer> participants;
     private int Id;
     static final long serialVersionUID = 4141671890272788617L;
 
@@ -23,13 +22,6 @@ public class Event implements Serializable {
         this.description = description;
         this.authorID = authorID;
         this.date = date;
-//        ArrayList<Integer> temp = new ArrayList<Integer>();
-//        if (participants != null) {
-//            for (int p : participants) {
-//                temp.add(p);
-//            }
-//        }
-//        this.participants = temp;
         this.Id = Id;
     }
 
@@ -78,19 +70,6 @@ public class Event implements Serializable {
      */
     public synchronized void setDate(Date date) {
         this.date = date;
-    }
-
-    //gets the participants from the list
-    public ArrayList getParticipants() {
-        return participants;
-
-    }
-
-    //adds participants to the list
-    public void setParticipants(int[] participants) {
-        for (Integer p : participants) {
-            this.participants.add(p);
-        }
     }
 
     public String toString() {

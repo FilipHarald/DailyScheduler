@@ -53,7 +53,6 @@ public class EventController {
      * @param Id the id for the given event
      */
     public Event editEvent() {        
-//        event.setParticipants(getParticipants());
         event.setDescription(eventPanel.getDescription());
         event.setDate(eventPanel.getDate()); 
         
@@ -62,9 +61,7 @@ public class EventController {
     }
     
     public void sendEvent(String description, Date date) {
-//        Event tmpEvent = new Event(description, date, participants, event.getId());
         cc.sendObject(new Event(description, cc.getUserId(), date, 0));
-        System.out.println("3" + cc);
     }
 
     /**
