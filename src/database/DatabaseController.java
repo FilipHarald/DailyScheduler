@@ -142,9 +142,8 @@ public class DatabaseController {
                 insertToTable(prepStatement);
             } else {
                 prepStatement = connection.prepareStatement(String.format(
-                        "UPDATE Team set (Name) values (?) WHERE TeamID = %s",
+                        "UPDATE Team set Name=%s WHERE TeamID = %s", team.getName(),
                         team.getId()));
-                prepStatement.setString(1, team.getName());
                 updateToTable(prepStatement);
             }
         } else if (obj instanceof Message) {
