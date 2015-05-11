@@ -29,7 +29,9 @@ public class UserAndTeamController {
 		cc.sendObject(new Team(Id, name));
 	}
 	public void addUserToTeam(int teamId, int userId){
-		
+		Team team = new Team(teamId, null);
+		team.addMember(new Integer(teamId));
+		cc.sendObject(team);
 	}
 
 	public UserAndTeamPanel getPanel() {

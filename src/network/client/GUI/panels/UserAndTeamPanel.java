@@ -89,7 +89,7 @@ public class UserAndTeamPanel extends JPanel {
 		}
 
 		public void addUser() {
-			
+			uatC.addUserToTeam(new Integer(teamIdForUserField.getText()),new Integer(userIdField.getText()));
 		}
 
 		public void sendTeam() {

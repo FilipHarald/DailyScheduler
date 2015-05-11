@@ -18,14 +18,14 @@ public class Message implements Serializable {
 	private String title;
 	private String msg;
 	private int id;
-	private ArrayList<Integer> recipients;
+	private ArrayList<User> recipients;
 
 	public Message(String msg, String title, int[] recipients, int id,
 			int authorId) {
 		this.title = title;
 		this.msg = msg;
 		this.id = id;
-		ArrayList<Integer> temp = new ArrayList<Integer>();
+		ArrayList<User> temp = new ArrayList<User>();
 		if (recipients != null) {
 			for (int r : recipients) {
 				temp.add(r);
@@ -59,12 +59,12 @@ public class Message implements Serializable {
 		this.msg = msg;
 	}
 
-	public ArrayList<Integer> getRecipients() {
+	public ArrayList<User> getRecipients() {
 		return recipients;
 	}
 
-	public void setRecipients(Integer[] recipients) {
-		for (Integer r : recipients) {
+	public void setRecipients(User[] recipients) {
+		for (User r : recipients) {
 			this.recipients.add(r);
 		}
 	}

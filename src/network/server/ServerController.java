@@ -25,7 +25,7 @@ public class ServerController {
 	}
 	
 	
-	public User authenticateUser(UsernameAndPwdPair unP){
+	public Integer authenticateUser(UsernameAndPwdPair unP){
 		try {
 			return dbc.authenticateUser(unP);
 		} catch (SQLException e) {

@@ -11,7 +11,7 @@ import database.DatabaseController;
 import entities.*;
 
 public class GetEntityTest {
-	private User user;
+	private Integer user;
 	private Task task;
 	private Team team;
 	private Message message;
@@ -27,7 +27,7 @@ public class GetEntityTest {
 	@Test
 	public void test() {
 		try {
-			user = (User) db.getEntity("User", 5);
+			user = (Integer) db.getEntity("User", 5);
 			task = (Task) db.getEntity("Task", 1);
 			team = (Team) db.getEntity("Team", 1);
 			message = (Message) db.getEntity("Message", 1);
