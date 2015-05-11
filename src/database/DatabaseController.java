@@ -142,7 +142,7 @@ public class DatabaseController {
                 insertToTable(prepStatement);
             } else {
                 prepStatement = connection.prepareStatement(String.format(
-                        "UPDATE Team set Name=%s WHERE TeamID = %s", team.getName(),
+                        "UPDATE Team set Name='%s' WHERE TeamID = %s", team.getName(),
                         team.getId()));
                 updateToTable(prepStatement);
             }
