@@ -322,9 +322,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 			}
 
 		} else if (e.getSource() == btnDeleteTask) {
-			
+			Object obj = listCompletedTask.getSelectedValue().toString();
 			try {
-				deleteTask(getTitle());
+				deleteTask(obj);
 				deleteTaskFrame.dispose();
 			} catch (Exception e1) {
 				e1.printStackTrace();

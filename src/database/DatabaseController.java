@@ -212,7 +212,7 @@ public class DatabaseController {
 			Task task = (Task) obj;
 			java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
 			prepStatement = connection.prepareStatement(String.format(
-					"DELETE FROM Task WHERE TaskID = %s", task.getId()));
+					"DELETE FROM Task WHERE Description = %s", task.getTitle()));
 			prepStatement.setDate(1, date);
 			prepStatement.setInt(2, task.getAuthor());
 			prepStatement.setString(3, task.getDescription());
