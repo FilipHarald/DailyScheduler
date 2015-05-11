@@ -128,7 +128,7 @@ public class DatabaseController {
 						.getDate());
 				prepStatement = connection
 						.prepareStatement(String
-								.format("UPDTAE Task set(Description, Author, Date) values (?,?,?) WHERE TaskID = %s",
+								.format("UPDATE Task set(Description, Author, Date) values (?,?,?) WHERE TaskID = %s",
 										task.getId()));
 				prepStatement.setDate(1, date);
 				prepStatement.setInt(2, task.getAuthor());
