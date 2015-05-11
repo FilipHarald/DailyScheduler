@@ -227,10 +227,7 @@ public class DatabaseController {
 			Event event = (Event) obj;
 			java.sql.Date date = convertFromJavaDateToSQLDate(event.getDate());
 			prepStatement = connection.prepareStatement(String.format(
-					"DELETE FROM Team WHERE EventID = %s", event.getId()));
-			prepStatement.setString(1, event.getDescription());
-			prepStatement.setDate(2, date);
-			prepStatement.setInt(3, event.getAuthorID());
+					"DELETE FROM Event WHERE EventID = %s", event.getId()));
 			deleteFromTable(prepStatement);
 		}
 	}

@@ -68,7 +68,8 @@ public class EventController {
      * delete an event by its Id
      * @param eventIdDelete the id for the event to be deleted
      */
-    public void deleteEvent(int eventIdDelete) {
+    public void deleteEvent(Object obj) {
+        cc.sendObject(obj);
         
         //TODO: remove event from database
 

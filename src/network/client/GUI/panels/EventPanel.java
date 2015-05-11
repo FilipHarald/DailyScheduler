@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +24,6 @@ import network.client.controllers.EventController;
 
 public class EventPanel extends JPanel implements ActionListener {
 
-    
     private EventController ec;
     private UsernameAndPwdPair unP;
     private Event event;
@@ -32,7 +32,7 @@ public class EventPanel extends JPanel implements ActionListener {
     private JDateChooser jdcDate = new JDateChooser();
 
     private JList lstEvents = new JList();
-    
+
     private JScrollPane jspList = new JScrollPane(lstEvents);
 
     private JFrame frmNewEvent = new JFrame("New event");
@@ -51,13 +51,11 @@ public class EventPanel extends JPanel implements ActionListener {
 
     private JTextField tfDescription = new JTextField(15);
     private JTextField tfDate = new JTextField(15);
-    
+
     private JPanel pnlButton = new JPanel();
     private JPanel pnlNewEvent = new JPanel();
     private JPanel pnlEditEvent = new JPanel();
     private JPanel pnlSearchEvent = new JPanel();
-
-    
 
     //constructor: set layout and add panel
     public EventPanel(EventController ec) {
@@ -133,7 +131,6 @@ public class EventPanel extends JPanel implements ActionListener {
         jdcDate.setBounds(140, 80, 220, 20);
 
         btnSaveEvent.setBounds(140, 150, 100, 25);
-        btnDeleteEvent.setBounds(262, 150, 100, 25);
 
         pnlEditEvent.add(lblDescription);
         pnlEditEvent.add(tfDescription);
@@ -141,7 +138,6 @@ public class EventPanel extends JPanel implements ActionListener {
         pnlEditEvent.add(jdcDate);
 
         pnlEditEvent.add(btnSaveEvent);
-        pnlEditEvent.add(btnDeleteEvent);
 
         frmEditEvent.add(pnlEditEvent);
         frmEditEvent.setLocationRelativeTo(null);
@@ -162,10 +158,12 @@ public class EventPanel extends JPanel implements ActionListener {
         lstEvents.setPreferredSize(new Dimension(135, 90));
         jspList.setBounds(135, 90, 200, 250);
         btnSearch.setBounds(370, 90, 80, 30);
+        btnDeleteEvent.setBounds(370, 130, 80, 30);
 
         pnlSearchEvent.add(lblSearch);
         pnlSearchEvent.add(jspList);
         pnlSearchEvent.add(btnSearch);
+        pnlSearchEvent.add(btnDeleteEvent);
 
         frmSearchEvent.add(pnlSearchEvent);
         frmSearchEvent.setLocationRelativeTo(null);
@@ -207,8 +205,19 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
-    //get description from field
-    public String getDescription() {
+    public void deleteEvent(Object obj) {
+
+        int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + lstEvents.getSelectedValue().toString() + "?", null, JOptionPane.YES_NO_OPTION);
+        if (delete == JOptionPane.YES_OPTION) {
+            ec.deleteEvent(obj);
+            JOptionPane.showMessageDialog(null, "The event has been deleted");
+        } else {
+            JOptionPane.showMessageDialog(null, "The event will not be deleted");
+        }
+    }
+
+//get description from field
+public String getDescription() {
         return tfDescription.getText();
     }
 
@@ -226,13 +235,13 @@ public class EventPanel extends JPanel implements ActionListener {
             setLabels();
             clearFields();
             renderNewEvent();
-            
-        //button Edit event
+
+            //button Edit event
         } else if ((button) == btnEditEvent) {
             //TODO: add display event
             renderSearchEvent();
-            
-        //button Search
+
+            //button Search
         } else if ((button) == btnSearch) {
             //catch exceptions, nothing selected
             try {
@@ -248,30 +257,30 @@ public class EventPanel extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please select an event");
             }
 
-        //button Delete
+            //button Delete
         } else if ((button) == btnDeleteEvent) {
-            //JOptionPane.showMessageDialog(null, "Do you wish to delete event: " + tfTitle.getText() + "?");
-            int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + tfDescription.getText() + "?", null, JOptionPane.YES_NO_OPTION);
-            if (delete == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "The event has been deleted");
-                //TODO: delete event from database
-                frmNewEvent.dispose();
-                frmEditEvent.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "The event will not be deleted");
-            }
+            Event obj = (Event) lstEvents.getSelectedValue();
+            System.out.println("p " + obj);
 
-        //button save
+            try {
+                deleteEvent(obj);
+                
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            //JOptionPane.showMessageDialog(null, "Do you wish to delete event: " + tfTitle.getText() + "?");
+
+            //button save
         } else if ((button) == btnSaveEvent) {
             setLabels();
             if (isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
-            } else if (isEmpty() == false){
+            } else if (isEmpty() == false) {
 //                ec.createEvent();
                 System.out.println("1" + ec);
                 ec.sendEvent(getDescription(), getDate());
-                System.out.println("2" +ec);
-                
+                System.out.println("2" + ec);
+
                 //TODO: save event to database
                 frmNewEvent.dispose();
                 frmEditEvent.dispose();
@@ -280,7 +289,7 @@ public class EventPanel extends JPanel implements ActionListener {
         }
 
     }
-    
+
     //set mouselistener
     MouseListener mouseEvent = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
@@ -313,6 +322,5 @@ public class EventPanel extends JPanel implements ActionListener {
         }
         lstEvents.setModel(model);
     }
-
 
 }
