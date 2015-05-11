@@ -30,7 +30,7 @@ public class UserAndTeamController {
 	}
 	public void addUserToTeam(int teamId, int userId){
 		Team team = new Team(teamId, null);
-		team.addMember(new Integer(teamId));
+		team.addMember(new Integer(userId));
 		cc.sendObject(team);
 	}
 

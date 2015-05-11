@@ -52,7 +52,7 @@ public class ClientController {
 	 *            the password for the username ("1234")
 	 */
 	public void login(int userId, char[] password) {
-		Integer usr = (Integer) client.validateUser(userId, password);
+		User usr = (User) client.validateUser(userId, password);
 		if (usr != null) {
 			loginWindow.close();
 			ec = new EventController(this);
