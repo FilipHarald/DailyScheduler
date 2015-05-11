@@ -210,13 +210,10 @@ public class DatabaseController {
 			// ------------TASK-----------
 		} else if (obj instanceof Task) {
 			Task task = (Task) obj;
-			java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
-			prepStatement = connection.prepareStatement(String.format(
-					"DELETE FROM Task WHERE Description = %s", task.getTitle()));
-			prepStatement.setDate(1, date);
-			prepStatement.setInt(2, task.getAuthor());
-			prepStatement.setString(3, task.getDescription());
-			deleteFromTable(prepStatement);
+    			java.sql.Date date = convertFromJavaDateToSQLDate(task.getDate());
+    			prepStatement = connection.prepareStatement(String.format(
+    					"DELETE FROM Task WHERE TaskID = %s", task.getId()));
+    			deleteFromTable(prepStatement);
 			// ------------TEAM-----------
 		} else if (obj instanceof Team) {
 			Team team = (Team) obj;
