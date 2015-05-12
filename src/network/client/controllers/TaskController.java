@@ -61,7 +61,7 @@ public class TaskController {
 
 
 	public void sendTask(String description, String[] subTasks, Date date) {
-		Task temptask = new Task(cc.getUserId(), description, subTasks, date, 0);
+		Task temptask = new Task(cc.getUserId(), description, getSubTasks(), date, 0);
 		cc.sendObject(temptask);
 	}
 
@@ -70,15 +70,20 @@ public class TaskController {
 		cc.sendObject(task);
 	}
 
-	private LinkedList<String> getSubTasks() {
-		String[] tasks = taskPanel.getSubTasks().split(",");
+	private String[] getSubTasks() {
+		
+		String[] tasks = taskPanel.getDescriptionSubTask().split("/n");
+		int [] toBeReturned = new int [tasks.length];
+		int i = 0;
 		if (tasks != null) {
-			for (int i = 0; i < tasks.length; i++) {
-				tasks[i] = tasks[i].trim();
+			for (String s : tasks) {
+				System.out.println(tasks);
+				toBeReturned[i++] = Integer.parseInt(s.toString());
 			}
-			return new LinkedList<String>(Arrays.asList(tasks));
+			
 		}
-		return new LinkedList<String>();
+		return tasks;
+		
 	}
 
 	/**
@@ -99,7 +104,7 @@ public class TaskController {
 		displayTask(task);
 		// TODO: save updated info in database (create method in taskPanel)
 		task.getAuthor();
-		task.setDescription(taskPanel.getDescription());
+		task.setDescription(taskPanel.getDescriptionSubTask());
 		task.addSubTask(null);
 		task.setDate(task.getDate());
 		task.getId();
@@ -126,7 +131,8 @@ public class TaskController {
 	 */
 	public String addSubTask(String description) {
 		// TODO: create tmpSubTask
-		task.addSubTask(taskPanel.getDescription());
+		getSubTasks();
+//		task.addSubTask(taskPanel.getDescriptionSubTask());
 		// TODO: add to database
 		// database.sendToTableTask(idtable_task, description, description);
 		return description;

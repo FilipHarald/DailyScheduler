@@ -31,8 +31,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 	// For create new task:
 	private JButton btnCreateNewTask = new JButton("New Task");
 	private JPanel newTaskPanel = new JPanel();
-	private JTextArea showSubTasks = new JTextArea();
-	private JScrollPane subTaskScroll = new JScrollPane(showSubTasks);
+	private JList listSubTask = new JList();
+	private JScrollPane subTaskScroll = new JScrollPane(listSubTask);
 	private JButton saveTask = new JButton("Save");
 	private JButton btnAddSubTask = new JButton("Add subtask");
 
@@ -92,19 +92,19 @@ public class TaskPanel extends JPanel implements ActionListener {
 		tasksPanel.setBorder(BorderFactory.createTitledBorder(""));
 
 		JPanel panelCompletedTask = new JPanel();
-		panelCompletedTask.setPreferredSize(new Dimension(200, 100));
+		panelCompletedTask.setPreferredSize(new Dimension(200, 500));
 
 		JLabel lblCompletedTask = new JLabel("Completed tasks");
 
 		panelCompletedTask.setBorder(BorderFactory.createTitledBorder(""));
-		listCompletedTask.setPreferredSize(new Dimension(200, 100));
-		scrollerCompletedTask.setPreferredSize(new Dimension(200, 100));
+		listCompletedTask.setPreferredSize(new Dimension(200, 500));
+		scrollerCompletedTask.setPreferredSize(new Dimension(200, 500));
 
 		panelCompletedTask.add(lblCompletedTask);
 		panelCompletedTask.add(scrollerCompletedTask);
 
 		JPanel panelIncompletedTask = new JPanel();
-		scrollerIncompletedTask.setPreferredSize(new Dimension(200, 100));
+		scrollerIncompletedTask.setPreferredSize(new Dimension(200, 500));
 
 		JLabel lblIncompleted = new JLabel("Incompleted tasks");
 
@@ -262,7 +262,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	private void clearFields() {
 		titleField.setText(null);
-		showSubTasks.setText(null);
+		listSubTask.setSelectedIndex(0);;
 
 	}
 
@@ -315,7 +315,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Saved to database");
 		}
 		if (e.getSource() == saveSubTask) {
-			taskC.addSubTask(getDescription());
+			taskC.addSubTask(getDescriptionSubTask());
+			getDescription();
+			JOptionPane.showMessageDialog(null, "Subtask saved");
 		}
 	}
 
@@ -326,15 +328,17 @@ public class TaskPanel extends JPanel implements ActionListener {
 	public String getTitle() {
 		return titleField.getText();
 	}
+	
+	public int[] getDescription(){
+		listSubTask.add(descriptionAreaSubTask);
+		return listSubTask.getSelectedIndices();
+		
+	}
 
-	// get description from textarea
-	public String getDescription() {
+	public String getDescriptionSubTask() {
 		return descriptionAreaSubTask.getText();
 	}
 
-	public String getSubTasks() {
-		return showSubTasks.getText();
-	}
 
 	public void taskListDisplayIncompleted(LinkedList<Task> tasks) {
 		DefaultListModel model2 = new DefaultListModel();
