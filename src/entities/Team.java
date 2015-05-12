@@ -103,4 +103,8 @@ public class Team implements Serializable {
 		teamSize--;
 		return managers.remove(memberId);
 	}
+	
+	public String toString(){
+		return "" + Id + " | " + name;
+	}
 }

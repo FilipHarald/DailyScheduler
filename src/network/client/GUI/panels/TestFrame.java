@@ -14,7 +14,7 @@ public class TestFrame {
 //		frame.add(new TaskPanel(null));
 //                frame.add(new CalendarPanel(),BorderLayout.SOUTH);
 //                frame.add(new MessagePanel(),BorderLayout.SOUTH);
-		frame.add(new UserAndTeamPanel(null, false));
+		frame.add(new UserAndTeamPanel(null, true));
 //		frame.add(new EventPanel(null));
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
