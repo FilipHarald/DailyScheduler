@@ -376,7 +376,6 @@ public class DatabaseController {
 		resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			updater.addUser(new User(resultSet.getString(2), false, null, resultSet.getInt(1)));
-			System.out.println(resultSet.getString(2) + resultSet.getInt(1));
 		}
 
 		statement = (Statement) connection.createStatement();
@@ -385,7 +384,6 @@ public class DatabaseController {
 		resultSet = statement.getResultSet();
 		while (resultSet.next()) {
 			updater.addTeam(new Team(resultSet.getInt(1), resultSet.getString(2)));
-			System.out.println(resultSet.getInt(1) + resultSet.getString(2));
 		}
 
 

@@ -76,6 +76,8 @@ public class ClientController {
 		tc.updatePanel(updater.getTasks());
 		mc.updatePanel(updater.getMessages());
 		ec.updatePanel(updater.getEvents());
+		System.out.println(updater.getUsers());
+		System.out.println(updater.getTeams().get(0));
 		uatc.updatePanelUsers(updater.getUsers());
 		uatc.updatePanelTeams(updater.getTeams());
 	}
