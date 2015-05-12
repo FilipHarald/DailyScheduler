@@ -18,61 +18,78 @@ public class EventController {
     private ClientController cc;
     private Updater up;
 
-
+    /**
+     *
+     * @param clientController
+     */
     public EventController(ClientController clientController) {
-    	eventPanel = new EventPanel(this);
-    	cc = clientController;
-}
-    
-    //displays the list of events
-    public LinkedList<Event> displayEventList(LinkedList<Event> events){
-        cc.update(up);
-        return events;
+        eventPanel = new EventPanel(this);
+        cc = clientController;
     }
-    
-    
+
+//    //displays the list of events
+//    public LinkedList<Event> displayEventList(LinkedList<Event> events){
+//        cc.update(up);
+//        return events;
+//    }
     //forward incoming event from client to GUI
-    public void displayEvent(Event event){
-		//TODO: call method from GUI that displays the event in the GUI
-    	eventPanel.displayEvent(event);
-    	
+
+    /**
+     *
+     * @param event
+     */
+        public void displayEvent(Event event) {
+        //TODO: call method from GUI that displays the event in the GUI
+        eventPanel.displayEvent(event);
+
     }
-    
-    
-    
+
     /**
      * edits an existing event and updates the info to the database
-     * @param description the description for the event to be updated
-     * @param date the date for the event
-     * @param Id the id for the given event
+     *
+     * @return 
      */
-    public Event editEvent() {        
+    public Event editEvent() {
         event.setDescription(eventPanel.getDescription());
-        event.setDate(eventPanel.getDate()); 
-        
-        up.addEvent(event);
+        event.setDate(eventPanel.getDate());
+
+//        up.addEvent(event);
         return event;
     }
-    
+
+    /**
+     *
+     * @param description
+     * @param date
+     */
     public void sendEvent(String description, Date date) {
         cc.sendObject(new Event(description, cc.getUserId(), date, 0));
     }
 
     /**
      * delete an event by its Id
-     * @param eventIdDelete the id for the event to be deleted
+     *
+     * @param obj
      */
     public void deleteEvent(Object obj) {
         cc.sendObjectToDelete(obj);
-        
 
     }
 
-	public void updatePanel(LinkedList<Event> events) {
-		eventPanel.displayEventList(events);
-	}
-	public EventPanel getPanel(){
-		return eventPanel;
-	}
+    /**
+     *
+     * @param events
+     */
+    public void updatePanel(LinkedList<Event> events) {
+        eventPanel.displayEventList(events);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public EventPanel getPanel() {
+        return eventPanel;
+    }
 
 }
