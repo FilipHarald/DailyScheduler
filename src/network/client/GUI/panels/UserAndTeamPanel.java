@@ -2,8 +2,12 @@ package network.client.GUI.panels;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
+
 import javax.swing.*;
 
+import entities.Team;
+import entities.User;
 import network.client.controllers.UserAndTeamController;
 
 /**
@@ -17,6 +21,8 @@ public class UserAndTeamPanel extends JPanel {
 	private JButton createTeamButton;
 	private JButton saveUserButton;
 	private JButton addUserButton;
+	private DefaultListModel<User> defaultUserListModel;
+	private DefaultListModel<Team> defaultTeamListModel;
 
 	public UserAndTeamPanel(UserAndTeamController userAndTeamController, boolean isAdmin) {
 		super();
@@ -24,9 +30,9 @@ public class UserAndTeamPanel extends JPanel {
 		setLayout(new GridLayout(0,2));
 		setBorder(BorderFactory.createTitledBorder("User- and team view"));
 		ButtonListener buttonListener = new ButtonListener();
-		add(teamPanel = new TeamPanel(buttonListener));
+		add(teamPanel = new TeamPanel(buttonListener, defaultTeamListModel = new DefaultListModel<Team>()));
 		if(isAdmin){			
-			add(adminPanel = new AdminPanel(buttonListener));
+			add(adminPanel = new AdminPanel(buttonListener, defaultUserListModel = new DefaultListModel<User>()));
 		}
 	}
 	
@@ -50,7 +56,7 @@ public class UserAndTeamPanel extends JPanel {
 		private JTextField teamIdForUserField;
 		private JCheckBox isManager;
 		
-		public TeamPanel(ButtonListener buttonListener){
+		public TeamPanel(ButtonListener buttonListener, DefaultListModel<Team> teamList){
 			setBorder(BorderFactory.createTitledBorder("Team"));
 			
 			JPanel addTeamPanel = new JPanel();
@@ -67,6 +73,8 @@ public class UserAndTeamPanel extends JPanel {
 			createTeamButton = new JButton("Create team");
 			createTeamButton.addActionListener(buttonListener);
 			addTeamPanel.add(createTeamButton);
+			
+			addTeamPanel.add(new JScrollPane(new JList<Team>(teamList)));
 			
 			JPanel addToTeamPanel = new JPanel();
 			addToTeamPanel.setLayout(new BoxLayout(addToTeamPanel, BoxLayout.PAGE_AXIS));
@@ -104,7 +112,7 @@ public class UserAndTeamPanel extends JPanel {
 		private JCheckBox isAdmin;
 		private JPasswordField passwordField;
 		
-		public AdminPanel(ButtonListener buttonListener) {
+		public AdminPanel(ButtonListener buttonListener, DefaultListModel<User> userList) {
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 			setBorder(BorderFactory.createTitledBorder("User"));
 			
@@ -120,12 +128,28 @@ public class UserAndTeamPanel extends JPanel {
 			saveUserButton = new JButton("Create user");
 			saveUserButton.addActionListener(buttonListener);
 			add(saveUserButton);
+			
+			add(new JScrollPane(new JList<User>(userList)));
 		}
 		
 		
 
 		public void createUser() {
 			uatC.sendUser(nameField.getText(), isAdmin.isSelected(), passwordField.getText(), 0);
+		}
+	}
+
+	public void updateUserList(LinkedList<User> users) {
+		defaultUserListModel = new DefaultListModel<User>();
+		for(User u : users){
+			defaultUserListModel.addElement(u);			
+		}
+	}
+
+	public void updateTeamList(LinkedList<Team> teams) {
+		defaultTeamListModel = new DefaultListModel<Team>();
+		for(Team t : teams){
+			defaultTeamListModel.addElement(t);
 		}
 	}
 }

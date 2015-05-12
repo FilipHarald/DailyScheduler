@@ -1,6 +1,8 @@
 
 package network.client.controllers;
 
+import java.util.LinkedList;
+
 import entities.Team;
 import entities.User;
 import network.client.GUI.panels.UserAndTeamPanel;
@@ -38,5 +40,13 @@ public class UserAndTeamController {
 
 	public UserAndTeamPanel getPanel() {
 		return uatPanel;
+	}
+
+	public void updatePanelUsers(LinkedList<User> users) {
+		uatPanel.updateUserList(users);
+	}
+
+	public void updatePanelTeams(LinkedList<Team> teams) {
+		uatPanel.updateTeamList(teams);
 	}
 }
