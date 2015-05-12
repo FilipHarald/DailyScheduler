@@ -6,14 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
-
 import javax.swing.*;
-
 import com.toedter.calendar.JDateChooser;
-
 import network.client.controllers.ClientController;
 import network.client.controllers.TaskController;
 import entities.Task;
@@ -47,13 +43,12 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	// For delete task:
 	private JButton btnDeleteTask = new JButton("Delete Task");
-	private JPanel deleteTaskPanel = new JPanel();
-	private JButton deleteTask = new JButton("Delete task");
 
 	// For add subtask:
 	private JButton saveSubTask = new JButton("Save subtask");
 	private JPanel addSubTaskPanel = new JPanel();
 	private JLabel descriptionLabel = new JLabel("Description");
+	private JTextArea descriptionAreaSubTask = new JTextArea();
 
 	private JList listCompletedTask = new JList();
 	private JList listIncompletedTask = new JList();
@@ -68,7 +63,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JButton btnCancel = new JButton("Cancel");
 
 	private JLabel lblDate = new JLabel("Date");
-	private JTextField tfDate = new JTextField(20);
 
 	public TaskPanel(TaskController taskController) {
 		super();
@@ -224,21 +218,22 @@ public class TaskPanel extends JPanel implements ActionListener {
 	}
 
 	public void deleteTask(Object obj) {
-	
+
 		deleteTaskFrame.setLayout(null);
 		deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
-		 int delete = JOptionPane.showConfirmDialog(null, "Do you want to delete task: "
-				+ Integer.toString(listCompletedTask.getSelectedIndex()+ 1));
-		 if (delete == JOptionPane.YES_OPTION){
-			 try {
-				taskC.deleteTask(obj);
-				JOptionPane.showMessageDialog(null, "Task has been deleted");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			 
-		 }
-		
+		int delete = JOptionPane
+				.showConfirmDialog(
+						null,
+						"Do you want to delete task: "
+								+ Integer.toString(listCompletedTask
+										.getSelectedIndex() + 1));
+		if (delete == JOptionPane.YES_OPTION) {
+
+			taskC.deleteTask(obj);
+			JOptionPane.showMessageDialog(null, "Task has been deleted");
+
+		}
+
 	}
 
 	public void addSubTask() {
@@ -249,12 +244,12 @@ public class TaskPanel extends JPanel implements ActionListener {
 		addSubTaskPanel.setSize(500, 500);
 		addSubTaskPanel.setLayout(null);
 
-		descriptionArea.setBounds(100, 100, 280, 180);
+		descriptionAreaSubTask.setBounds(100, 100, 280, 180);
 		descriptionLabel.setBounds(20, 20, 280, 180);
 		saveSubTask.setBounds(100, 420, 120, 30);
 		btnCancel.setBounds(300, 420, 80, 25);
 
-		addSubTaskPanel.add(descriptionArea);
+		addSubTaskPanel.add(descriptionAreaSubTask);
 		addSubTaskPanel.add(descriptionLabel);
 		addSubTaskPanel.add(saveSubTask);
 		addSubTaskPanel.add(btnCancel);
@@ -315,12 +310,12 @@ public class TaskPanel extends JPanel implements ActionListener {
 		}
 		if (e.getSource() == saveTask) {
 			taskC.sendTask(getTitle(), subTask, getDate());
-                        isEmpty();
-                        newTaskFrame.dispose();
+			isEmpty();
+			newTaskFrame.dispose();
 			JOptionPane.showMessageDialog(null, "Saved to database");
 		}
 		if (e.getSource() == saveSubTask) {
-			taskC.addSubTask(taskC.getDescription());
+			taskC.addSubTask(getDescription());
 		}
 	}
 
@@ -334,7 +329,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	// get description from textarea
 	public String getDescription() {
-		return descriptionArea.getText();
+		return descriptionAreaSubTask.getText();
 	}
 
 	public String getSubTasks() {
@@ -348,6 +343,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 		}
 		listIncompletedTask.setModel(model2);
+		listIncompletedTask.setVisibleRowCount(10);
 
 	}
 
@@ -358,6 +354,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 		}
 		listCompletedTask.setModel(model);
+		listCompletedTask.setVisibleRowCount(10);
 
 	}
 
@@ -397,6 +394,5 @@ public class TaskPanel extends JPanel implements ActionListener {
 	public void displayTask(Task tasks) {
 
 	}
-
 
 }
