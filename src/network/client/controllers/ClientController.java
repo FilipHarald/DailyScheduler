@@ -76,7 +76,10 @@ public class ClientController {
 		tc.updatePanel(updater.getTasks());
 		mc.updatePanel(updater.getMessages());
 		ec.updatePanel(updater.getEvents());
-		uatc.updatePanelUsers(updater.getUsers());
+                if(isAdmin){
+                    uatc.updatePanelUsers(updater.getUsers());
+                }
+		
 		uatc.updatePanelTeams(updater.getTeams());
 	}
 
