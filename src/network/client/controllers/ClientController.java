@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package network.client.controllers;
 
 import java.io.IOException;
-
-import javax.swing.JFrame;
 
 import entities.*;
 import miscellaneous.Updater;
 import network.client.Client;
 import network.client.GUI.ApplicationGUI;
 import network.client.GUI.LoginGUI;
-import network.server.Server;
 
 /**
- *
- * @author Aya
+ * This class is a controller between the client(which is handling the
+ * communication with the server) and the different GUIs (LoginGUI,
+ * ApplicationGUI, and the panels)
+ * 
+ * @author Aya & Filip
  */
 public class ClientController {
 	private Client client;
@@ -87,11 +82,11 @@ public class ClientController {
 	public void sendObject(Object obj) {
 		client.send(obj);
 	}
-        
-        public void sendObjectToDelete(Object obj) {
+
+	public void sendObjectToDelete(Object obj) {
 		client.sendToDelete(obj);
 	}
-        
+
 	public void newMessageReceived(Message m) {
 		gui.displayMessage(m);
 	}

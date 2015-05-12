@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package network.client.controllers;
 
 import entities.Team;
