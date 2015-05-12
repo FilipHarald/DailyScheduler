@@ -13,19 +13,21 @@ import network.client.controllers.UserAndTeamController;
 public class UserAndTeamPanel extends JPanel {
 	private UserAndTeamController uatC;
 	private TeamPanel teamPanel;
-	private UserPanel userPanel;
+	private AdminPanel adminPanel;
 	private JButton createTeamButton;
 	private JButton saveUserButton;
 	private JButton addUserButton;
 
-	public UserAndTeamPanel(UserAndTeamController userAndTeamController) {
+	public UserAndTeamPanel(UserAndTeamController userAndTeamController, boolean isAdmin) {
 		super();
 		this.uatC = userAndTeamController;
 		setLayout(new GridLayout(0,2));
 		setBorder(BorderFactory.createTitledBorder("User- and team view"));
 		ButtonListener buttonListener = new ButtonListener();
 		add(teamPanel = new TeamPanel(buttonListener));
-		add(userPanel = new UserPanel(buttonListener));
+		if(isAdmin){			
+			add(adminPanel = new AdminPanel(buttonListener));
+		}
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -34,7 +36,7 @@ public class UserAndTeamPanel extends JPanel {
 			if(theButton == createTeamButton){
 				teamPanel.sendTeam();
 			}else if(theButton == saveUserButton){
-				userPanel.sendUser();
+				adminPanel.createUser();
 			}else if (theButton == addUserButton){
 				teamPanel.addUser();
 			}
@@ -97,12 +99,12 @@ public class UserAndTeamPanel extends JPanel {
 
 	}
 
-	private class UserPanel extends JPanel {
+	private class AdminPanel extends JPanel {
 		private JTextField nameField;
 		private JCheckBox isAdmin;
 		private JPasswordField passwordField;
 		
-		public UserPanel(ButtonListener buttonListener) {
+		public AdminPanel(ButtonListener buttonListener) {
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 			setBorder(BorderFactory.createTitledBorder("User"));
 			
@@ -119,8 +121,10 @@ public class UserAndTeamPanel extends JPanel {
 			saveUserButton.addActionListener(buttonListener);
 			add(saveUserButton);
 		}
+		
+		
 
-		public void sendUser() {
+		public void createUser() {
 			uatC.sendUser(nameField.getText(), isAdmin.isSelected(), passwordField.getText(), 0);
 		}
 	}

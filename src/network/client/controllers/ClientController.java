@@ -1,7 +1,5 @@
 package network.client.controllers;
 
-import java.io.IOException;
-
 import entities.*;
 import miscellaneous.Updater;
 import network.client.Client;
@@ -25,6 +23,7 @@ public class ClientController {
 	private UserAndTeamController uatc;
 	private int userId;
 	private boolean isAdmin;
+
 
 	// constructor sets ip and port
 	public ClientController(String serverIp, int port) {
@@ -77,6 +76,7 @@ public class ClientController {
 		tc.updatePanel(updater.getTasks());
 		mc.updatePanel(updater.getMessages());
 		ec.updatePanel(updater.getEvents());
+		uatc.updatePanel(updater.getUsers());
 	}
 
 	public void sendObject(Object obj) {
@@ -93,5 +93,8 @@ public class ClientController {
 
 	public int getUserId() {
 		return userId;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 }

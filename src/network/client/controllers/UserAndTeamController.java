@@ -16,7 +16,7 @@ public class UserAndTeamController {
 	
 	public UserAndTeamController(ClientController cc){
 		this.cc = cc;
-		uatPanel = new UserAndTeamPanel(this);
+		uatPanel = new UserAndTeamPanel(this, cc.isAdmin());
 	}
 	
 	public void sendUser(String name, boolean isAdmin, String password, int Id){
