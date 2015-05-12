@@ -142,6 +142,7 @@ public class UserAndTeamPanel extends JPanel {
 	public void updateUserList(LinkedList<User> users) {
 		defaultUserListModel = new DefaultListModel<User>();
 		for(User u : users){
+			System.out.println(u);
 			defaultUserListModel.addElement(u);			
 		}
 	}
@@ -149,6 +150,7 @@ public class UserAndTeamPanel extends JPanel {
 	public void updateTeamList(LinkedList<Team> teams) {
 		defaultTeamListModel = new DefaultListModel<Team>();
 		for(Team t : teams){
+			System.out.println(t);
 			defaultTeamListModel.addElement(t);
 		}
 	}
