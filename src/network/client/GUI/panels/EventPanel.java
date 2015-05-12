@@ -2,26 +2,20 @@ package network.client.GUI.panels;
 
 import com.toedter.calendar.JDateChooser;
 import entities.Event;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import miscellaneous.UsernameAndPwdPair;
 import network.client.controllers.ClientController;
 import network.client.controllers.EventController;
 
+/**
+ *
+ * @author Aya
+ */
 public class EventPanel extends JPanel implements ActionListener {
 
     private EventController ec;
@@ -57,8 +51,11 @@ public class EventPanel extends JPanel implements ActionListener {
     private JPanel pnlEditEvent = new JPanel();
     private JPanel pnlSearchEvent = new JPanel();
 
-    //constructor: set layout and add panel
-    public EventPanel(EventController ec) {
+    /**
+     * constructor: set layout and add panel
+     * @param ec 
+     */
+        public EventPanel(EventController ec) {
         super();
         this.ec = ec;
         setBorder(BorderFactory.createTitledBorder("Event view"));
@@ -74,8 +71,10 @@ public class EventPanel extends JPanel implements ActionListener {
         listeners();
     }
 
-    //add listeners to buttons/list
-    public void listeners() {
+    /**
+     * add listeners to buttons/list
+     */
+        public void listeners() {
 
         btnAddEvent.addActionListener(this);
         btnEditEvent.addActionListener(this);
@@ -156,6 +155,7 @@ public class EventPanel extends JPanel implements ActionListener {
 
         lblSearch.setBounds(120, 50, 300, 30);
         lstEvents.setPreferredSize(new Dimension(135, 90));
+        
         jspList.setBounds(135, 90, 200, 250);
         btnSearch.setBounds(370, 90, 80, 30);
         btnDeleteEvent.setBounds(370, 130, 80, 30);
@@ -169,6 +169,7 @@ public class EventPanel extends JPanel implements ActionListener {
         frmSearchEvent.setLocationRelativeTo(null);
         frmSearchEvent.pack();
         frmSearchEvent.setVisible(true);
+        
 
     }
 
@@ -186,7 +187,7 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
-    //check if fields are empty, if so: set labels
+    //check if fields are empty, if so: set labels with an asterix
     private boolean isEmpty() {
         boolean isEmpty = false;
 
@@ -205,6 +206,10 @@ public class EventPanel extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * deletes an event from the list and the database
+     * @param obj the event to be deleted
+     */
     public void deleteEvent(Object obj) {
 
         int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + lstEvents.getSelectedValue().toString() + "?", null, JOptionPane.YES_NO_OPTION);
@@ -216,18 +221,27 @@ public class EventPanel extends JPanel implements ActionListener {
         }
     }
 
-//get description from field
-public String getDescription() {
+    /**
+     * get description from field
+     * @return the String in the description textfield
+     */
+    public String getDescription() {
         return tfDescription.getText();
     }
 
-    //get date from field
-    public Date getDate() {
+    /**
+     * get date from field
+     * @return the date in the field
+     */
+        public Date getDate() {
         return jdcDate.getDate();
     }
 
-    //set actions to buttons
-    public void actionPerformed(ActionEvent e) {
+    /**
+     * set actions to buttons
+     * @param e ActionEvent
+     */
+        public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
 
         //button Add event
@@ -236,9 +250,8 @@ public String getDescription() {
             clearFields();
             renderNewEvent();
 
-            //button Edit event
+        //button Edit event
         } else if ((button) == btnEditEvent) {
-            //TODO: add display event
             renderSearchEvent();
 
             //button Search
@@ -257,31 +270,25 @@ public String getDescription() {
                 JOptionPane.showMessageDialog(null, "Please select an event");
             }
 
-            //button Delete
+        //button Delete
         } else if ((button) == btnDeleteEvent) {
             Event obj = (Event) lstEvents.getSelectedValue();
-            System.out.println("p " + obj);
-
             try {
                 deleteEvent(obj);
                 
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            //JOptionPane.showMessageDialog(null, "Do you wish to delete event: " + tfTitle.getText() + "?");
-
-            //button save
+            
+        //button save
         } else if ((button) == btnSaveEvent) {
             setLabels();
+            //if empty fields
             if (isEmpty() == true) {
                 JOptionPane.showMessageDialog(null, "Please fill in all of the fields marked with an astrerisk");
+            //save to database
             } else if (isEmpty() == false) {
-//                ec.createEvent();
-                System.out.println("1" + ec);
                 ec.sendEvent(getDescription(), getDate());
-                System.out.println("2" + ec);
-
-                //TODO: save event to database
                 frmNewEvent.dispose();
                 frmEditEvent.dispose();
             }
@@ -294,6 +301,7 @@ public String getDescription() {
     MouseListener mouseEvent = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             JList lstEvent = (JList) e.getSource();
+            //if an event is selected with a doubleclick, render edit-frame
             if (e.getClickCount() == 2) {
 
                 String selected = (String) lstEvent.getSelectedValue().toString();
@@ -307,15 +315,21 @@ public String getDescription() {
         }
     };
 
-    //display the event that has been selected in lstEvents in frmEditEvent 
-    public void displayEvent(Event event) {
+    /**
+     * display the event that has been selected in lstEvents in frmEditEvent
+     * @param event the event in the database
+     */
+        public void displayEvent(Event event) {
         tfDescription.setText(event.getDescription());
         jdcDate.setDate(event.getDate());
 
     }
 
-    //display the list of events available in DB in lstEvents
-    public void displayEventList(LinkedList<Event> events) {
+    /**
+     * display the list of events available in DB in lstEvents
+     * @param events the list of events available in the database
+     */
+        public void displayEventList(LinkedList<Event> events) {
         DefaultListModel model = new DefaultListModel();
         for (Event e : events) {
             model.addElement(e);
