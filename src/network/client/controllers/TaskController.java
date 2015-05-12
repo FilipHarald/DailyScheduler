@@ -40,16 +40,16 @@ public class TaskController {
 	 * @param Id
 	 *            the id for the given task
 	 */
-	public Task createTask() {
-
-		task.setAuthorId(task.getAuthor());
-		task.setDescription(task.getDescription());
-		task.setSubtasks(task.getSubtasks());
-		task.getDate();
-		task.setId(task.getId());
-
-		return task;
-	}
+//	public Task createTask() {
+//
+//		task.setAuthorId(task.getAuthor());
+//		task.setDescription(task.getDescription());
+//		task.setSubtasks(task.getSubtasks());
+//		task.getDate();
+//		task.setId(task.getId());
+//
+//		return task;
+//	}
 
 	// forward incoming task from client to GUI
 	public void displayTask(Task task) {
