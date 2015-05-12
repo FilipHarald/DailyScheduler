@@ -5,27 +5,21 @@
  */
 package network.client.controllers;
 
-import database.DatabaseController;
 import entities.Task;
-
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
-
-import miscellaneous.Updater;
 import network.client.GUI.panels.TaskPanel;
 
 /**
  *
- * @author Aya
+ * @author Aya & Henrik
  */
 public class TaskController {
 
 	private ClientController cc;
 	private Task task;
 	private TaskPanel taskPanel;
-	private Updater up;
 
 	public TaskController(ClientController clientController) {
 		taskPanel = new TaskPanel(this);
@@ -54,7 +48,6 @@ public class TaskController {
 		task.getDate();
 		task.setId(task.getId());
 
-		up.addTask(task);
 		return task;
 	}
 
@@ -66,22 +59,6 @@ public class TaskController {
 
 	}
 
-	public Task displayTaskList(Task task) {
-		up.getTasks();
-		return task;
-	}
-
-	// check if task is complete, if it is then move it to completeTasks
-
-	// public void completedTask(LinkedList<SubTask> subTasks){
-	// for(i = 0, subTasks.length, i++){
-	// if(subTask.getCompletedBy() != null){
-	// //TODO: move task from incompleteTask to completeTasks
-	//
-	// }
-	//
-	// }
-	// }
 
 	public void sendTask(String description, String[] subTasks, Date date) {
 		Task temptask = new Task(cc.getUserId(), description, subTasks, date, 0);
@@ -137,7 +114,7 @@ public class TaskController {
 	 * @param taskIdDelete
 	 * @throws SQLException
 	 */
-	public void deleteTask(Object obj) throws SQLException {
+	public void deleteTask(Object obj) {
 		cc.sendObjectToDelete(obj);
 	}
 
@@ -149,7 +126,7 @@ public class TaskController {
 	 */
 	public String addSubTask(String description) {
 		// TODO: create tmpSubTask
-		task.addSubTask(description);
+		task.addSubTask(taskPanel.getDescription());
 		// TODO: add to database
 		// database.sendToTableTask(idtable_task, description, description);
 		return description;
