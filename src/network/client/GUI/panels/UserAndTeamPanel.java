@@ -32,7 +32,7 @@ public class UserAndTeamPanel extends JPanel {
 		ButtonListener buttonListener = new ButtonListener();
 		add(teamPanel = new TeamPanel(buttonListener));
 		if(isAdmin){			
-			add(adminPanel = new AdminPanel(buttonListener);
+			add(adminPanel = new AdminPanel(buttonListener));
 		}
 	}
 	
@@ -145,6 +145,7 @@ public class UserAndTeamPanel extends JPanel {
 			System.out.println(u);
 			tempListModel.addElement(u);			
 		}
+		userList.setModel(tempListModel);
 	}
 
 	public void updateTeamList(LinkedList<Team> teams) {
@@ -153,5 +154,6 @@ public class UserAndTeamPanel extends JPanel {
 			System.out.println(t);
 			tempListModel.addElement(t);
 		}
+		teamList.setModel(tempListModel);
 	}
 }
