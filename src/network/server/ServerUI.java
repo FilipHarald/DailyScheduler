@@ -14,7 +14,7 @@ public class ServerUI extends JPanel implements ActionListener {
 	private JTextPane conList = new JTextPane();
 	private Date date;
 	private SimpleDateFormat sim = new SimpleDateFormat("HH:mm:ss");
-	JScrollPane chatScroll = new JScrollPane(conList);
+	private JScrollPane chatScroll = new JScrollPane(conList);
 
 	public ServerUI() {
 		setPreferredSize(new Dimension(600, 400));
@@ -43,7 +43,6 @@ public class ServerUI extends JPanel implements ActionListener {
 		btnExit.addActionListener(this);
 
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 

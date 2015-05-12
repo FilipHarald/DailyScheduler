@@ -5,17 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import miscellaneous.UsernameAndPwdPair;
-import network.server.Server.ClientHandler;
 
 public class Server implements Runnable {
 
@@ -68,7 +61,7 @@ public class Server implements Runnable {
 	/**
 	 * Handles a connected client's input and output streams.
 	 * 
-	 * @author Adam Henriksson
+	 * @author Adam Henriksson & Filip
 	 */
 	public class ClientHandler implements Runnable {
 		private ObjectInputStream ois;

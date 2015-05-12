@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import miscellaneous.*;
 import database.DatabaseController;
 import entities.*;
-
+/**
+ * 
+ * @author Filip 
+ *
+ */
 public class ServerController {
 	
 	private Server server;

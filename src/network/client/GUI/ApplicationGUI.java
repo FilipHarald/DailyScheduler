@@ -2,12 +2,10 @@ package network.client.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.*;
 
@@ -33,7 +31,8 @@ public class ApplicationGUI extends JFrame {
 
 	}
 
-	public JPanel setComponents(EventPanel eP, TaskPanel tP, MessagePanel mP, UserAndTeamPanel uatP) {
+	public JPanel setComponents(EventPanel eP, TaskPanel tP, MessagePanel mP,
+			UserAndTeamPanel uatP) {
 		JPanel pnlButtons = new JPanel();
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -62,7 +61,6 @@ public class ApplicationGUI extends JFrame {
 		pnlButtons.setLayout(new FlowLayout());
 		pnlButtons.add(logOutButton);
 		pnlButtons.add(refreshButton);
-		
 
 		logOutButton.setFont(logOutButton.getFont().deriveFont(
 				Font.BOLD | Font.ITALIC));
@@ -78,11 +76,7 @@ public class ApplicationGUI extends JFrame {
 	}
 
 	public void logOut() {
-		try {
-			clientController.logout();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		clientController.logout();
 		dispose();
 	}
 
@@ -90,5 +84,5 @@ public class ApplicationGUI extends JFrame {
 		JOptionPane.showMessageDialog(this,
 				(m.getTitle() + "\n \n" + m.getMessage()));
 	}
-	
+
 }

@@ -1,11 +1,7 @@
-/**
- * 
- */
 package network.client.GUI.panels;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 import network.client.controllers.UserAndTeamController;

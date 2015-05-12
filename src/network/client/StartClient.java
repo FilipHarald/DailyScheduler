@@ -1,7 +1,6 @@
 package network.client;
 
 import network.client.controllers.ClientController;
-import network.client.GUI.LoginGUI;
 
 public class StartClient {
 
