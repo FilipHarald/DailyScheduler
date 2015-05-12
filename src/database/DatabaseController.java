@@ -370,6 +370,22 @@ public class DatabaseController {
 			updater.addEvent(new Event(resultSet.getString(2), resultSet
 					.getInt(4), resultSet.getDate(3), resultSet.getInt(1)));
 		}
+		statement = (Statement) connection.createStatement();
+		sqlQuery = "SELECT * FROM User";
+		statement.executeQuery(sqlQuery);
+		resultSet = statement.getResultSet();
+		while (resultSet.next()) {
+			updater.addUser(new User(resultSet.getString(2), false, null, resultSet.getInt(1)));
+		}
+
+		statement = (Statement) connection.createStatement();
+		sqlQuery = "SELECT * FROM Team";
+		statement.executeQuery(sqlQuery);
+		resultSet = statement.getResultSet();
+		while (resultSet.next()) {
+			updater.addTeam(new Team(resultSet.getInt(1), resultSet.getString(2)));
+		}
+
 
 		statement = (Statement) connection.createStatement();
 		sqlQuery = "SELECT * FROM Task inner join Team, `Member in` where Team.Manager = Task.Author and `Member in`.Team = Team.TeamID and `Member in`.User = "
