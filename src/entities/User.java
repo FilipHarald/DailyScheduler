@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Filip
  *
  */
-public class User implements Serializable{
+public class User implements Serializable {
 	private String name;
 	private boolean isAdmin;
 	private String password;
@@ -18,13 +18,13 @@ public class User implements Serializable{
 		this.name = name;
 		this.isAdmin = isAdmin;
 		this.password = password;
-		this.Id = Id;			
+		this.Id = Id;
 	}
-	
+
 	/**
 	 * @return the Id of the User
 	 */
-	public int getId () {
+	public int getId() {
 		return Id;
 	}
 
@@ -36,7 +36,8 @@ public class User implements Serializable{
 	}
 
 	/**
-	 * @param admin says whether the user should be administrator
+	 * @param admin
+	 *            says whether the user should be administrator
 	 */
 	public void setAdmin(boolean admin) {
 		this.isAdmin = admin;
@@ -53,9 +54,8 @@ public class User implements Serializable{
 		return password;
 	}
 
-	// @Override
-	// public String toString() {
-	// return name + ",|," + ID + ",|," + isAdmin;
-	// }
+	public String toString() {
+		return name + " | " + Id + " | " + isAdmin;
+	}
 
 }

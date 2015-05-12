@@ -1,16 +1,12 @@
 package database;
 
-import java.awt.*;
 import java.sql.*;
-import java.util.ArrayList;
 
-import miscellaneous.Updater;
-import miscellaneous.UsernameAndPwdPair;
+import miscellaneous.*;
 
 import com.mysql.jdbc.Statement;
 
 import entities.*;
-import entities.Event;
 
 /**
  *

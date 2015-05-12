@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 import entities.*;
-
+/**
+ * This class is used to send necessary information from the Database on the server-side to the client (with a user logged-in)
+ * @author Filip
+ *
+ */
 public class Updater implements Serializable {
 	private LinkedList<Event> events;
 	private LinkedList<Message> messages;
