@@ -119,8 +119,8 @@ public class TaskController {
 	 * @param taskIdDelete
 	 * @throws SQLException
 	 */
-	public void deleteTask(Object obj) {
-		cc.sendObjectToDelete(obj);
+	public void deleteTask(Task task) {
+		cc.sendObjectToDelete(task);
 	}
 
 	/**

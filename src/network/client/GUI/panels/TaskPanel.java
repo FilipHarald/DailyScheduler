@@ -217,7 +217,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		editTaskFrame.setVisible(true);
 	}
 
-	public void deleteTask(Object obj) {
+	public void deleteTask(Task task) {
 
 		deleteTaskFrame.setLayout(null);
 		deleteTaskFrame.setPreferredSize(new Dimension(500, 500));
@@ -229,7 +229,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 										.getSelectedIndex() + 1));
 		if (delete == JOptionPane.YES_OPTION) {
 
-			taskC.deleteTask(obj);
+			taskC.deleteTask(task);
 			JOptionPane.showMessageDialog(null, "Task has been deleted");
 
 		}
@@ -297,9 +297,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 			}
 
 		} else if (e.getSource() == btnDeleteTask) {
-			Task obj = (Task) listCompletedTask.getSelectedValue();
+			Task task = (Task) listCompletedTask.getSelectedValue();
 			try {
-				deleteTask(obj);
+				deleteTask(task);
 				deleteTaskFrame.dispose();
 			} catch (Exception e1) {
 				e1.printStackTrace();
