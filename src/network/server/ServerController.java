@@ -52,6 +52,7 @@ public class ServerController {
 		if(obj instanceof Message){
 			for(int recipient : ((Message) obj).getRecipients()){
 				server.sendObject(recipient, obj);
+				dbc.saveEntity(obj);
 			}
 		}else if(obj instanceof DeleteMe) {
 			dbc.deleteEntity(((DeleteMe)obj).getObject());
