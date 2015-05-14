@@ -76,6 +76,16 @@ public class MessagePanel extends JPanel implements ActionListener {
 		add(messageList, BorderLayout.CENTER);
 		listeners();
 	}
+	
+	 public void messageList(){
+		  JPanel messageListPanel = new JPanel(new BorderLayout());
+		  JScrollPane scrollerCompletedTask = new JScrollPane(messageArea);
+			messageListPanel.setSize(700, 300);
+			messageListPanel.setPreferredSize(new Dimension(700, 300));
+			messageListPanel.add(messageArea, BorderLayout.CENTER);
+
+			add(messageListPanel, BorderLayout.SOUTH);
+	  }
 
 	/**
 	 * Listener for the JButtons in the buttonsPanel.
@@ -121,7 +131,7 @@ public class MessagePanel extends JPanel implements ActionListener {
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
 			newMessageFrame
-					.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					.setDefaultCloseOperation(JFrame.ABORT);
 
 			// Kod för att öppna ett window för att säkerställa att man ska
 			// stänga fönstert, behöver sättas på rätt
