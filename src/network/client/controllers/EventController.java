@@ -71,8 +71,8 @@ public class EventController {
      *
      * @param obj
      */
-    public void deleteEvent(Object obj) {
-        cc.sendObjectToDelete(obj);
+    public void deleteEvent(Event event) {
+        cc.sendObjectToDelete(event);
 
     }
 

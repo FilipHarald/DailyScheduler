@@ -1,6 +1,7 @@
 package network.client.controllers;
 
 import entities.*;
+import miscellaneous.DeleteMe;
 import miscellaneous.Updater;
 import network.client.Client;
 import network.client.GUI.ApplicationGUI;
@@ -88,7 +89,7 @@ public class ClientController {
 	}
 
 	public void sendObjectToDelete(Object obj) {
-		client.sendToDelete(obj);
+		client.send(new DeleteMe(obj));
 	}
 
 	public void newMessageReceived(Message m) {

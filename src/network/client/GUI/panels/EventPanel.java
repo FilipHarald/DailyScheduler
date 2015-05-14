@@ -210,11 +210,11 @@ public class EventPanel extends JPanel implements ActionListener {
      * deletes an event from the list and the database
      * @param obj the event to be deleted
      */
-    public void deleteEvent(Object obj) {
+    public void deleteEvent(Event event) {
 
         int delete = JOptionPane.showConfirmDialog(null, "Do you wish to delete event: " + lstEvents.getSelectedValue().toString() + "?", null, JOptionPane.YES_NO_OPTION);
         if (delete == JOptionPane.YES_OPTION) {
-            ec.deleteEvent(obj);
+            ec.deleteEvent(event);
             JOptionPane.showMessageDialog(null, "The event has been deleted");
         } else {
             JOptionPane.showMessageDialog(null, "The event will not be deleted");
@@ -272,9 +272,9 @@ public class EventPanel extends JPanel implements ActionListener {
 
         //button Delete
         } else if ((button) == btnDeleteEvent) {
-            Event obj = (Event) lstEvents.getSelectedValue();
+            Event event = (Event) lstEvents.getSelectedValue();
             try {
-                deleteEvent(obj);
+                deleteEvent(event);
                 
             } catch (Exception e1) {
                 e1.printStackTrace();

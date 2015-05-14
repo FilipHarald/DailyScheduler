@@ -67,16 +67,6 @@ public class Client {
 	public void send(Object obj) {
 		try {
 			oos.writeObject(obj);
-                        System.out.println("5" + obj);
-			oos.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-        public void sendToDelete(Object obj) {
-		try {
-			oos.writeObject(obj);
 			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
