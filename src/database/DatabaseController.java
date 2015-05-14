@@ -87,7 +87,7 @@ public class DatabaseController {
 				if (user.isAdmin()) {
 					prepStatement = connection
 							.prepareStatement("INSERT INTO Admin (User) values (?)");
-					prepStatement.setBoolean(1, true);
+					prepStatement.setInt(1, user.getId());
 					insertToTable(prepStatement);
 				}
 			} else {
