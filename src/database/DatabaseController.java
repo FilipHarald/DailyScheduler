@@ -283,7 +283,7 @@ public class DatabaseController {
 		String adminQuery = "SELECT * FROM Admin WHERE User = " + entityId;
 		stmtUser.executeQuery(adminQuery);
 		boolean isAdmin = stmtUser.getResultSet().isBeforeFirst();
-		user = new User(resultSet.getString(2), isAdmin,
+		user = new User(resultSet.getString(2), true,
 				resultSet.getString(3), resultSet.getInt(1));
 		return user;
 	}

@@ -50,14 +50,14 @@ public class ClientController {
 		User usr = (User) client.validateUser(userId, password);
 		if (usr != null) {
 			loginWindow.close();
+			this.userId = userId;
+			this.isAdmin = usr.isAdmin();
 			ec = new EventController(this);
 			tc = new TaskController(this);
 			mc = new MessageController(this);
 			uatc = new UserAndTeamController(this);
 			gui = new ApplicationGUI(null, this, ec.getPanel(), tc.getPanel(),
 					mc.getPanel(), uatc.getPanel());
-			this.userId = userId;
-			this.isAdmin = usr.isAdmin();
 			client.startListening();
 		} else {
 			System.out.println("Fail!");
