@@ -61,7 +61,7 @@ public class TaskController {
 
 
 	public void sendTask(String description, String[] subTasks, Date date) {
-		Task temptask = new Task(cc.getUserId(), description, getSubTasks(), date, 0);
+		Task temptask = new Task(cc.getUserId(), description, subTasks, date, 0);
 		cc.sendObject(temptask);
 	}
 
