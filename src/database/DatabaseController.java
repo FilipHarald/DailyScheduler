@@ -147,18 +147,18 @@ public class DatabaseController {
 			}else{
 				Integer userId = team.getManagers()[0];
 				if (userId != null){					
-					prepStatement = connection
-							.prepareStatement("INSERT INTO `Member in` (User, Team) values (?,?)");
-					prepStatement.setInt(1, userId);
-					prepStatement.setInt(2, team.getId());
-					insertToTable(prepStatement);
-				}else{
-					userId = team.getMembers()[0];
 					prepStatement = connection.prepareStatement(String.format(
 							"UPDATE Team set Manager='%s' WHERE TeamID = %s",
 							userId, team.getId()));
 					updateToTable(prepStatement);
+				}else{
+					userId = team.getMembers()[0];
 				}
+				prepStatement = connection
+						.prepareStatement("INSERT INTO `Member in` (User, Team) values (?,?)");
+				prepStatement.setInt(1, userId);
+				prepStatement.setInt(2, team.getId());
+				insertToTable(prepStatement);
 			}
 			// ----------------Message-------------
 		} else if (obj instanceof Message) {
