@@ -1,0 +1,14 @@
+Download eclipse.
+import the project into eclipse.
+Download mysql workbench.
+import the sql tables into mysql workbench.
+Download mysql-connector-java bin.jar.
+Download jcalendar-1.4.jar.
+Import both jar files in "java build path".
+Start the server.
+Start a client.
+log in.
+Username = 1.
+Password = "test".
+The program has now started.
+ 
