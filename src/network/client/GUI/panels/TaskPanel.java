@@ -24,9 +24,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	private JDateChooser jdcDate = new JDateChooser();
 
-	JFrame newTaskFrame = new JFrame("New Task");
-	JFrame editTaskFrame = new JFrame("Edit Task");
-	JFrame deleteTaskFrame = new JFrame("Delete Task");
+	private JFrame newTaskFrame = new JFrame("New Task");
+	private JFrame editTaskFrame = new JFrame("Edit Task");
+	private JFrame deleteTaskFrame = new JFrame("Delete Task");
 
 	// For create new task:
 	private JButton btnCreateNewTask = new JButton("New Task");
