@@ -71,9 +71,8 @@ public class EventPanel extends JPanel implements ActionListener {
         listeners();
     }
 
-    /**
-     * add listeners to buttons/list
-     */
+    
+     //add listeners to buttons/list
         public void listeners() {
 
         btnAddEvent.addActionListener(this);
