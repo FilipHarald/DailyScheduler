@@ -27,38 +27,28 @@ public class EventController {
         cc = clientController;
     }
 
-//    //displays the list of events
-//    public LinkedList<Event> displayEventList(LinkedList<Event> events){
-//        cc.update(up);
-//        return events;
-//    }
-    //forward incoming event from client to GUI
-
     /**
-     *
+     * forward incoming event from client to GUI
      * @param event
      */
         public void displayEvent(Event event) {
-        //TODO: call method from GUI that displays the event in the GUI
         eventPanel.displayEvent(event);
 
     }
 
     /**
      * edits an existing event and updates the info to the database
-     *
      * @return 
      */
     public Event editEvent() {
         event.setDescription(eventPanel.getDescription());
         event.setDate(eventPanel.getDate());
 
-//        up.addEvent(event);
         return event;
     }
 
     /**
-     *
+     * 
      * @param description
      * @param date
      */
@@ -68,7 +58,6 @@ public class EventController {
 
     /**
      * delete an event by its Id
-     *
      * @param obj
      */
     public void deleteEvent(Event event) {
