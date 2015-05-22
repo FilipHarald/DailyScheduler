@@ -19,7 +19,7 @@ import network.client.controllers.MessageController;
 /**
  * The class creates a panel with new messages for the programs user.
  * 
- * @author Fredrik N�rell
+ * @author Fredrik Nörell
  *
  */
 public class MessagePanel extends JPanel implements ActionListener {
@@ -53,17 +53,12 @@ public class MessagePanel extends JPanel implements ActionListener {
 	private JButton editMessage = new JButton("Save");
 	private JOptionPane editCancelEditMessage = new JOptionPane();
 
-	// private String titleText = new String() ;
-	// private String messageText = new String();
-	// private String resipientText = new String();
-	// private Object[] messageObject ;
-
 	/**
 	 * Constructor
 	 */
 	public MessagePanel(MessageController mc) {
 		super();
-                this.mc = mc;
+		this.mc = mc;
 		setBorder(BorderFactory.createTitledBorder("Message view"));
 		buttonsPanel.setLayout(new BorderLayout());
 		buttonsPanel.add(newMessageButton, BorderLayout.NORTH);
@@ -76,16 +71,16 @@ public class MessagePanel extends JPanel implements ActionListener {
 		add(messageList, BorderLayout.CENTER);
 		listeners();
 	}
-	
-	 public void messageList(){
-		  JPanel messageListPanel = new JPanel(new BorderLayout());
-		  JScrollPane scrollerCompletedTask = new JScrollPane(messageArea);
-			messageListPanel.setSize(700, 300);
-			messageListPanel.setPreferredSize(new Dimension(700, 300));
-			messageListPanel.add(messageArea, BorderLayout.CENTER);
 
-			add(messageListPanel, BorderLayout.SOUTH);
-	  }
+	public void messageList(){
+		JPanel messageListPanel = new JPanel(new BorderLayout());
+		JScrollPane scrollerCompletedTask = new JScrollPane(messageArea);
+		messageListPanel.setSize(700, 300);
+		messageListPanel.setPreferredSize(new Dimension(700, 300));
+		messageListPanel.add(messageArea, BorderLayout.CENTER);
+
+		add(messageListPanel, BorderLayout.SOUTH);
+	}
 
 	/**
 	 * Listener for the JButtons in the buttonsPanel.
@@ -100,6 +95,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 		editMessage.addActionListener(this);
 	}
 
+	/**
+	 * Actionlistener for the Listener.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == newMessageButton) {
 			JFrame newMessageFrame = new JFrame("New Message");
@@ -131,20 +129,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 			newMessageFrame.setLocationRelativeTo(null);
 			newMessageFrame.setVisible(true);
 			newMessageFrame
-					.setDefaultCloseOperation(JFrame.ABORT);
+			.setDefaultCloseOperation(JFrame.ABORT);
 
-			// Kod för att öppna ett window för att säkerställa att man ska
-			// stänga fönstert, behöver sättas på rätt
-			// plats. Leta även upp hur man ska fixa så att x-knappen i JFrame
-			// kan modifieras.
-			// int n
-			// =JOptionPane.showConfirmDialog(this,("Do you wish to exit without saving?"),
-			// "Confirm exit", JOptionPane.YES_NO_OPTION);
-			// if(n==JOptionPane.YES_OPTION){
-			//
-			// }else{
-			// System.out.println("Chose not to save");
-			// }
+
 		} else if (e.getSource() == editMessageButton) {
 			JFrame editMessageFrame = new JFrame("Edit Message");
 			editMessageFrame.setLayout(null);
@@ -162,10 +149,6 @@ public class MessagePanel extends JPanel implements ActionListener {
 			messageArea.setBounds(100, 100, 280, 300);
 
 			editMessage.setBounds(100, 420, 80, 25);
-
-			// Lägg till kod för att hämta information från gamla meddelanden,
-			// String -> getText osv
-			// för att editera dem.
 
 			editMessagePanel.add(titleLabel);
 			editMessagePanel.add(recipientLabel);
@@ -202,10 +185,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 
 		}
 
-		// Alternative flow Send New Message
-		// typ if x is pressed JOptionPane Wanna exit?
-
-		// Alt Edit Message 1
+		 /**Alternative flow Send New Message
+		 *Alt Edit Message 1
+		 */
 		else if (e.getSource() == editMessage) {
 			int n = JOptionPane.showConfirmDialog(this,
 					("Do you wish to cancel the editing of the message X?"),
@@ -219,17 +201,26 @@ public class MessagePanel extends JPanel implements ActionListener {
 		}
 	}
 
-	// get title from textfield
+	/**
+	 *  get title from textfield
+	 * @return
+	 */
 	public String getTitle() {
 		return titleField.getText();
 	}
 
-	// get message from textarea
+	/**
+	 * get message from textarea
+	 * @return
+	 */
 	public String getMessage() {
 		return messageArea.getText();
 	}
 
-	// get recipients from textfield
+	/**
+	 *  get recipients from textfield
+	 * @return
+	 */
 	public int[] getRecipients() {
 		String[] temp = recipientField.getText().split(",");
 		int[] toBeReturned = new int[temp.length];
@@ -239,7 +230,10 @@ public class MessagePanel extends JPanel implements ActionListener {
 		}
 		return toBeReturned;
 	}
-
+	/**
+	 * update List
+	 * @param messages
+	 */
 	public void updateMessageList(LinkedList<Message> messages) {
 		DefaultListModel model = new DefaultListModel();
 		for (Message m : messages) {
