@@ -394,9 +394,4 @@ public class TaskPanel extends JPanel implements ActionListener {
 			}
 		}
 	};
-
-	public void displayTask(Task tasks) {
-
-	}
-
 }
