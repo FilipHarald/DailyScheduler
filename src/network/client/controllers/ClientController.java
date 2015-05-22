@@ -36,7 +36,6 @@ public class ClientController {
 		loginWindow = new LoginGUI(this);
 	}
 
-	// TODO: send obj to server (T||E||U||Te)
 
 	/**
 	 * logs the user in if the username and password is valid
