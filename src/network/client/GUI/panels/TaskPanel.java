@@ -97,8 +97,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		JLabel lblCompletedTask = new JLabel("Completed tasks");
 
 		panelCompletedTask.setBorder(BorderFactory.createTitledBorder(""));
-		listCompletedTask.setPreferredSize(new Dimension(200, 500));
-		scrollerCompletedTask.setPreferredSize(new Dimension(200, 500));
+		listCompletedTask.setPreferredSize(new Dimension(200, 150));
+		scrollerCompletedTask.setPreferredSize(new Dimension(200, 150));
 
 		panelCompletedTask.add(lblCompletedTask);
 		panelCompletedTask.add(scrollerCompletedTask);
@@ -109,8 +109,8 @@ public class TaskPanel extends JPanel implements ActionListener {
 		JLabel lblIncompleted = new JLabel("Incompleted tasks");
 
 		panelIncompletedTask.setBorder(BorderFactory.createTitledBorder(""));
-		listIncompletedTask.setPreferredSize(new Dimension(200, 100));
-		scrollerIncompletedTask.setPreferredSize(new Dimension(200, 100));
+		listIncompletedTask.setPreferredSize(new Dimension(200, 150));
+		scrollerIncompletedTask.setPreferredSize(new Dimension(200, 150));
 
 		panelIncompletedTask.add(lblIncompleted);
 		panelIncompletedTask.add(scrollerIncompletedTask);
