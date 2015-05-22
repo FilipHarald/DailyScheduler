@@ -99,6 +99,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 	 * Actionlistener for the Listener.
 	 */
 	public void actionPerformed(ActionEvent e) {
+		/*
+		 * Listener for a new message.
+		 */
 		if (e.getSource() == newMessageButton) {
 			JFrame newMessageFrame = new JFrame("New Message");
 			newMessageFrame.setLayout(null);
@@ -131,7 +134,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 			newMessageFrame
 			.setDefaultCloseOperation(JFrame.ABORT);
 
-
+			/*
+			 * Listener for edit message.
+			 */
 		} else if (e.getSource() == editMessageButton) {
 			JFrame editMessageFrame = new JFrame("Edit Message");
 			editMessageFrame.setLayout(null);
@@ -162,6 +167,9 @@ public class MessagePanel extends JPanel implements ActionListener {
 			editMessageFrame.setLocationRelativeTo(null);
 			editMessageFrame.setVisible(true);
 
+			/*
+			 * Listener for deleting message.
+			 */
 		} else if (e.getSource() == deleteMessageButton) {
 			int n = JOptionPane.showConfirmDialog(this,
 					"Are you sure you wish to delete this message?",
@@ -170,7 +178,11 @@ public class MessagePanel extends JPanel implements ActionListener {
 
 			} else {
 				System.out.println("chose option no!");
+				
 			}
+			/*
+			 * Listener for sending message
+			 */
 		} else if (e.getSource() == sendNewMessage) {
 
 			int n = JOptionPane.showConfirmDialog(this,
@@ -179,14 +191,20 @@ public class MessagePanel extends JPanel implements ActionListener {
 			if (n == JOptionPane.YES_OPTION) {
 				mc.sendMessage(getTitle(), getMessage(), getRecipients());
 			} else {
+				/*
+				 * Listener for alternative flow in send new message.
+				 */
 				System.out.println("chose option no!");
 			}
+			/*
+			 * Listener for regular flow in send new message.
+			 */
 		} else if (e.getSource() == confirmSendButtonYes) {
 
 		}
 
-		 /**Alternative flow Send New Message
-		 *Alt Edit Message 1
+		/*
+		 * Listener for confirm edit message.
 		 */
 		else if (e.getSource() == editMessage) {
 			int n = JOptionPane.showConfirmDialog(this,
@@ -194,8 +212,14 @@ public class MessagePanel extends JPanel implements ActionListener {
 					"Confirm send Message", JOptionPane.YES_NO_OPTION);
 			if (n == JOptionPane.YES_OPTION) {
 			} else {
+				/*
+				 * Listener for alternative flow edit message.
+				 */
 				System.out.println("chose option no!");
 			}
+			/*
+			 * Listener for alternative flow edit message.
+			 */
 		} else if (e.getSource() == confirmSendButtonYes) {
 
 		}
