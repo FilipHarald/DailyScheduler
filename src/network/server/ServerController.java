@@ -20,11 +20,6 @@ public class ServerController {
 	public ServerController(int port){
 		server = new Server(port, this);
 		dbc = new DatabaseController();
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new ServerUI());
-		frame.pack();
-		frame.setVisible(true);
 		
 	}
 	
